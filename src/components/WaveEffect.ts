@@ -15,10 +15,16 @@ export class MyWave extends LitElement {
     amount: number = 4;
 
     @property({ type: Number })
+    numberOfReverse: number = 2;
+
+    @property({ type: Number })
     waveHeight: number = 0.9;
 
     @property({ type: Array })
-    waveWidth: [number, number] = [0.5, 1.5];
+    waveWidth: [number, number] = [4, 10];
+
+    @property({ type: Boolean })
+    waveWidthInRelationToHeight: boolean = true;
 
     @property({ type: Array })
     speed: [number, number] = [1 / 2 ** 4, 1 / 2 ** 2];
@@ -70,7 +76,7 @@ export class MyWave extends LitElement {
                 return {
                     offset: Math.random() * width,
                     speed:
-                        randomRange(this.speed) * Math.sign(Math.random() - 0.5),
+                        randomRange(this.speed) * (i < this.numberOfReverse ? -1 : 1),
                     width,
                     height: i / (this.amount - 1) || 0,
                 };
@@ -109,7 +115,7 @@ export class MyWave extends LitElement {
 
             for (const wave of waves) {
                 const { width: ww } = wave;
-                const w = width * ww;
+                const w = (this.waveWidthInRelationToHeight ? height : width) * ww;
                 const w1 = w * this.pointiness;
 
                 const h = height * wh;
