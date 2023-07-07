@@ -1,0 +1,83 @@
+@mixin create-theme($name,
+    $default,
+    $light,
+    $dark,
+    $text,
+    $text-light,
+    $text-dark,
+) {
+    --#{$name}: #{$default};
+    --#{$name}-light: #{$light};
+    --#{$name}-dark: #{$dark};
+    --#{$name}-text: #{$text};
+    --#{$name}-text-light: #{$text-light};
+    --#{$name}-text-dark: #{$text-dark};
+}
+
+:root {
+    @include create-theme(base,
+        #ffffff,
+        #ffffff,
+        #ffffff,
+        #242424,
+        #242424,
+        #242424,
+    );
+
+    --base-click-ripple-opacity: 0.5;
+    --base-hover-ripple-opacity: 0.25;
+
+    @include create-theme(primary,
+        #666eff,
+        #888ef6,
+        #4d5bff,
+        #efefef,
+        #ffffff,
+        #dddddd,
+    );
+
+    @include create-theme(secondary,
+        #ff6b6b,
+        #ff8f8f,
+        #ff5252,
+        #efefef,
+        #ffffff,
+        #dddddd,
+    );
+
+    @include create-theme(success,
+        #2dd36f,
+        #3de78b,
+        #28c76f,
+        #efefef,
+        #ffffff,
+        #dddddd,
+    );
+
+    @include create-theme(warning,
+        #ffc409,
+        #ffd659,
+        #ffa409,
+        #242424,
+        #242424,
+        #242424,
+    );
+
+    @include create-theme(danger,
+        #ff4961,
+        #ff6b7d,
+        #ff3647,
+        #efefef,
+        #ffffff,
+        #dddddd,
+    );
+
+    @include create-theme(info,
+        #00d0ff,
+        #00e2ff,
+        #00b4cc,
+        #242424,
+        #242424,
+        #242424,
+    );
+}
