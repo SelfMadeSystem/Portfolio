@@ -36,15 +36,6 @@ body {
   color: var(--base-text);
 }
 
-.section {
-  display: flex;
-  place-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
