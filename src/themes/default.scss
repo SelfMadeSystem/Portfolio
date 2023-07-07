@@ -15,6 +15,9 @@
 }
 
 :root {
+    --sans-serif: 'Roboto', sans-serif;
+    --serif: 'Roboto Slab', serif;
+
     @include create-theme(base,
         #ffffff,
         #ffffff,

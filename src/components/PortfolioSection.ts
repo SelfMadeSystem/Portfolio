@@ -33,6 +33,7 @@ export class PortfolioSection extends LitElement {
 
     static override styles = css`
         :host {
+            position: relative;
             display: block;
             width: 100%;
             height: 100%;
@@ -43,13 +44,16 @@ export class PortfolioSection extends LitElement {
         }
 
         section {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
             width: 100%;
             height: 100%;
             isolation: isolate;
         }
 
-        background {
+        .background {
             display: block;
             position: absolute;
             inset: 0;

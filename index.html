@@ -12,7 +12,37 @@
 
 <body>
   <portfolio-section fullHeight>
-    <my-wave slot="background"></my-wave>
+    <h1>
+      <span>Hi, I'm</span>
+      <span class="name">Vite + Lit + TS</span>
+    </h1>
+    <my-wave slot="background"
+      speed="[0.01, 0.03]"
+      waveWidth="[2, 4]"
+      waveHeight="1"
+      amount="3"
+      color="var(--primary)"></my-wave>
+  </portfolio-section>
+
+  <portfolio-section fullHeight style="background-color: var(--primary);">
+  </portfolio-section>
+
+  <my-wave
+    color="var(--primary)"
+    style="scale: 1 -1"></my-wave>
+
+  <portfolio-section fullHeight>
+  </portfolio-section>
+
+  <my-wave color="var(--secondary)"></my-wave>
+
+  <portfolio-section fullHeight style="background-color: var(--secondary);">
+  </portfolio-section>
+
+  <my-wave color="var(--primary)"
+    style="background-color: var(--secondary);"></my-wave>
+
+  <portfolio-section fullHeight style="background-color: var(--primary);">
   </portfolio-section>
 </body>
 

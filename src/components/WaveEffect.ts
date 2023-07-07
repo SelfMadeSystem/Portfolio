@@ -1,6 +1,7 @@
 import { loop, randomRange } from "../utils/MathUtils.js";
 import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
+import { getColor } from "../utils/ColorUtils.js";
 
 /**
  * A wave effect.
@@ -103,7 +104,7 @@ export class MyWave extends LitElement {
 
             const paths = [];
 
-            ctx.fillStyle = fillStyle;
+            ctx.fillStyle = getColor(fillStyle, this);
             ctx.globalAlpha = this.opacity;
 
             for (const wave of waves) {
