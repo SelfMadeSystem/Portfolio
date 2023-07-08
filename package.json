@@ -9,11 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "lit": "^2.7.2",
-    "sass": "^1.63.6"
+    "lit": "^2.7.2"
   },
   "devDependencies": {
+    "sass": "^1.63.6",
     "typescript": "^5.0.2",
+    "unocss": "^0.53.5",
     "vite": "^4.3.9"
   }
 }
