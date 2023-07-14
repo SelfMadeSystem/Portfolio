@@ -29,30 +29,6 @@ a:active {
   color: var(--primary-dark);
 }
 
-h1 {
-  font-size: 3rem;
-  font-weight: 500;
-  letter-spacing: -1px;
-}
-
-@media (max-width: $lg) {
-  h1 {
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: $md) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: $sm) {
-  h1 {
-    font-size: 1.5rem;
-  }
-}
-
 #hand-wave {
   display: inline-block;
   animation: wave 1s infinite ease-in-out;
@@ -80,4 +56,14 @@ h1 {
 
 #footer p {
   margin: 0.5em;
+}
+
+.primary {
+  background-color: var(--primary);
+  color: var(--primary-text);
+}
+
+.secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-text);
 }

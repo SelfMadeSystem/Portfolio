@@ -11,12 +11,16 @@
 </head>
 
 <body>
-  <portfolio-section fullHeight>
-    <h1 class="mt-24">
+  <portfolio-section fullHeight id="start">
+    <h1 class="mt-24 text-6xl">
       <span>Hi, I'm</span>
       <span>Shoghi Simon</span>
       <span id="hand-wave">👋</span>
     </h1>
+    <p class="text-xl max-w-lg text-center">
+      I'm a full-stack developer. I love to create beautiful, fast and reliable
+      software.
+    </p>
     <my-wave slot="background"
       speed="[0.01, 0.03]"
       waveWidth="[2, 4]"
@@ -26,29 +30,129 @@
       color="var(--primary)"></my-wave>
   </portfolio-section>
 
-  <portfolio-section fullHeight style="background-color: var(--primary);">
+  <portfolio-section fullHeight class="primary"
+    id="what-i-do">
+    <div class="flex flex-row items-center gap-32">
+      <div class="flex flex-col items-center">
+        <h2 class="text-4xl">Web Development</h2>
+        <p class="text-xl max-w-lg text-center">
+          I create beautiful, fast and reliable web applications. I use modern
+          technologies like TypeScript, React, Vue, Lit, Tailwind, UnoCSS and
+          Vite.
+        </p>
+      </div>
+      <div class="flex flex-col items-center">
+        <h2 class="text-4xl">Backend Development</h2>
+        <p class="text-xl max-w-lg text-center">
+          I create beautiful, fast and reliable web applications. I use modern
+          technologies like TypeScript, React, Vue, Lit, Tailwind, UnoCSS and
+          Vite.
+        </p>
+      </div>
+      <div class="flex flex-col items-center">
+        <h2 class="text-4xl">Game Development</h2>
+        <p class="text-xl max-w-lg text-center">
+          I create beautiful, fast and reliable web applications. I use modern
+          technologies like TypeScript, React, Vue, Lit, Tailwind, UnoCSS and
+          Vite.
+        </p>
+      </div>
+    </div>
   </portfolio-section>
 
   <my-wave
     color="var(--primary)"
     style="scale: 1 -1"></my-wave>
 
-  <portfolio-section fullHeight>
+  <portfolio-section fullHeight id="what-i-use">
+    <div class="flex flex-row items-start gap-32">
+      <div class="flex flex-col items-center">
+        <h2 class="text-4xl">Tools</h2>
+        <ul class="text-xl max-w-lg">
+          <li>Git</li>
+          <li>GitHub</li>
+          <li>VSCode</li>
+          <li><abbr title="I use Arch btw 😎">Linux</abbr></li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center">
+        <h2 class="text-4xl">Languages</h2>
+
+        <div class="flex flex-row items-start gap-6">
+          <div class="flex flex-col">
+            <h3 class="text-3xl">Web</h3>
+            <ul class="text-xl max-w-lg">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>SCSS</li>
+              <li>JavaScript</li>
+              <li>TypeScript</li>
+            </ul>
+          </div>
+          <div class="flex flex-col">
+            <h3 class="text-3xl">Backend</h3>
+            <ul class="text-xl max-w-lg">
+              <li>NodeJS</li>
+              <li>PHP</li>
+              <li>Python</li>
+              <li>Java</li>
+              <li>C#</li>
+              <li>Rust</li>
+              <li>SQL</li>
+            </ul>
+          </div>
+          <div class="flex flex-col">
+            <h3 class="text-3xl">Game</h3>
+            <ul class="text-xl max-w-lg">
+              <li>C#</li>
+              <li>GDScript</li>
+              <li>Java</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center">
+        <h2 class="text-4xl">Frameworks</h2>
+        <ul class="text-xl max-w-lg">
+          <li>Node.JS</li>
+          <li>Bun</li>
+          <li>React</li>
+          <li>Vue</li>
+          <li>Lit</li>
+          <li>Next</li>
+          <li>Express</li>
+          <li>WordPress</li>
+          <li>Shopify</li>
+          <li>Unity</li>
+          <li>Godot</li>
+        </ul>
+      </div>
+    </div>
   </portfolio-section>
 
   <my-wave color="var(--secondary)"></my-wave>
 
-  <portfolio-section fullHeight style="background-color: var(--secondary);">
+  <portfolio-section fullHeight class="secondary"
+    id="portfolio">
+    <h2 class="text-4xl">Portfolio</h2>
+    <p class="text-xl max-w-lg text-center">
+      Here are some of my projects. If you want to see more, check out my
+      <a href="https://github.com/SelfMadeSystem" target="_blank">GitHub</a>.
+    </p>
   </portfolio-section>
 
-  <my-wave color="var(--primary)"
-    style="background-color: var(--secondary);"></my-wave>
+  <my-wave color="var(--primary)" class="secondary"></my-wave>
 
-  <portfolio-section fullHeight style="background-color: var(--primary);">
+  <portfolio-section fullHeight class="primary" id="contact">
+    <h2 class="text-4xl">Contact</h2>
+    <p class="text-xl max-w-lg text-center">
+      If you want to contact me, you can send me an email at
+      <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or send me a
+      message on Discord at <code>selfmadesystem</code>.
+    </p>
   </portfolio-section>
 
-  <my-wave color="var(--dark)"
-    style="background-color: var(--primary);"></my-wave>
+  <my-wave color="var(--dark)" class="primary"></my-wave>
 
   <portfolio-section id="footer">
     <p>

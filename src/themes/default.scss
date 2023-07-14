@@ -31,7 +31,7 @@
     --base-hover-ripple-opacity: 0.25;
 
     @include create-theme(primary,
-        #666eff,
+        #525aff,
         #888ef6,
         #4d5bff,
         #efefef,
@@ -40,7 +40,7 @@
     );
 
     @include create-theme(secondary,
-        #ff6b6b,
+        #ff6161,
         #ff8f8f,
         #ff5252,
         #efefef,

@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 /**
- * A button with a ripple effect.
+ * A section of the portfolio.
  *
  * @slot - This element has a slot
  */
@@ -22,10 +22,10 @@ export class PortfolioSection extends LitElement {
 
     render() {
         return html`
+        <div class="background">
+            <slot name="background"></slot>
+        </div>
         <section>
-            <div class="background">
-                <slot name="background"></slot>
-            </div>
             <slot></slot>
         </section>
         `;
@@ -36,11 +36,11 @@ export class PortfolioSection extends LitElement {
             position: relative;
             display: block;
             width: 100%;
-            height: 100%;
+            min-height: 100%;
         }
 
         :host([fullHeight]) {
-            height: 100vh;
+            min-height: 100vh;
         }
 
         section {
@@ -49,7 +49,7 @@ export class PortfolioSection extends LitElement {
             align-items: center;
             position: relative;
             width: 100%;
-            height: 100%;
+            min-height: 100%;
             isolation: isolate;
         }
 
