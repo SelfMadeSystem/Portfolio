@@ -63,6 +63,10 @@ a:active {
   color: var(--primary-text);
 }
 
+.primary a {
+  color: var(--primary-text); // links would be invisible otherwise
+}
+
 .secondary {
   background-color: var(--secondary);
   color: var(--secondary-text);
