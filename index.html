@@ -11,23 +11,28 @@
 </head>
 
 <body>
-  <portfolio-section fullHeight id="start">
-    <h1 class="mt-24 text-6xl">
-      <span>Hi, I'm</span>
-      <span>Shoghi Simon</span>
-      <span id="hand-wave">👋</span>
-    </h1>
-    <p class="text-xl max-w-lg text-center">
-      I'm a full-stack developer. I love to create fast and reliable software to
-      help others accomplish their goals.
-    </p>
+  <portfolio-section fullHeight id="start" class="bg-[var(--primary)] isolate">
+    <div class="backdrop-filter backdrop-blur-2xl rounded-8 p-8 mt-8 z-4">
+      <h1 class="mt-24 text-6xl">
+        <span>Hi, I'm</span>
+        <span>Shoghi Simon</span>
+        <span id="hand-wave">👋</span>
+      </h1>
+      <p class="text-xl max-w-lg text-center">
+        I'm a full-stack developer. I love to create fast and reliable software
+        to
+        help others accomplish their goals.
+      </p>
+    </div>
     <my-wave slot="background"
+      class="transform -scale-y-[1]"
       speed="[0.01, 0.03]"
       waveWidth="[2, 4]"
       waveHeight="1"
       amount="3"
+      opacity="0.6"
       waveWidthInRelationToHeight="false"
-      color="var(--primary)"></my-wave>
+      color="var(--base)"></my-wave>
   </portfolio-section>
 
   <portfolio-section fullHeight class="primary"
@@ -66,7 +71,7 @@
 
   <my-wave
     color="var(--primary)"
-    style="scale: 1 -1"></my-wave>
+    class="relative transform -scale-y-[1] z-4"></my-wave>
 
   <portfolio-section fullHeight id="what-i-use">
     <div
@@ -82,7 +87,7 @@
         </ul>
       </div>
       <div
-        class="flex flex-col items-center p-8 bg-[var(--base-dark)] rounded-8">
+        class="flex flex-col items-center p-8 bg-[var(--base-dark)] rounded-8 relative rounded-t-0 top-[-150px] pt-[150px] z-2">
         <h2 class="text-4xl">Languages</h2>
 
         <div class="flex flex-row items-start gap-6">

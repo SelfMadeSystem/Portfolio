@@ -50,7 +50,6 @@ export class PortfolioSection extends LitElement {
             position: relative;
             width: 100%;
             min-height: 100%;
-            isolation: isolate;
         }
 
         .background {
