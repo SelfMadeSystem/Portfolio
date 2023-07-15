@@ -71,3 +71,49 @@ a:active {
   background-color: var(--secondary);
   color: var(--secondary-text);
 }
+
+.primary-light {
+  background-color: var(--primary-light);
+  color: var(--primary-text);
+}
+
+.secondary-light {
+  background-color: var(--secondary-light);
+  color: var(--secondary-text);
+}
+
+a.button {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
+  background-color: var(--primary);
+  color: var(--primary-text);
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+a.button:hover {
+  background-color: var(--primary-light);
+}
+
+a.button:active {
+  background-color: var(--primary-dark);
+}
+
+.secondary a.button,
+a.button.secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-text);
+}
+
+.secondary a.button:hover,
+a.button.secondary:hover {
+  background-color: var(--secondary-light);
+}
+
+.secondary a.button:active,
+a.button.secondary:active {
+  background-color: var(--secondary-dark);
+}
