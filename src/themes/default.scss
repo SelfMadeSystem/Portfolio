@@ -2,6 +2,10 @@
     $default,
     $light,
     $dark,
+
+    $start, // --color-name-000
+    $end, // --color-name-900
+
     $text,
     $text-light,
     $text-dark,
@@ -12,6 +16,14 @@
     --#{$name}-text: #{$text};
     --#{$name}-text-light: #{$text-light};
     --#{$name}-text-dark: #{$text-dark};
+
+    @for $i from 0 through 9 {
+        --#{$name}-#{$i}00: #{mix($start, $end, 100% - $i * 10%)};
+
+        @for $j from 1 through 9 {
+            --#{$name}-#{$i}#{$j}0: #{mix($start, $end, 100% - ($i * 10% + $j * 1%))};
+        }
+    }
 }
 
 :root {
@@ -22,6 +34,8 @@
         #ffffff,
         #ffffff,
         #dddddd,
+        #000000,
+        #ffffff,
         #242424,
         #242424,
         #242424,
@@ -34,6 +48,8 @@
         #525aff,
         #888ef6,
         #293bff,
+        #a0a5f8,
+        #081dff,
         #efefef,
         #ffffff,
         #dddddd,
@@ -41,26 +57,33 @@
 
     @include create-theme(secondary,
         #ff6161,
-        hsl(0, 100%, 72%),
+        #ff7070,
         #ff5252,
+        #ff8f8f,
+        #ff0000,
         #efefef,
         #ffffff,
         #dddddd,
     );
 
-    @include create-theme(success,
+    /* @include create-theme(success,
         #2dd36f,
         #3de78b,
         #28c76f,
+        #7be5a6,
+        #00b248,
         #efefef,
         #ffffff,
         #dddddd,
     );
+
 
     @include create-theme(warning,
         #ffc409,
         #ffd659,
         #ffa409,
+        #ffd659,
+        #ff8c00,
         #242424,
         #242424,
         #242424,
@@ -70,6 +93,8 @@
         #ff4961,
         #ff6b7d,
         #ff3647,
+        #ff8f9a,
+        #ff0000,
         #efefef,
         #ffffff,
         #dddddd,
@@ -79,17 +104,33 @@
         #00d0ff,
         #00e2ff,
         #00b4cc,
+        #00e2ff,
+        #00a0b4,
         #242424,
         #242424,
         #242424,
-    );
+    ); */
 
     @include create-theme(dark,
         #181818,
         #181818,
         #181818,
+        #000000,
+        #282828,
         #efefef,
         #ffffff,
         #dddddd,
     );
+}
+
+.base-card {
+    background-color: var(--base-830);
+}
+
+.primary-card {
+    background-color: var(--primary-440);
+}
+
+.secondary-card {
+    background-color: var(--secondary-440);
 }

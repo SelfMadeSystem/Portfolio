@@ -29,6 +29,12 @@ a:active {
   color: var(--primary-dark);
 }
 
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
 #hand-wave {
   display: inline-block;
   animation: wave 1s infinite ease-in-out;
