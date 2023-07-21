@@ -52,6 +52,8 @@ export class MyWave extends LitElement {
             console.error("Shadow root is null");
             return;
         }
+        let _redraw = () => {};
+
         const canvas = this.shadowRoot.querySelector("canvas")!;
         const ctx = canvas.getContext("2d")!;
 
@@ -63,6 +65,7 @@ export class MyWave extends LitElement {
         function setCanvasSize() {
             width = canvas.width = canvas.clientWidth;
             height = canvas.height = canvas.clientHeight;
+            redraw();
         }
 
         setCanvasSize();
@@ -102,6 +105,18 @@ export class MyWave extends LitElement {
                 return;
             }
 
+            redraw();
+
+            this.animationFrame = requestAnimationFrame(animateCanvas);
+        };
+
+        this.animationFrame = requestAnimationFrame(animateCanvas);
+
+        function redraw() {
+            _redraw(); // I'm lazy.
+        }
+
+        _redraw = () => {
             const date = Date.now();
 
             ctx.clearRect(0, 0, width, height);
@@ -164,11 +179,7 @@ export class MyWave extends LitElement {
             ctx.fillRect(0, 0, width, height);
 
             ctx.restore();
-
-            this.animationFrame = requestAnimationFrame(animateCanvas);
-        };
-
-        this.animationFrame = requestAnimationFrame(animateCanvas);
+        }
     }
 
     render() {
