@@ -12,8 +12,12 @@
 
 <body>
   <portfolio-section fullHeight id="start" class="bg-[var(--primary)] isolate">
-    <div class="backdrop-filter backdrop-blur-2xl rounded-8 p-8 mt-8 z-4">
-      <h1 class="mt-24 text-6xl">
+    <div class="flex flex-col items-center
+    backdrop-filter backdrop-blur-2xl
+    rounded-8 p-8 mt-8 z-4 overflow-hidden
+    before:content-empty before:absolute before:inset-0 before:bg-[var(--primary)] before:opacity-10
+    ">
+      <h1 class="text-6xl text-center">
         <span>Hi, I'm</span>
         <span>Shoghi Simon</span>
         <span id="hand-wave">👋</span>
@@ -38,9 +42,11 @@
   <portfolio-section fullHeight class="primary"
     id="what-i-do">
     <div
-      class="flex flex-wrap pt-8 justify-around w-[calc(100%-8em)] items-center gap-16">
+      class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16">
       <div
-        class="primary-card flex flex-col items-center p-8 rounded-8">
+        class="primary-card flex flex-col items-center p-8 rounded-8
+        ml-0
+        ">
         <h2 class="text-4xl text-center">Web Development</h2>
         <p class="text-xl max-w-sm text-center">
           I create beautiful, fast and reliable web applications. I use modern
@@ -76,7 +82,7 @@
 
   <portfolio-section fullHeight id="what-i-use">
     <div
-      class="flex flex-row flex-wrap justify-around items-start w-full gap-x-24 md:gap-x-0 gap-y-24 mb-24">
+      class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24">
       <div
         class="mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 w-72">
         <h2 class="text-4xl">Tools I use</h2>
@@ -88,10 +94,11 @@
         </ul>
       </div>
       <div
-        class="md:mx-32 xl:mx-0 order-first xl:order-none w-fit
+        class="md:mx-32 lg:mx-64 xl:mx-0 lg:max-w-none flex-basis-full xl:flex-basis-[unset]
+        order-first xl:order-none w-fit
         base-card p-8 rounded-b-8
         flex flex-col items-center
-        relative top-[-150px] pt-[150px] -mb-[150px] z-2 min-w-72">
+        relative -top-40 pt-40 -mb-40 z-2 min-w-72">
         <h2 class="text-4xl">Languages</h2>
 
         <div class="flex flex-col sm:flex-row items-start gap-6">
@@ -152,9 +159,9 @@
     <my-wave color="var(--base)"
       class="relative transform -scale-y-[1] z-4"></my-wave>
     <div
-      class="secondary-card relative flex flex-col items-center rounded-b-[150px]
+      class="secondary-card relative flex flex-col items-center rounded-b-40
       mx-8
-      mb-[calc(4em-150px)] top-[-150px] pt-[150px]">
+      -mb-24 -top-40 pt-40">
       <div class="px-4">
         <h2 class="text-4xl">Portfolio</h2>
         <p class="text-xl max-w-lg text-center">

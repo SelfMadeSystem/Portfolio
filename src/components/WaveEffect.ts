@@ -188,12 +188,15 @@ export class MyWave extends LitElement {
 
     static styles = css`
         :host {
-            display: flex;
+            position: relative;
+            display: block;
             width: 100%;
             height: 100%;
+            min-height: 10rem;
         }
 
         canvas {
+            position: absolute;
             width: 100%;
             height: 100%;
         }
