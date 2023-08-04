@@ -13,9 +13,17 @@ enum PointerClickState {
 }
 
 /**
+ * An interface that can update and render
+ */
+interface UpdateAndRender {
+    update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void;
+    draw(ctx: CanvasRenderingContext2D, element: HTMLElement): void;
+}
+
+/**
  * A base class for all fish.
  */
-abstract class BaseFish {
+abstract class BaseFish implements UpdateAndRender {
     abstract getPosition(): Point;
     abstract getRotation(): number;
     abstract getSize(): number;
@@ -53,44 +61,38 @@ abstract class BaseFish {
 
 
 /**
- * Fish that swims around and runs away if the mouse clicks on it.
- * Loops around the canvas.
+ * Standard fish implementation.
  */
 class Fish extends BaseFish {
-    private position: Vec = new Vec(0, 0);
-    private rotation: number = 0;
-    private size: number = 3;
-    private speed: number = 0.1;
-    private turnSpeed: number = 0;
-    private maxTurnSpeed: number = 30;
-    private turnAccel: number = 30;
-    private turnTo: number = 0;
+    protected position: Vec = new Vec(0, 0);
+    protected rotation: number = 0;
+    protected size: number = 3;
+    protected speed: number = 0.1;
+    protected turnSpeed: number = 0;
+    protected maxTurnSpeed: number = 30;
+    protected turnAccel: number = 30;
+    protected turnTo: number = 0;
 
-    private normalSpeed: number = 0.1;
-    private normalMaxTurnSpeed: number = 30;
-    private normalTurnAccel: number = 30;
-    private normalTurnTo: number = 0;
-    private normalTurnToRange: number = 15;
+    protected normalSpeed: number = 0.1;
+    protected normalMaxTurnSpeed: number = 30;
+    protected normalTurnAccel: number = 30;
 
-    private runAwayDistance: number = 300;
-    private runAwaySpeed: number = 0.3;
-    private runAwayMaxTurnSpeed: number = 120;
-    private runAwayTurnAccel: number = 120;
-    private runAwayFrom: Vec = new Vec(0, 0);
-    private runAwayTime: number = 0;
-    private runAwayDuration: number = 5000;
+    protected runAwayDistance: number = 300;
+    protected runAwaySpeed: number = 0.3;
+    protected runAwayMaxTurnSpeed: number = 360;
+    protected runAwayTurnAccel: number = 360;
+    protected runAwayFrom: Vec = new Vec(0, 0);
+    protected runAwayTime: number = 0;
+    protected runAwayDuration: number = 5000;
 
-    private passedTurnTo: boolean = false;
+    protected passedTurnTo: boolean = false;
     constructor(
-        private color: string,
+        protected color: string,
         canvasSize: Point
     ) {
         super();
         this.position.x = randomRange(0, canvasSize[0]);
         this.position.y = randomRange(0, canvasSize[1]);
-        this.normalTurnTo = Math.random() > 0.5 ? 0 : 180;
-        this.rotation = wrapAngle(randomRange(-this.normalTurnToRange, this.normalTurnToRange) + this.normalTurnTo);
-        this.turnTo = this.normalTurnTo + (Math.random() > 0.5 ? 1 : -1) * this.normalTurnToRange;
         this.turnSpeed = randomRange(-this.maxTurnSpeed, this.maxTurnSpeed);
     }
 
@@ -135,9 +137,8 @@ class Fish extends BaseFish {
      * Rotates the fish to the turnTo angle and moves it forward.
      * @param canvasSize Size of the canvas.
      * @param delta Time since the last update in milliseconds.
-     * @returns False if the fish is running from top or bottom of the canvas.
      */
-    rotateAndMove(canvasSize: Point, delta: number): boolean {
+    rotateAndMove(canvasSize: Point, delta: number) {
         const deltaSeconds = delta / 1000;
 
         // We want to rotate to the turnTo angle, but we want to do so in a
@@ -155,26 +156,13 @@ class Fish extends BaseFish {
 
         const sign = Math.sign(diff);
 
-        this.rotate(clamp(this.turnSpeed * deltaSeconds, -Math.abs(diff) - 1, Math.abs(diff) + 1));
+        this.rotate(this.turnSpeed * deltaSeconds);
 
         // If the previous sign is different from the current sign, we've passed
         // the turnTo angle.
         this.passedTurnTo = sign != Math.sign(angleDistance(this.rotation, this.turnTo));
 
-        let result = true;
-        // If we're too close to the bottom of the canvas, turn up
-        if (this.position.y > canvasSize[1] - 100) {
-            this.turnTo = -90;
-            result = false;
-        } else if (this.position.y < 100) {
-            // If we're too close to the top of the canvas, turn down
-            this.turnTo = 90;
-            result = false;
-        }
-
         this.move(this.speed * delta, canvasSize);
-
-        return result;
     }
 
     update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void {
@@ -205,34 +193,171 @@ class Fish extends BaseFish {
             }
         }
 
-        if (this.rotateAndMove(canvasSize, delta)) {
-            if (this.runAwayTime > 0) {
-                this.turnTo = wrapAngle(this.position.angleTo(this.runAwayFrom) * RAD_TO_DEG);
-                console.log(this.turnTo);
-            } else if (this.passedTurnTo) {
-                // If we're not running away, rotate to the normal turnTo angle
-                const dist = angleDistance(this.rotation, this.turnTo);
+        this.rotateAndMove(canvasSize, delta);
 
-                // console.log(Math.sign(dist));
-                if (dist < 0) {
-                    this.turnTo = this.normalTurnTo + this.normalTurnToRange;
-                } else {
-                    this.turnTo = this.normalTurnTo - this.normalTurnToRange;
-                }
-            }
+        if (this.runAwayTime > 0) {
+            this.turnTo = wrapAngle(this.position.angleTo(this.runAwayFrom) * RAD_TO_DEG + 180);
         }
     }
 
-    override draw(ctx: CanvasRenderingContext2D, element: HTMLElement): void {
-        super.draw(ctx, element);
+    // override draw(ctx: CanvasRenderingContext2D, element: HTMLElement): void {
+    //     super.draw(ctx, element);
 
-        if (this.runAwayTime > 0) {
-            ctx.strokeStyle = "red";
-            ctx.beginPath();
-            ctx.moveTo(this.position.x, this.position.y);
-            ctx.lineTo(this.runAwayFrom.x, this.runAwayFrom.y);
-            ctx.stroke();
+    //     if (this.runAwayTime > 0) {
+    //         ctx.strokeStyle = "red";
+    //         ctx.beginPath();
+    //         ctx.moveTo(this.position.x, this.position.y);
+    //         ctx.lineTo(this.runAwayFrom.x, this.runAwayFrom.y);
+    //         ctx.stroke();
+    //     }
+    // }
+}
+
+/**
+ * Basic fish that swims around and runs away if the mouse clicks on it.
+ * Loops around the canvas.
+ */
+class BasicFish extends Fish {
+    protected normalTurnTo: number = 0;
+    protected normalTurnToRange: number = 15;
+
+    protected passedTurnTo: boolean = false;
+    constructor(
+        color: string,
+        canvasSize: Point
+    ) {
+        super(color, canvasSize);
+        this.normalTurnTo = Math.random() > 0.5 ? 0 : 180;
+        this.rotation = wrapAngle(randomRange(-this.normalTurnToRange, this.normalTurnToRange) + this.normalTurnTo);
+        this.turnTo = this.normalTurnTo + (Math.random() > 0.5 ? 1 : -1) * this.normalTurnToRange;
+    }
+
+    update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void {
+        super.update(canvasSize, delta, pointers);
+
+        if (this.passedTurnTo) {
+            // If we're not running away, rotate to the normal turnTo angle
+            const dist = angleDistance(this.rotation, this.turnTo);
+
+            if (dist < 0) {
+                this.turnTo = this.normalTurnTo + this.normalTurnToRange;
+            } else {
+                this.turnTo = this.normalTurnTo - this.normalTurnToRange;
+            }
         }
+    }
+}
+
+/**
+ * Mini fish that is part of a school.
+ */
+class MiniFish extends Fish {
+    protected offset: Vec;
+    protected farSpeed = 0.15;
+    protected closeSpeed = 0.07;
+    protected farDistance = 750;
+    protected closeDistance = 50;
+    constructor(
+        color: string,
+        canvasSize: Point,
+        public school: School,
+    ) {
+        super(color, canvasSize);
+        this.size = 1;
+
+        this.maxTurnSpeed = this.normalMaxTurnSpeed = 40;
+        this.turnAccel = this.normalTurnAccel = 90;
+
+        this.runAwaySpeed = 0.2;
+        this.runAwayMaxTurnSpeed = 1500;
+        this.runAwayTurnAccel = 1500;
+
+        this.offset = Vec.random([200, 100]).sub([100, 50]);
+        this.position = school.position.add(this.offset).sub([50, 0]);
+
+        this.rotation = Math.random() * 40;
+    }
+
+    override update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void {
+        super.update(canvasSize, delta, pointers);
+
+        if (this.runAwayTime <= 0) {
+            // Determine if shortest path to the school is direct or wrapped around
+            // the canvas
+
+            const pos = this.school.position.add(this.offset);
+
+            const dist = this.position.distSq(pos);
+
+            if (dist > canvasSize[0] * canvasSize[0] / 4) {
+                // Wrapped around the canvas
+                this.turnTo = wrapAngle(this.position.angleTo(this.school.position) * RAD_TO_DEG + 180);
+            } else {
+                // Direct
+                this.turnTo = wrapAngle(this.position.angleTo(pos) * RAD_TO_DEG);
+            }
+
+            // Set the speed based on how far away we are
+            this.speed = clamp(
+                lerp(this.closeSpeed, this.farSpeed, dist / (this.farDistance * this.farDistance)),
+                this.closeSpeed,
+                this.farSpeed,
+            );
+
+            console.log(this.speed);
+        }
+    }
+
+    // override draw(ctx: CanvasRenderingContext2D, element: HTMLElement): void {
+    //     super.draw(ctx, element);
+
+    //     const pos = this.school.position.add(this.offset);
+
+    //     ctx.fillStyle = "green";
+    //     ctx.beginPath();
+    //     ctx.arc(pos.x, pos.y, 3, 0, Math.PI * 2);
+    //     ctx.fill();
+    // }
+}
+
+/**
+ * A school of fish.
+ */
+class School implements UpdateAndRender {
+    public fish: MiniFish[] = [];
+    public speed: number = 0.07;
+    public position: Vec;
+
+    constructor(
+        public size: number,
+        color: string,
+        canvasSize: Point,
+    ) {
+        this.position = Vec.random(canvasSize);
+
+        for (let i = 0; i < size; i++) {
+            this.fish.push(new MiniFish(color, canvasSize, this));
+        }
+    }
+
+    draw(ctx: CanvasRenderingContext2D, element: HTMLElement): void {
+        for (const fish of this.fish) {
+            fish.draw(ctx, element);
+        }
+        
+        // ctx.fillStyle = "red";
+        // ctx.beginPath();
+        // ctx.arc(this.position.x, this.position.y, 5, 0, Math.PI * 2);
+        // ctx.fill();
+    }
+
+    update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void {
+        for (const fish of this.fish) {
+            fish.update(canvasSize, delta, pointers);
+        }
+
+        this.position.x += this.speed * delta;
+        this.position.x = wrapNumber(this.position.x, 0, canvasSize[0]);
     }
 }
 
@@ -282,10 +407,14 @@ export class MyAquarium extends LitElement {
 
         new ResizeObserver(setCanvasSize).observe(canvas);
 
-        const fishies: BaseFish[] = [];
+        const fishies: UpdateAndRender[] = [];
 
-        for (let i = 0; i < 10; i++) {
-            fishies.push(new Fish(this.color, [width, height]));
+        for (let i = 0; i < 30; i++) {
+            fishies.push(new BasicFish(this.color, [width, height]));
+        }
+
+        for (let i = 0; i < 3; i++) {
+            fishies.push(new School(30, this.color, [width, height]));
         }
 
         const pointerStates: Map<number, PointerState> = new Map();

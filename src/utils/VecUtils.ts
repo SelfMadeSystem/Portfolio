@@ -43,22 +43,22 @@ export class Vec implements Point {
         }
     }
 
-    public add(vec: Vec): Vec {
+    public add(vec: Point): Vec {
         return new Vec(this[0] + vec[0], this[1] + vec[1]);
     }
 
-    public sub(vec: Vec): Vec {
+    public sub(vec: Point): Vec {
         return new Vec(this[0] - vec[0], this[1] - vec[1]);
     }
 
-    public mul(val: Vec | number): Vec {
+    public mul(val: Point | number): Vec {
         if (typeof val === "number") {
             return new Vec(this[0] * val, this[1] * val);
         }
         return new Vec(this[0] * val[0], this[1] * val[1]);
     }
 
-    public div(val: Vec | number): Vec {
+    public div(val: Point | number): Vec {
         if (typeof val === "number") {
             return new Vec(this[0] / val, this[1] / val);
         }
@@ -94,31 +94,31 @@ export class Vec implements Point {
         return new Vec(Math.cos(newHeading) * mag, Math.sin(newHeading) * mag);
     }
 
-    public lerp(vec: Vec, amount: number): Vec {
+    public lerp(vec: Point, amount: number): Vec {
         return new Vec(this[0] + (vec[0] - this[0]) * amount, this[1] + (vec[1] - this[1]) * amount);
     }
 
-    public dist(vec: Vec): number {
+    public dist(vec: Point): number {
         return Math.sqrt(this.distSq(vec));
     }
 
-    public distSq(vec: Vec): number {
+    public distSq(vec: Point): number {
         return (this[0] - vec[0]) ** 2 + (this[1] - vec[1]) ** 2;
     }
 
-    public dot(vec: Vec): number {
+    public dot(vec: Point): number {
         return this[0] * vec[0] + this[1] * vec[1];
     }
 
-    public angleTo(vec: Vec): number {
-        return this.sub(vec).angle();
+    public angleTo(vec: Point): number {
+        return new Vec(vec).sub(this).angle();
     }
 
     public copy(): Vec {
         return new Vec(this[0], this[1]);
     }
 
-    public equals(vec: Vec): boolean {
+    public equals(vec: Point): boolean {
         return this[0] === vec[0] && this[1] === vec[1];
     }
 
@@ -128,5 +128,9 @@ export class Vec implements Point {
 
     public static fromPoints(p1: Point, p2: Point): Vec {
         return new Vec(p2[0] - p1[0], p2[1] - p1[1]);
+    }
+
+    public static random(magnitude: Point | number = [1, 1]): Vec {
+        return new Vec(Math.random(), Math.random()).mul(magnitude);
     }
 }
