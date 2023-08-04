@@ -1,4 +1,4 @@
-import { loop, randomRange } from "../utils/MathUtils.js";
+import { wrapNumber, randomRange } from "../utils/MathUtils.js";
 import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
@@ -52,7 +52,7 @@ export class MyWave extends LitElement {
             console.error("Shadow root is null");
             return;
         }
-        let _redraw = () => {};
+        let _redraw = () => { };
 
         const canvas = this.shadowRoot.querySelector("canvas")!;
         const ctx = canvas.getContext("2d")!;
@@ -138,7 +138,7 @@ export class MyWave extends LitElement {
                 const path = new Path2D();
                 const heightOffset = wave.height * (height - h);
                 let o =
-                    loop(0, w * 2, (date / 1000) * wave.speed * w) -
+                    wrapNumber((date / 1000) * wave.speed * w, 0, w * 2) -
                     w * 2 -
                     w * wave.offset;
 
@@ -179,7 +179,7 @@ export class MyWave extends LitElement {
             ctx.fillRect(0, 0, width, height);
 
             ctx.restore();
-        }
+        };
     }
 
     render() {

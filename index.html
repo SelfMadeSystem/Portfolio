@@ -28,23 +28,22 @@
         help others accomplish their goals.
       </p>
     </div>
-    <my-wave slot="background"
-      class="transform -scale-y-[1]"
-      speed="[0.01, 0.03]"
-      waveWidth="[2, 4]"
-      waveHeight="1"
-      amount="3"
-      opacity="0.6"
-      waveWidthInRelationToHeight="false"
-      color="var(--base)"></my-wave>
+
+    <div slot="background" class="absolute inset-0">
+      <my-wave class="transform -scale-y-[1]"
+               speed="[0.01, 0.03]"
+               waveWidth="[2, 4]"
+               waveHeight="1"
+               amount="3"
+               opacity="0.6"
+               waveWidthInRelationToHeight="false"
+               color="var(--base)"></my-wave>
+    </div>
   </portfolio-section>
 
-  <portfolio-section fullHeight class="primary"
-    id="what-i-do">
-    <div
-      class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16">
-      <div
-        class="primary-card flex flex-col items-center p-8 rounded-8
+  <portfolio-section fullHeight class="primary" id="what-i-do">
+    <div class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16">
+      <div class="primary-card flex flex-col items-center p-8 rounded-8
         ml-0
         ">
         <h2 class="text-4xl text-center">Web Development</h2>
@@ -54,8 +53,7 @@
           and Shopify, but I also like to use vanilla HTML, CSS and JavaScript.
         </p>
       </div>
-      <div
-        class="primary-card flex flex-col items-center p-8 rounded-8">
+      <div class="primary-card flex flex-col items-center p-8 rounded-8">
         <h2 class="text-4xl text-center">Backend Development</h2>
         <p class="text-xl max-w-sm text-center">
           I create fast and reliable backend applications. I use modern
@@ -64,8 +62,7 @@
           C or COBOL.
         </p>
       </div>
-      <div
-        class="primary-card flex flex-col items-center p-8 rounded-8">
+      <div class="primary-card flex flex-col items-center p-8 rounded-8">
         <h2 class="text-4xl text-center">Game Development</h2>
         <p class="text-xl max-w-sm text-center">
           I like to mess around in game engines to challenge my creativity and
@@ -76,15 +73,12 @@
     </div>
   </portfolio-section>
 
-  <my-wave
-    color="var(--primary)"
-    class="relative transform -scale-y-[1] z-4"></my-wave>
+  <my-wave color="var(--primary)" class="relative transform -scale-y-[1] z-4"></my-wave>
 
   <portfolio-section fullHeight id="what-i-use">
     <div
-      class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24">
-      <div
-        class="mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 w-72">
+         class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24">
+      <div class="mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 w-72">
         <h2 class="text-4xl">Tools I use</h2>
         <ul class="text-xl max-w-lg">
           <li>Git</li>
@@ -93,8 +87,7 @@
           <li><abbr title="I use Arch btw 😎">Linux</abbr></li>
         </ul>
       </div>
-      <div
-        class="md:mx-32 lg:mx-64 xl:mx-0 lg:max-w-none flex-basis-full xl:flex-basis-[unset]
+      <div class="md:mx-32 lg:mx-64 xl:mx-0 lg:max-w-none flex-basis-full xl:flex-basis-[unset]
         order-first xl:order-none w-fit
         base-card p-8 rounded-b-8
         flex flex-col items-center
@@ -134,8 +127,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8 w-72">
+      <div class="mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8 w-72">
         <h2 class="text-4xl">Frameworks</h2>
         <ul class="text-xl max-w-lg">
           <li>Node.JS</li>
@@ -152,14 +144,17 @@
         </ul>
       </div>
     </div>
+
+    <my-aquarium slot="background"
+                 class="absolute inset-0
+                 -top-40 h-[calc(100%+10rem)]
+                 "
+                 color="var(--primary)"></my-aquarium>
   </portfolio-section>
 
-  <portfolio-section fullHeight class="secondary"
-    id="portfolio">
-    <my-wave color="var(--base)"
-      class="relative transform -scale-y-[1] z-4"></my-wave>
-    <div
-      class="secondary-card relative flex flex-col items-center rounded-b-40
+  <portfolio-section fullHeight class="secondary" id="portfolio">
+    <my-wave color="var(--base)" class="relative transform -scale-y-[1] z-4"></my-wave>
+    <div class="secondary-card relative flex flex-col items-center rounded-b-40
       mx-8
       -mb-24 -top-40 pt-40">
       <div class="px-4">
@@ -169,48 +164,37 @@
           <a href="https://github.com/SelfMadeSystem" target="_blank">GitHub</a>.
         </p>
       </div>
-      <my-wave
-        color="var(--secondary)"
-        amount="2"
-        opacity="0.5"
-        class="relative z-4"></my-wave>
+      <my-wave color="var(--secondary)" amount="2" opacity="0.5" class="relative z-4"></my-wave>
     </div>
-    <div
-      class="flex flex-wrap flex-row justify-center items-stretch gap-16 mb-24">
-      <div
-        class="secondary-card flex flex-col items-center p-8 rounded-8">
+    <div class="flex flex-wrap flex-row justify-center items-stretch gap-16 mb-24">
+      <div class="secondary-card flex flex-col items-center p-8 rounded-8">
         <h3 class="text-3xl">Shoghi Simon's Portfolio</h3>
         <p class="text-xl max-w-lg text-center">
           This is my portfolio website. It is built with Vite, Lit, UnoCSS and
           Bun. I hope you like it!
         </p>
-        <a class="button" href="https://shoghisimon.cc"
-          target="_blank">Visit</a>
+        <a class="button" href="https://shoghisimon.cc" target="_blank">Visit</a>
       </div>
-      <div
-        class="secondary-card flex flex-col items-center p-8 rounded-8">
+      <div class="secondary-card flex flex-col items-center p-8 rounded-8">
         <h3 class="text-3xl">Mead Simon Chain Mail Designs</h3>
         <p class="text-xl max-w-lg text-center">
           Mead Simon Chain Mail Designs is a website for high-end chain mail
           fashion. It is built with HTML, TypeScript, JQuery, SCSS and PHP.
         </p>
-        <a class="button" href="https://meadsimon.ca"
-          target="_blank">Visit</a>
+        <a class="button" href="https://meadsimon.ca" target="_blank">Visit</a>
       </div>
-      <div
-        class="secondary-card flex flex-col items-center p-8 rounded-8">
+      <div class="secondary-card flex flex-col items-center p-8 rounded-8">
         <h3 class="text-3xl">Abacus Cleaning Services Inc.</h3>
         <p class="text-xl max-w-lg text-center">
           Abacus Cleaning Services Inc. is a website for a cleaning company.
           It is built with HTML, JavaScript and CSS.
-          <br/>
+          <br />
           Still being built.
         </p>
         <!-- Go to dev website for now kuz real website doesn't exist -->
         <!-- <a class="button" href="https://abacuscleaninginc.com"
           target="_blank">Visit</a> -->
-          <a class="button" href="https://abacus-cal.pages.dev"
-          target="_blank">Visit</a>
+        <a class="button" href="https://abacus-cal.pages.dev" target="_blank">Visit</a>
       </div>
     </div>
   </portfolio-section>
@@ -230,8 +214,7 @@
 
   <portfolio-section id="footer">
     <div class="text-center">
-      Made by <a href="https://github.com/SelfMadeSystem/"
-      target="_blank">Shoghi Simon</a> with
+      Made by <a href="https://github.com/SelfMadeSystem/" target="_blank">Shoghi Simon</a> with
       <a href="https://vitejs.dev/" target="_blank">Vite</a>,
       <a href="https://lit.dev/" target="_blank">Lit</a>,
       <a href="https://unocss.dev/" target="_blank">UnoCSS</a>,
@@ -240,8 +223,7 @@
       and ❤️
     </div>
     <div class="text-center mt-8">
-      <a href="https://github.com/SelfMadeSystem/Portfolio"
-        target="_blank">Source code</a>
+      <a href="https://github.com/SelfMadeSystem/Portfolio" target="_blank">Source code</a>
     </div>
   </portfolio-section>
 </body>
