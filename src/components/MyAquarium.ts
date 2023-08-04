@@ -227,8 +227,8 @@ class BasicFish extends Fish {
         canvasSize: Point
     ) {
         super(color, canvasSize);
-        this.normalTurnTo = Math.random() > 0.5 ? 0 : 180;
-        this.rotation = wrapAngle(randomRange(-this.normalTurnToRange, this.normalTurnToRange) + this.normalTurnTo);
+        this.normalTurnTo = Math.random() * 360 - 180;
+        this.rotation = Math.random() * 360 - 180;
         this.turnTo = this.normalTurnTo + (Math.random() > 0.5 ? 1 : -1) * this.normalTurnToRange;
     }
 
@@ -272,30 +272,39 @@ class MiniFish extends Fish {
         this.runAwayMaxTurnSpeed = 1500;
         this.runAwayTurnAccel = 1500;
 
-        this.offset = Vec.random([200, 100]).sub([100, 50]);
-        this.position = school.position.add(this.offset).sub([50, 0]);
+        this.offset = Vec.fromAngle(Math.random() * 360 * DEG_TO_RAD).mul(Math.random() * 70 + 35);
+        this.position = school.position.add(this.offset).sub(Vec.fromAngle(school.rotation * DEG_TO_RAD).mul(100));
 
-        this.rotation = Math.random() * 40;
+        this.rotation = wrapAngle(school.rotation + Math.random() * 60 - 30);
     }
 
     override update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void {
         super.update(canvasSize, delta, pointers);
 
         if (this.runAwayTime <= 0) {
-            // Determine if shortest path to the school is direct or wrapped around
-            // the canvas
+            // Determine which is the shortest path to the school
 
-            const pos = this.school.position.add(this.offset);
+            let pos = this.school.position.add(this.offset);
 
-            const dist = this.position.distSq(pos);
+            let target = pos;
+            let targetDist = this.position.distSq(target);
 
-            if (dist > canvasSize[0] * canvasSize[0] / 4) {
-                // Wrapped around the canvas
-                this.turnTo = wrapAngle(this.position.angleTo(this.school.position) * RAD_TO_DEG + 180);
-            } else {
-                // Direct
-                this.turnTo = wrapAngle(this.position.angleTo(pos) * RAD_TO_DEG);
+            for (let x = -1; x <= 1; x++) {
+                for (let y = -1; y <= 1; y++) {
+                    const test = pos.add([x * canvasSize[0], y * canvasSize[1]]);
+
+                    const dist = this.position.distSq(test);
+
+                    if (dist < targetDist) {
+                        target = test;
+                        targetDist = dist;
+                    }
+                }
             }
+
+            this.turnTo = wrapAngle(this.position.angleTo(target) * RAD_TO_DEG);
+
+            const dist = this.position.distSq(target);
 
             // Set the speed based on how far away we are
             this.speed = clamp(
@@ -303,8 +312,6 @@ class MiniFish extends Fish {
                 this.closeSpeed,
                 this.farSpeed,
             );
-
-            console.log(this.speed);
         }
     }
 
@@ -327,6 +334,8 @@ class School implements UpdateAndRender {
     public fish: MiniFish[] = [];
     public speed: number = 0.07;
     public position: Vec;
+    public rotation: number = 0;
+    public rotationChange: number = 30;
 
     constructor(
         public size: number,
@@ -334,6 +343,8 @@ class School implements UpdateAndRender {
         canvasSize: Point,
     ) {
         this.position = Vec.random(canvasSize);
+        this.rotation = Math.random() * 360 - 180;
+        this.rotationChange = (Math.random() - 0.5) ** 3 * 50;
 
         for (let i = 0; i < size; i++) {
             this.fish.push(new MiniFish(color, canvasSize, this));
@@ -344,7 +355,7 @@ class School implements UpdateAndRender {
         for (const fish of this.fish) {
             fish.draw(ctx, element);
         }
-        
+
         // ctx.fillStyle = "red";
         // ctx.beginPath();
         // ctx.arc(this.position.x, this.position.y, 5, 0, Math.PI * 2);
@@ -352,12 +363,26 @@ class School implements UpdateAndRender {
     }
 
     update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void {
+        const deltaSeconds = delta / 1000;
+
         for (const fish of this.fish) {
             fish.update(canvasSize, delta, pointers);
         }
 
-        this.position.x += this.speed * delta;
+        this.position = this.position.add(Vec.fromAngle(this.rotation * DEG_TO_RAD).mul(this.speed * delta));
         this.position.x = wrapNumber(this.position.x, 0, canvasSize[0]);
+        this.position.y = wrapNumber(this.position.y, 0, canvasSize[1]);
+
+        // Update the rotation
+        this.rotation += this.rotationChange * deltaSeconds;
+        this.rotation = wrapAngle(this.rotation);
+
+        if (Math.abs(this.rotationChange) > 0.5) {
+            this.rotationChange -= this.rotationChange * 0.1 * deltaSeconds;
+        } else {
+            this.rotationChange = (Math.random() - 0.5) * 50;
+        }
+        // console.log(this.rotationChange);
     }
 }
 
@@ -413,8 +438,8 @@ export class MyAquarium extends LitElement {
             fishies.push(new BasicFish(this.color, [width, height]));
         }
 
-        for (let i = 0; i < 3; i++) {
-            fishies.push(new School(30, this.color, [width, height]));
+        for (let i = 0; i < 5; i++) {
+            fishies.push(new School(20, this.color, [width, height]));
         }
 
         const pointerStates: Map<number, PointerState> = new Map();
@@ -441,12 +466,20 @@ export class MyAquarium extends LitElement {
             }
 
             for (const [_, pointer] of pointerStates) {
-                const [pos, clickState] = pointer;
+                const [_pos, clickState] = pointer;
                 if (clickState == PointerClickState.CLICKED) {
                     pointer[1] = PointerClickState.HELD;
                 }
                 // TODO: Ripple effect ???
             }
+
+            // For now, just have a white gradient at the bottom of the screen
+            // so that the fish don't just disappear.
+            const gradient = ctx.createLinearGradient(0, height - 100, 0, height);
+            gradient.addColorStop(0, "#fff0");
+            gradient.addColorStop(1, "#fff");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, height - 100, width, 100);
 
             this.animationFrame = requestAnimationFrame(redraw);
         };
