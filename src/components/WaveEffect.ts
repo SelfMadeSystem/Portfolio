@@ -35,6 +35,8 @@ export class MyWave extends LitElement {
     @property({ type: Number })
     pointiness: number = 0.3;
 
+    canvas: HTMLCanvasElement | null = null;
+
     animationFrame: number = 0;
 
     connectedCallback() {
@@ -54,7 +56,7 @@ export class MyWave extends LitElement {
         }
         let _redraw = () => { };
 
-        const canvas = this.shadowRoot.querySelector("canvas")!;
+        const canvas = this.canvas = this.shadowRoot.querySelector("canvas")!;
         const ctx = canvas.getContext("2d")!;
 
         let width = (canvas.width = canvas.clientWidth);
@@ -86,13 +88,14 @@ export class MyWave extends LitElement {
             });
 
         function isOnScreen() {
-            const rect = canvas.getBoundingClientRect();
-            return (
-                rect.top < window.innerHeight &&
-                rect.bottom > 0 &&
-                rect.left < window.innerWidth &&
-                rect.right > 0
-            );
+            return true;
+            // const rect = canvas.getBoundingClientRect();
+            // return (
+            //     rect.top < window.innerHeight &&
+            //     rect.bottom > 0 &&
+            //     rect.left < window.innerWidth &&
+            //     rect.right > 0
+            // );
         }
 
         const wh = randomRange(this.waveHeight);

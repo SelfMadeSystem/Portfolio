@@ -14,7 +14,7 @@
   <portfolio-section fullHeight id="start" class="bg-[var(--primary)]">
     <div class="flex flex-col items-center
     backdrop-filter backdrop-blur-2xl
-    rounded-8 p-8 mt-8 z-4 overflow-hidden
+    rounded-8 p-8 mt-8 z-6 overflow-hidden
     before:content-empty before:absolute before:inset-0 before:bg-[var(--primary)] before:opacity-10
     ">
       <h1 class="text-6xl text-center">
@@ -29,7 +29,8 @@
       </p>
     </div>
 
-    <my-wave slot="background" class="absolute inset-0 transform -scale-y-[1] z-1"
+    <my-wave slot="background" id="wave1"
+      class="absolute inset-0 transform -scale-y-[1] z-1"
       speed="[0.01, 0.03]"
       waveWidth="[2, 4]"
       waveHeight="1"
@@ -42,7 +43,7 @@
   <portfolio-section fullHeight class="primary"
     id="what-i-do">
     <div
-      class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16">
+      class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
       <div
         class="scroll-fade
         opacity-0 scroll-visible:opacity-100
@@ -88,17 +89,15 @@
     </div>
 
     <my-aquarium slot="background"
+      maskid="wave2"
+      flipmasky
       class="absolute inset-0
-            -top-[100vh] h-[200vh]"
+            -top-[100vh] h-[calc(100%+100vh+10rem)] z-5"
       color="var(--base)">
-      <div class="absolute inset-0"
-        style="
-      box-shadow: inset 0 -10rem 5rem -5rem var(--primary);
-      "></div>
     </my-aquarium>
   </portfolio-section>
 
-  <my-wave color="var(--primary)" class="relative transform -scale-y-[1] z-4"></my-wave>
+  <my-wave id="wave2" color="var(--primary)" class="relative transform -scale-y-[1] z-4"></my-wave>
 
   <portfolio-section fullHeight id="what-i-use">
     <div
@@ -181,19 +180,20 @@
     </div>
 
     <my-aquarium slot="background"
+      maskid="wave3"
+      flipmasky
       class="absolute inset-0
-                 -top-40 h-[calc(100%+10rem)]
-                 "
+                 -top-40 h-[calc(100%+20rem)] z-1"
       color="var(--primary)">
-      <div class="absolute inset-0"
+      <!-- <div class="absolute inset-0"
         style="
       box-shadow: inset 0 -10rem 5rem -5rem var(--base);
-      "></div>
+      "></div> -->
     </my-aquarium>
   </portfolio-section>
 
-  <portfolio-section fullHeight class="secondary" id="portfolio">
-    <my-wave color="var(--base)" class="relative transform -scale-y-[1] z-4"></my-wave>
+  <portfolio-section fullHeight class="secondary -z-2" id="portfolio">
+    <my-wave id="wave3" color="var(--base)" class="relative transform -scale-y-[1] z-4"></my-wave>
     <div class="secondary-card relative flex flex-col items-center rounded-b-40
       mx-8
       -mb-24 -top-40 pt-40">

@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
 import { Point, Vec } from "../utils/VecUtils.js";
+import { MyWave } from "./WaveEffect.js";
 
 const FISH_SVG_PATH = new Path2D(`M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z`);
 
@@ -399,8 +400,20 @@ export class MyAquarium extends LitElement {
     @property({ type: String })
     color: string = "blue";
 
-    // @property({ type: String })
-    // bgColor: string = "white";
+    @property({ type: String })
+    maskId: string | null = null;
+
+    @property({ type: Boolean })
+    maskTop: boolean = false;
+
+    @property({ type: Boolean })
+    maskInverse: boolean = false;
+
+    @property({ type: Boolean })
+    flipMaskX: boolean = false;
+
+    @property({ type: Boolean })
+    flipMaskY: boolean = false;
 
     animationFrame: number = 0;
 
@@ -423,17 +436,37 @@ export class MyAquarium extends LitElement {
         const canvas = this.shadowRoot.querySelector("canvas")!;
         const ctx = canvas.getContext("2d")!;
 
-        let width = (canvas.width = canvas.clientWidth);
-        let height = (canvas.height = canvas.clientHeight);
+        const tempCanvas = document.createElement("canvas");
+        const tempCtx = tempCanvas.getContext("2d")!;
+
+        let width = (tempCanvas.width = canvas.width = canvas.clientWidth);
+        let height = (tempCanvas.height = canvas.height = canvas.clientHeight);
 
         function setCanvasSize() {
-            width = canvas.width = canvas.clientWidth;
-            height = canvas.height = canvas.clientHeight;
+            width = tempCanvas.width = canvas.width = canvas.clientWidth;
+            height = tempCanvas.height = canvas.height = canvas.clientHeight;
         }
 
         setCanvasSize();
 
         new ResizeObserver(setCanvasSize).observe(canvas);
+
+        const mask: HTMLCanvasElement | null = (() => {
+            // return null;
+            const mask = document.getElementById(this.maskId ?? "") as HTMLCanvasElement | MyWave | null;
+
+            if (mask == null) {
+                return null;
+            }
+
+            if (mask instanceof MyWave) {
+                return mask.canvas;
+            }
+
+            return mask;
+        })();
+
+        const ctxToUse = mask == null ? ctx : tempCtx;
 
         const fishies: UpdateAndRender[] = [];
 
@@ -458,14 +491,15 @@ export class MyAquarium extends LitElement {
             }
             lastTime = now;
 
-            ctx.clearRect(0, 0, width, height);
+            ctxToUse.clearRect(0, 0, width, height);
 
             for (const fish of fishies) {
                 fish.update([width, height], delta, [...pointerStates.values()]);
             }
 
+
             for (const fish of fishies) {
-                fish.draw(ctx, this);
+                fish.draw(ctxToUse, this);
             }
 
             for (const [_, pointer] of pointerStates) {
@@ -474,6 +508,42 @@ export class MyAquarium extends LitElement {
                     pointer[1] = PointerClickState.HELD;
                 }
                 // TODO: Ripple effect ???
+            }
+
+            if (mask != null) {
+                ctx.clearRect(0, 0, width, height);
+
+                ctx.save();
+
+                if (this.maskTop) {
+                    // todo
+                } else { // Bottom
+                    ctx.save();
+                    ctx.translate(0, height - mask.height);
+                    if (this.flipMaskX) {
+                        ctx.translate(width, 0);
+                        ctx.scale(-1, 1);
+                    }
+                    if (this.flipMaskY) {
+                        ctx.translate(0, mask.height);
+                        ctx.scale(1, -1);
+                    }
+                    ctx.drawImage(mask, 0, 0);
+                    ctx.restore();
+
+                    if (!this.maskInverse) { // paint the rest of the screen
+                        ctx.fillStyle = "white";
+                        if (this.maskTop) {
+                            ctx.fillRect(0, mask.height, width, height - mask.height);
+                        } else {
+                            ctx.fillRect(0, 0, width, height - mask.height);
+                        }
+                    }
+                }
+
+                ctx.globalCompositeOperation = this.maskInverse ? "source-out" : "source-in";
+                ctx.drawImage(tempCanvas, 0, 0, width, height);
+                ctx.restore();
             }
 
             // For now, just have a gradient at the bottom of the screen
