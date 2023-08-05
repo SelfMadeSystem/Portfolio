@@ -13,20 +13,22 @@
 <body>
   <portfolio-section fullHeight id="start" class="bg-[var(--primary)]">
     <div class="flex flex-col items-center
-    backdrop-filter backdrop-blur-2xl
+    backdrop-filter backdrop-blur-md
     rounded-8 p-8 mt-8 z-6 overflow-hidden
-    before:content-empty before:absolute before:inset-0 before:bg-[var(--primary)] before:opacity-10
+    before:content-empty before:absolute before:inset-0 before:bg-[var(--primary-100)] before:opacity-50
     ">
-      <h1 class="text-6xl text-center">
-        <span>Hi, I'm</span>
-        <span>Shoghi Simon</span>
-        <span id="hand-wave">👋</span>
-      </h1>
-      <p class="text-xl max-w-lg text-center">
-        I'm a full-stack developer. I love to create fast and reliable software
-        to
-        help others accomplish their goals.
-      </p>
+      <div class="z-1">
+        <h1 class="text-6xl text-center">
+          <span>Hi, I'm</span>
+          <span>Shoghi Simon</span>
+          <span id="hand-wave">👋</span>
+        </h1>
+        <p class="text-xl max-w-lg text-center">
+          I'm a full-stack developer. I love to create fast and reliable software
+          to
+          help others accomplish their goals.
+        </p>
+      </div>
     </div>
 
     <my-wave slot="background" id="wave1"
@@ -101,13 +103,13 @@
 
   <portfolio-section fullHeight id="what-i-use">
     <div
-      class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24">
+      class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24 z-2">
       <div
         class="scroll-fade
         opacity-0 scroll-visible:opacity-100
         transform translate-y-16 scroll-visible:translate-y-0
         transition-all duration-500 lg:delay-200
-        mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 w-72">
+        mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 min-w-72">
         <h2 class="text-4xl">Tools I use</h2>
         <ul class="text-xl max-w-lg">
           <li>Git</li>
@@ -120,7 +122,7 @@
         order-first xl:order-none w-fit
         base-card p-8 rounded-b-8
         flex flex-col items-center
-        relative -top-40 pt-40 -mb-40 z-2 min-w-72">
+        relative -top-40 pt-40 -mb-40 min-w-72">
         <h2 class="text-4xl">Languages</h2>
 
         <div class="flex flex-col sm:flex-row items-start gap-6">
@@ -161,7 +163,7 @@
         opacity-0 scroll-visible:opacity-100
         transform translate-y-16 scroll-visible:translate-y-0
         transition-all duration-500
-        mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8 w-72">
+        mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8  min-w-72">
         <h2 class="text-4xl">Frameworks</h2>
         <ul class="text-xl max-w-lg">
           <li>Node.JS</li>
