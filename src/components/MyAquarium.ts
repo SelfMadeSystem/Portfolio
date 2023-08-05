@@ -216,11 +216,17 @@ class Fish extends BaseFish {
 
 /**
  * Basic fish that swims around and runs away if the mouse clicks on it.
+ * Also randomly decides to run away for no apparent reason.
  * Loops around the canvas.
  */
 class BasicFish extends Fish {
     protected normalTurnTo: number = 0;
     protected normalTurnToRange: number = 15;
+
+    protected randomRunAwayDuration: number = 5000;
+    protected randomRunAwayTime: number = 0; // time until next random run away
+    protected randomRunAwayInterval: number = 120000; // time between random run aways
+    protected randomRunAwayIntervalRange: number = 60000; // range of time between random run aways
 
     protected passedTurnTo: boolean = false;
     constructor(
@@ -231,10 +237,22 @@ class BasicFish extends Fish {
         this.normalTurnTo = Math.random() * 360 - 180;
         this.rotation = Math.random() * 360 - 180;
         this.turnTo = this.normalTurnTo + (Math.random() > 0.5 ? 1 : -1) * this.normalTurnToRange;
+
+        this.randomRunAwayTime = Math.random() * this.randomRunAwayInterval;
     }
 
     update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void {
         super.update(canvasSize, delta, pointers);
+
+        if (this.runAwayTime <= 0) {
+            this.randomRunAwayTime -= delta;
+        }
+        if (this.randomRunAwayTime < 0) {
+            this.runAwayTime = this.randomRunAwayDuration;
+            this.runAwayFrom = new Vec(this.position);
+
+            this.randomRunAwayTime = this.randomRunAwayInterval + Math.random() * this.randomRunAwayIntervalRange;
+        }
 
         if (this.passedTurnTo) {
             // If we're not running away, rotate to the normal turnTo angle
