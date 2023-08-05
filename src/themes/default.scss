@@ -139,8 +139,19 @@
     }
 }
 
-.primary-card {
-    background-color: var(--primary-400);
+.primary-card {position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+
+    &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        inset: 0;
+        background-color: var(--primary-100);
+        opacity: 0.5;
+    }
 }
 
 .secondary-card {

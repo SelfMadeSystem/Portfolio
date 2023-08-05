@@ -36,8 +36,7 @@
       amount="3"
       opacity="0.6"
       waveWidthInRelationToHeight="false"
-      color="var(--base)"
-      ></my-wave>
+      color="var(--base)"></my-wave>
   </portfolio-section>
 
   <portfolio-section fullHeight class="primary"
@@ -93,7 +92,7 @@
             -top-[100vh] h-[200vh]"
       color="var(--base)">
       <div class="absolute inset-0"
-      style="
+        style="
       box-shadow: inset 0 -10rem 5rem -5rem var(--primary);
       "></div>
     </my-aquarium>
@@ -187,10 +186,10 @@
                  "
       color="var(--primary)">
       <div class="absolute inset-0"
-      style="
+        style="
       box-shadow: inset 0 -10rem 5rem -5rem var(--base);
       "></div>
-      </my-aquarium>
+    </my-aquarium>
   </portfolio-section>
 
   <portfolio-section fullHeight class="secondary" id="portfolio">
@@ -256,18 +255,29 @@
     </div>
   </portfolio-section>
 
-  <my-wave color="var(--primary)" class="secondary"></my-wave>
+  <div class="relative h-40 primary">
+    <my-wave color="var(--secondary)" class="transform -scale-y-[1] z-2"></my-wave>
+  </div>
 
-  <portfolio-section fullHeight class="primary" id="contact">
-    <h2 class="text-4xl">Contact</h2>
-    <p class="text-xl max-w-lg text-center mx-8">
-      If you want to contact me, you can send me an email at
-      <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or send me a
-      message on Discord at <code>selfmadesystem</code>.
-    </p>
+  <portfolio-section class="primary" id="contact">
+    <div class="z-2 my-24 primary-card flex flex-col items-center p-8 rounded-8">
+      <h2 class="text-4xl">Contact</h2>
+      <p class="text-xl max-w-lg text-center mx-8">
+        If you want to contact me, you can send me an email at
+        <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or send me a
+        message on Discord at <code>selfmadesystem</code>.
+      </p>
+    </div>
+
+
+    <my-aquarium slot="background"
+      class="absolute -top-40 h-[calc(100%+20rem)] z-1"
+      color="var(--base)"></my-aquarium>
   </portfolio-section>
 
-  <my-wave color="var(--dark)" class="primary"></my-wave>
+  <div class="relative h-40 primary">
+    <my-wave color="var(--dark)" class="z-10"></my-wave>
+  </div>
 
   <portfolio-section id="footer">
     <div class="text-center">
