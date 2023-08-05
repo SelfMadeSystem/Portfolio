@@ -41,9 +41,16 @@
     </div>
   </portfolio-section>
 
-  <portfolio-section fullHeight class="primary" id="what-i-do">
-    <div class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16">
-      <div class="primary-card flex flex-col items-center p-8 rounded-8
+  <portfolio-section fullHeight class="primary"
+    id="what-i-do">
+    <div
+      class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500
+        primary-card flex flex-col items-center p-8 rounded-8
         ml-0
         ">
         <h2 class="text-4xl text-center">Web Development</h2>
@@ -53,7 +60,12 @@
           and Shopify, but I also like to use vanilla HTML, CSS and JavaScript.
         </p>
       </div>
-      <div class="primary-card flex flex-col items-center p-8 rounded-8">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500 lg:delay-100
+        primary-card flex flex-col items-center p-8 rounded-8">
         <h2 class="text-4xl text-center">Backend Development</h2>
         <p class="text-xl max-w-sm text-center">
           I create fast and reliable backend applications. I use modern
@@ -62,7 +74,12 @@
           C or COBOL.
         </p>
       </div>
-      <div class="primary-card flex flex-col items-center p-8 rounded-8">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500 lg:delay-200
+        primary-card flex flex-col items-center p-8 rounded-8">
         <h2 class="text-4xl text-center">Game Development</h2>
         <p class="text-xl max-w-sm text-center">
           I like to mess around in game engines to challenge my creativity and
@@ -77,8 +94,13 @@
 
   <portfolio-section fullHeight id="what-i-use">
     <div
-         class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24">
-      <div class="mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 w-72">
+      class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500 lg:delay-200
+        mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 w-72">
         <h2 class="text-4xl">Tools I use</h2>
         <ul class="text-xl max-w-lg">
           <li>Git</li>
@@ -127,7 +149,12 @@
           </div>
         </div>
       </div>
-      <div class="mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8 w-72">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500
+        mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8 w-72">
         <h2 class="text-4xl">Frameworks</h2>
         <ul class="text-xl max-w-lg">
           <li>Node.JS</li>
@@ -166,8 +193,14 @@
       </div>
       <my-wave color="var(--secondary)" amount="2" opacity="0.5" class="relative z-4"></my-wave>
     </div>
-    <div class="flex flex-wrap flex-row justify-center items-stretch gap-16 mb-24">
-      <div class="secondary-card flex flex-col items-center p-8 rounded-8">
+    <div
+      class="flex flex-wrap flex-row justify-center items-stretch gap-16 mb-24">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500 lg:delay-100
+        secondary-card flex flex-col items-center p-8 rounded-8">
         <h3 class="text-3xl">Shoghi Simon's Portfolio</h3>
         <p class="text-xl max-w-lg text-center">
           This is my portfolio website. It is built with Vite, Lit, UnoCSS and
@@ -175,7 +208,12 @@
         </p>
         <a class="button" href="https://shoghisimon.cc" target="_blank">Visit</a>
       </div>
-      <div class="secondary-card flex flex-col items-center p-8 rounded-8">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500
+        secondary-card flex flex-col items-center p-8 rounded-8">
         <h3 class="text-3xl">Mead Simon Chain Mail Designs</h3>
         <p class="text-xl max-w-lg text-center">
           Mead Simon Chain Mail Designs is a website for high-end chain mail
@@ -183,7 +221,12 @@
         </p>
         <a class="button" href="https://meadsimon.ca" target="_blank">Visit</a>
       </div>
-      <div class="secondary-card flex flex-col items-center p-8 rounded-8">
+      <div
+        class="scroll-fade
+        opacity-0 scroll-visible:opacity-100
+        transform translate-y-16 scroll-visible:translate-y-0
+        transition-all duration-500 lg:delay-200
+        secondary-card flex flex-col items-center p-8 rounded-8">
         <h3 class="text-3xl">Abacus Cleaning Services Inc.</h3>
         <p class="text-xl max-w-lg text-center">
           Abacus Cleaning Services Inc. is a website for a cleaning company.
@@ -203,7 +246,7 @@
 
   <portfolio-section fullHeight class="primary" id="contact">
     <h2 class="text-4xl">Contact</h2>
-    <p class="text-xl max-w-lg text-center">
+    <p class="text-xl max-w-lg text-center mx-8">
       If you want to contact me, you can send me an email at
       <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or send me a
       message on Discord at <code>selfmadesystem</code>.
