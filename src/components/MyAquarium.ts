@@ -399,6 +399,9 @@ export class MyAquarium extends LitElement {
     @property({ type: String })
     color: string = "blue";
 
+    // @property({ type: String })
+    // bgColor: string = "white";
+
     animationFrame: number = 0;
 
     connectedCallback() {
@@ -434,12 +437,12 @@ export class MyAquarium extends LitElement {
 
         const fishies: UpdateAndRender[] = [];
 
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 20; i++) {
             fishies.push(new BasicFish(this.color, [width, height]));
         }
 
         for (let i = 0; i < 5; i++) {
-            fishies.push(new School(20, this.color, [width, height]));
+            fishies.push(new School(15, this.color, [width, height]));
         }
 
         const pointerStates: Map<number, PointerState> = new Map();
@@ -473,13 +476,13 @@ export class MyAquarium extends LitElement {
                 // TODO: Ripple effect ???
             }
 
-            // For now, just have a white gradient at the bottom of the screen
+            // For now, just have a gradient at the bottom of the screen
             // so that the fish don't just disappear.
-            const gradient = ctx.createLinearGradient(0, height - 100, 0, height);
-            gradient.addColorStop(0, "#fff0");
-            gradient.addColorStop(1, "#fff");
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, height - 100, width, 100);
+            // const gradient = ctx.createLinearGradient(0, height - 100, 0, height);
+            // gradient.addColorStop(0, "#fff0");
+            // gradient.addColorStop(1, getColor(this.bgColor, canvas));
+            // ctx.fillStyle = gradient;
+            // ctx.fillRect(0, height - 100, width, 100);
 
             this.animationFrame = requestAnimationFrame(redraw);
         };
@@ -515,7 +518,8 @@ export class MyAquarium extends LitElement {
     render() {
         return html`
             <canvas></canvas>
-        `;
+            <slot></slot>
+        `; // slot only for shadow
     }
 
     static styles = css`

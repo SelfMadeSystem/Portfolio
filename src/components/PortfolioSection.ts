@@ -56,7 +56,6 @@ export class PortfolioSection extends LitElement {
             display: block;
             position: absolute;
             inset: 0;
-            z-index: -1;
         }
         
         :host([center]) section {

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <portfolio-section fullHeight id="start" class="bg-[var(--primary)] isolate">
+  <portfolio-section fullHeight id="start" class="bg-[var(--primary)]">
     <div class="flex flex-col items-center
     backdrop-filter backdrop-blur-2xl
     rounded-8 p-8 mt-8 z-4 overflow-hidden
@@ -29,16 +29,15 @@
       </p>
     </div>
 
-    <div slot="background" class="absolute inset-0">
-      <my-wave class="transform -scale-y-[1]"
-        speed="[0.01, 0.03]"
-        waveWidth="[2, 4]"
-        waveHeight="1"
-        amount="3"
-        opacity="0.6"
-        waveWidthInRelationToHeight="false"
-        color="var(--base)"></my-wave>
-    </div>
+    <my-wave slot="background" class="absolute inset-0 transform -scale-y-[1] z-1"
+      speed="[0.01, 0.03]"
+      waveWidth="[2, 4]"
+      waveHeight="1"
+      amount="3"
+      opacity="0.6"
+      waveWidthInRelationToHeight="false"
+      color="var(--base)"
+      ></my-wave>
   </portfolio-section>
 
   <portfolio-section fullHeight class="primary"
@@ -88,6 +87,16 @@
         </p>
       </div>
     </div>
+
+    <my-aquarium slot="background"
+      class="absolute inset-0
+            -top-[100vh] h-[200vh]"
+      color="var(--base)">
+      <div class="absolute inset-0"
+      style="
+      box-shadow: inset 0 -10rem 5rem -5rem var(--primary);
+      "></div>
+    </my-aquarium>
   </portfolio-section>
 
   <my-wave color="var(--primary)" class="relative transform -scale-y-[1] z-4"></my-wave>
@@ -176,7 +185,12 @@
       class="absolute inset-0
                  -top-40 h-[calc(100%+10rem)]
                  "
-      color="var(--primary)"></my-aquarium>
+      color="var(--primary)">
+      <div class="absolute inset-0"
+      style="
+      box-shadow: inset 0 -10rem 5rem -5rem var(--base);
+      "></div>
+      </my-aquarium>
   </portfolio-section>
 
   <portfolio-section fullHeight class="secondary" id="portfolio">
