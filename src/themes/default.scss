@@ -124,13 +124,41 @@
 }
 
 .base-card {
-    background-color: var(--base-830);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+
+    &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        inset: 0;
+        background-color: var(--base-780);
+        opacity: 0.5;
+    }
 }
 
 .primary-card {
-    background-color: var(--primary-400);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+
+    &::before {
+        content: '';
+        z-index: -1;
+        position: absolute;
+        inset: 0;
+        background-color: var(--primary-100);
+        opacity: 0.5;
+    }
 }
 
 .secondary-card {
     background-color: var(--secondary-500);
+}
+
+.pointer-ripple {
+    backdrop-filter: invert(1);
 }

@@ -1,4 +1,4 @@
-import { loop, randomRange } from "../utils/MathUtils.js";
+import { wrapNumber, randomRange } from "../utils/MathUtils.js";
 import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
@@ -35,6 +35,8 @@ export class MyWave extends LitElement {
     @property({ type: Number })
     pointiness: number = 0.3;
 
+    canvas: HTMLCanvasElement | null = null;
+
     animationFrame: number = 0;
 
     connectedCallback() {
@@ -52,9 +54,9 @@ export class MyWave extends LitElement {
             console.error("Shadow root is null");
             return;
         }
-        let _redraw = () => {};
+        let _redraw = () => { };
 
-        const canvas = this.shadowRoot.querySelector("canvas")!;
+        const canvas = this.canvas = this.shadowRoot.querySelector("canvas")!;
         const ctx = canvas.getContext("2d")!;
 
         let width = (canvas.width = canvas.clientWidth);
@@ -86,13 +88,14 @@ export class MyWave extends LitElement {
             });
 
         function isOnScreen() {
-            const rect = canvas.getBoundingClientRect();
-            return (
-                rect.top < window.innerHeight &&
-                rect.bottom > 0 &&
-                rect.left < window.innerWidth &&
-                rect.right > 0
-            );
+            return true;
+            // const rect = canvas.getBoundingClientRect();
+            // return (
+            //     rect.top < window.innerHeight &&
+            //     rect.bottom > 0 &&
+            //     rect.left < window.innerWidth &&
+            //     rect.right > 0
+            // );
         }
 
         const wh = randomRange(this.waveHeight);
@@ -138,7 +141,7 @@ export class MyWave extends LitElement {
                 const path = new Path2D();
                 const heightOffset = wave.height * (height - h);
                 let o =
-                    loop(0, w * 2, (date / 1000) * wave.speed * w) -
+                    wrapNumber((date / 1000) * wave.speed * w, 0, w * 2) -
                     w * 2 -
                     w * wave.offset;
 
@@ -179,7 +182,7 @@ export class MyWave extends LitElement {
             ctx.fillRect(0, 0, width, height);
 
             ctx.restore();
-        }
+        };
     }
 
     render() {

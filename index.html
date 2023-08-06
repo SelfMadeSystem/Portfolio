@@ -11,25 +11,30 @@
 </head>
 
 <body>
-  <portfolio-section fullHeight id="start" class="bg-[var(--primary)] isolate">
+  <!-- <pointer-ripple></pointer-ripple> -->
+
+  <portfolio-section fullHeight id="start" class="bg-[var(--primary)]">
     <div class="flex flex-col items-center
-    backdrop-filter backdrop-blur-2xl
-    rounded-8 p-8 mt-8 z-4 overflow-hidden
-    before:content-empty before:absolute before:inset-0 before:bg-[var(--primary)] before:opacity-10
+    backdrop-filter backdrop-blur-md
+    rounded-8 p-8 mt-8 z-6 overflow-hidden
+    before:content-empty before:absolute before:inset-0 before:bg-[var(--base)] before:opacity-30
     ">
-      <h1 class="text-6xl text-center">
-        <span>Hi, I'm</span>
-        <span>Shoghi Simon</span>
-        <span id="hand-wave">👋</span>
-      </h1>
-      <p class="text-xl max-w-lg text-center">
-        I'm a full-stack developer. I love to create fast and reliable software
-        to
-        help others accomplish their goals.
-      </p>
+      <div class="z-1">
+        <h1 class="text-6xl text-center">
+          <span>Hi, I'm</span>
+          <span>Shoghi Simon</span>
+          <span id="hand-wave">👋</span>
+        </h1>
+        <p class="text-xl max-w-lg text-center">
+          I'm a full-stack developer. I love to create fast and reliable software
+          to
+          help others accomplish their goals.
+        </p>
+      </div>
     </div>
-    <my-wave slot="background"
-      class="transform -scale-y-[1]"
+
+    <my-wave slot="background" id="wave1"
+      class="absolute inset-0 transform -scale-y-[1] z-1"
       speed="[0.01, 0.03]"
       waveWidth="[2, 4]"
       waveHeight="1"
@@ -42,7 +47,7 @@
   <portfolio-section fullHeight class="primary"
     id="what-i-do">
     <div
-      class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16">
+      class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
       <div
         class="scroll-fade
         opacity-0 scroll-visible:opacity-100
@@ -86,21 +91,27 @@
         </p>
       </div>
     </div>
+
+    <my-aquarium slot="background"
+      maskid="wave2"
+      flipmasky
+      class="absolute inset-0
+            -top-[100vh] h-[calc(100%+100vh+10rem)] z-5"
+      color="var(--base)">
+    </my-aquarium>
   </portfolio-section>
 
-  <my-wave
-    color="var(--primary)"
-    class="relative transform -scale-y-[1] z-4"></my-wave>
+  <my-wave id="wave2" color="var(--primary)" class="relative transform -scale-y-[1] z-4"></my-wave>
 
-  <portfolio-section fullHeight id="what-i-use">
+  <portfolio-section fullHeight id="what-i-use" class="z-2">
     <div
-      class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24">
+      class="flex flex-row flex-wrap justify-evenly items-start w-full gap-x-24 md:gap-x-0 gap-y-24 px-24 md:px-0 mb-24 z-2">
       <div
         class="scroll-fade
         opacity-0 scroll-visible:opacity-100
         transform translate-y-16 scroll-visible:translate-y-0
         transition-all duration-500 lg:delay-200
-        mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 w-72">
+        mt-0 xl:mt-24 order-last md:order-none base-card flex flex-col items-center p-8 rounded-8 min-w-72">
         <h2 class="text-4xl">Tools I use</h2>
         <ul class="text-xl max-w-lg">
           <li>Git</li>
@@ -109,12 +120,11 @@
           <li><abbr title="I use Arch btw 😎">Linux</abbr></li>
         </ul>
       </div>
-      <div
-        class="md:mx-32 lg:mx-64 xl:mx-0 lg:max-w-none flex-basis-full xl:flex-basis-[unset]
+      <div class="md:mx-32 lg:mx-64 xl:mx-0 lg:max-w-none flex-basis-full xl:flex-basis-[unset]
         order-first xl:order-none w-fit
         base-card p-8 rounded-b-8
         flex flex-col items-center
-        relative -top-40 pt-40 -mb-40 z-2 min-w-72">
+        relative -top-40 pt-40 -mb-40 min-w-72">
         <h2 class="text-4xl">Languages</h2>
 
         <div class="flex flex-col sm:flex-row items-start gap-6">
@@ -155,7 +165,7 @@
         opacity-0 scroll-visible:opacity-100
         transform translate-y-16 scroll-visible:translate-y-0
         transition-all duration-500
-        mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8 w-72">
+        mt-0 xl:mt-24 base-card flex flex-col items-center p-8 rounded-8  min-w-72">
         <h2 class="text-4xl">Frameworks</h2>
         <ul class="text-xl max-w-lg">
           <li>Node.JS</li>
@@ -172,14 +182,23 @@
         </ul>
       </div>
     </div>
+
+    <my-aquarium slot="background"
+      maskid="wave3"
+      flipmasky
+      class="absolute inset-0
+                 -top-40 h-[calc(100%+20rem)] z-1"
+      color="var(--primary)">
+      <!-- <div class="absolute inset-0"
+        style="
+      box-shadow: inset 0 -10rem 5rem -5rem var(--base);
+      "></div> -->
+    </my-aquarium>
   </portfolio-section>
 
-  <portfolio-section fullHeight class="secondary"
-    id="portfolio">
-    <my-wave color="var(--base)"
-      class="relative transform -scale-y-[1] z-4"></my-wave>
-    <div
-      class="secondary-card relative flex flex-col items-center rounded-b-40
+  <portfolio-section fullHeight class="secondary" id="portfolio">
+    <my-wave id="wave3" color="var(--base)" class="relative transform -scale-y-[1] z-1"></my-wave>
+    <div class="secondary-card relative flex flex-col items-center rounded-b-40
       mx-8
       -mb-24 -top-40 pt-40">
       <div class="px-4">
@@ -189,11 +208,7 @@
           <a href="https://github.com/SelfMadeSystem" target="_blank">GitHub</a>.
         </p>
       </div>
-      <my-wave
-        color="var(--secondary)"
-        amount="2"
-        opacity="0.5"
-        class="relative z-4"></my-wave>
+      <my-wave color="var(--secondary)" amount="2" opacity="0.5" class="relative z-1"></my-wave>
     </div>
     <div
       class="flex flex-wrap flex-row justify-center items-stretch gap-16 mb-24">
@@ -208,8 +223,7 @@
           This is my portfolio website. It is built with Vite, Lit, UnoCSS and
           Bun. I hope you like it!
         </p>
-        <a class="button" href="https://shoghisimon.cc"
-          target="_blank">Visit</a>
+        <a class="button" href="https://shoghisimon.cc" target="_blank">Visit</a>
       </div>
       <div
         class="scroll-fade
@@ -222,8 +236,7 @@
           Mead Simon Chain Mail Designs is a website for high-end chain mail
           fashion. It is built with HTML, TypeScript, JQuery, SCSS and PHP.
         </p>
-        <a class="button" href="https://meadsimon.ca"
-          target="_blank">Visit</a>
+        <a class="button" href="https://meadsimon.ca" target="_blank">Visit</a>
       </div>
       <div
         class="scroll-fade
@@ -235,35 +248,44 @@
         <p class="text-xl max-w-lg text-center">
           Abacus Cleaning Services Inc. is a website for a cleaning company.
           It is built with HTML, JavaScript and CSS.
-          <br/>
+          <br />
           Still being built.
         </p>
         <!-- Go to dev website for now kuz real website doesn't exist -->
         <!-- <a class="button" href="https://abacuscleaninginc.com"
           target="_blank">Visit</a> -->
-          <a class="button" href="https://abacus-cal.pages.dev"
-          target="_blank">Visit</a>
+        <a class="button" href="https://abacus-cal.pages.dev" target="_blank">Visit</a>
       </div>
     </div>
   </portfolio-section>
 
-  <my-wave color="var(--primary)" class="secondary"></my-wave>
+  <div class="relative h-40 primary">
+    <my-wave color="var(--secondary)" class="transform -scale-y-[1] z-2"></my-wave>
+  </div>
 
-  <portfolio-section fullHeight class="primary" id="contact">
-    <h2 class="text-4xl">Contact</h2>
-    <p class="text-xl max-w-lg text-center mx-8">
-      If you want to contact me, you can send me an email at
-      <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or send me a
-      message on Discord at <code>selfmadesystem</code>.
-    </p>
+  <portfolio-section class="primary" id="contact">
+    <div class="z-2 my-24 primary-card flex flex-col items-center p-8 rounded-8">
+      <h2 class="text-4xl">Contact</h2>
+      <p class="text-xl max-w-lg text-center mx-8">
+        If you want to contact me, you can send me an email at
+        <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or send me a
+        message on Discord at <code>selfmadesystem</code>.
+      </p>
+    </div>
+
+
+    <my-aquarium slot="background"
+      class="absolute -top-40 h-[calc(100%+20rem)] z-1"
+      color="var(--base)"></my-aquarium>
   </portfolio-section>
 
-  <my-wave color="var(--dark)" class="primary"></my-wave>
+  <div class="relative h-40 primary">
+    <my-wave color="var(--dark)" class="z-10"></my-wave>
+  </div>
 
   <portfolio-section id="footer">
     <div class="text-center">
-      Made by <a href="https://github.com/SelfMadeSystem/"
-      target="_blank">Shoghi Simon</a> with
+      Made by <a href="https://github.com/SelfMadeSystem/" target="_blank">Shoghi Simon</a> with
       <a href="https://vitejs.dev/" target="_blank">Vite</a>,
       <a href="https://lit.dev/" target="_blank">Lit</a>,
       <a href="https://unocss.dev/" target="_blank">UnoCSS</a>,
@@ -272,8 +294,7 @@
       and ❤️
     </div>
     <div class="text-center mt-8">
-      <a href="https://github.com/SelfMadeSystem/Portfolio"
-        target="_blank">Source code</a>
+      <a href="https://github.com/SelfMadeSystem/Portfolio" target="_blank">Source code</a>
     </div>
   </portfolio-section>
 </body>
