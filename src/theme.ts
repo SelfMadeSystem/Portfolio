@@ -4,7 +4,7 @@ export type Theme = {
 }
 
 // Frontend name -> Backend name (css class applied to body)
-export const THEMES = {
+export const THEMES = { // TODO: System theme
     "light": {
         frontName: "Light",
         isNeon: false,

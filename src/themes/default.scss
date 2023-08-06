@@ -185,6 +185,7 @@
     }
 
     .pointer-ripple {
+        backdrop-filter: invert(1);
         position: absolute;
         pointer-events: none;
         z-index: 999999;
@@ -283,9 +284,5 @@
             border-bottom-left-radius: 10rem;
             border-bottom-right-radius: 10rem;
         }
-    }
-
-    .pointer-ripple {
-        backdrop-filter: invert(1);
     }
 }

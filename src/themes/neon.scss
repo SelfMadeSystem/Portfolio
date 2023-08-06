@@ -93,23 +93,26 @@
         background-color: var(--secondary-dark);
     }
 
-    // .pointer-ripple { // TODO: ???
-    //     position: absolute;
-    //     pointer-events: none;
-    //     z-index: 999999;
-    //     width: 0px;
-    //     height: 0px;
-    //     transform: translate(-50%, -50%);
-    //     transition: all ease 1s;
-    //     opacity: 1;
-    //     border-radius: 50%;
-    // }
+    .pointer-ripple {
+        // TODO: ???.pointer-ripple
+        border: 16px solid var(--base-contrast);
+        position: absolute;
+        pointer-events: none;
+        z-index: 999999;
+        width: 0px;
+        height: 0px;
+        transform: translate(-50%, -50%);
+        transition: all ease 1s, opacity ease 0.3s 0.7s;
+        opacity: 1;
+        border-radius: 50%;
+    }
 
-    // .pointer-ripple-in {
-    //     width: 300px;
-    //     height: 300px;
-    //     // opacity: 0;
-    // }
+    .pointer-ripple-in {
+        width: 300px;
+        height: 300px;
+        border-width: 0;
+        opacity: 0;
+    }
 
     #header-card {
         position: relative;
@@ -207,9 +210,5 @@
                 width: calc(100% + 8px);
             }
         }
-    }
-
-    .pointer-ripple {
-        backdrop-filter: invert(1);
     }
 }
