@@ -2,6 +2,7 @@ import { wrapNumber, randomRange } from "../utils/MathUtils.js";
 import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
+import { isNeon } from "../theme.js";
 
 /**
  * A wave effect.
@@ -34,6 +35,9 @@ export class MyWave extends LitElement {
 
     @property({ type: Number })
     pointiness: number = 0.3;
+
+    @property({ type: Boolean })
+    neonEmpty: boolean = false;
 
     canvas: HTMLCanvasElement | null = null;
 
@@ -122,16 +126,20 @@ export class MyWave extends LitElement {
         _redraw = () => {
             const date = Date.now();
 
+            const neon = isNeon();
+
             ctx.clearRect(0, 0, width, height);
 
             ctx.save();
 
             const paths = [];
 
-            ctx.fillStyle = getColor(fillStyle, this);
-            ctx.globalAlpha = this.opacity;
+            if (!neon) {
+                ctx.fillStyle = getColor(fillStyle, this);
+                ctx.globalAlpha = this.opacity;
+            }
 
-            for (const wave of waves) {
+            for (const wave of waves) { // FIXME: With neon, one pixel on the top and the bottom is clipped.
                 const { width: ww } = wave;
                 const w = (this.waveWidthInRelationToHeight ? height : width) * ww;
                 const w1 = w * this.pointiness;
@@ -171,7 +179,9 @@ export class MyWave extends LitElement {
 
                 path.lineTo(o, height);
 
-                ctx.fill(path);
+                if (!neon) {
+                    ctx.fill(path);
+                }
 
                 paths.push(path);
             }
@@ -180,8 +190,20 @@ export class MyWave extends LitElement {
 
             ctx.globalAlpha = 1;
             ctx.fillRect(0, 0, width, height);
-
             ctx.restore();
+
+            if (neon) {
+                ctx.fillStyle = "#212121"; // TODO: Make this customizable.
+                ctx.strokeStyle = getColor(fillStyle, this);
+                ctx.lineWidth = 2;
+
+                paths.forEach((p) => {
+                    if (!this.neonEmpty) {
+                        ctx.fill(p);
+                    }
+                    ctx.stroke(p);
+                });
+            }
         };
     }
 

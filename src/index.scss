@@ -11,19 +11,6 @@ body {
   overflow-x: hidden;
 }
 
-a {
-  color: var(--primary);
-  text-decoration: underline;
-}
-
-a:hover {
-  color: var(--primary-light);
-}
-
-a:active {
-  color: var(--primary-dark);
-}
-
 h1,
 h2,
 h3 {
@@ -49,92 +36,5 @@ h3 {
   }
 }
 
-#footer {
-  padding: 3em 0;
-  background-color: var(--dark);
-  color: var(--dark-text);
-}
-
-#footer p {
-  margin: 0.5em;
-}
-
-.primary {
-  background-color: var(--primary);
-  color: var(--primary-text);
-}
-
-.primary a {
-  color: var(--primary-text); // links would be invisible otherwise
-}
-
-.secondary {
-  background-color: var(--secondary);
-  color: var(--secondary-text);
-}
-
-.primary-light {
-  background-color: var(--primary-light);
-  color: var(--primary-text);
-}
-
-.secondary-light {
-  background-color: var(--secondary-light);
-  color: var(--secondary-text);
-}
-
-a.button {
-  display: inline-block;
-  padding: 0.5em 1em;
-  border-radius: 0.25em;
-  background-color: var(--primary);
-  color: var(--primary-text);
-  text-decoration: none;
-  font-weight: bold;
-  text-align: center;
-  transition: background-color 0.2s ease-in-out;
-}
-
-a.button:hover {
-  background-color: var(--primary-light);
-}
-
-a.button:active {
-  background-color: var(--primary-dark);
-}
-
-.secondary a.button,
-a.button.secondary {
-  background-color: var(--secondary);
-  color: var(--secondary-text);
-}
-
-.secondary a.button:hover,
-a.button.secondary:hover {
-  background-color: var(--secondary-light);
-}
-
-.secondary a.button:active,
-a.button.secondary:active {
-  background-color: var(--secondary-dark);
-}
-
-.pointer-ripple {
-  position: absolute;
-  pointer-events: none;
-  z-index: 999999;
-  width: 0px;
-  height: 0px;
-  transform: translate(-50%, -50%);
-  transition: all ease 1s;
-  opacity: 1;
-  border-radius: 50%;
-}
-
-.pointer-ripple-in {
-  width: 300px;
-  height: 300px;
-  // opacity: 0;
-}
-
 @import 'themes/default.scss';
+@import 'themes/neon.scss';

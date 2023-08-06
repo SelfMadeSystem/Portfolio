@@ -10,7 +10,8 @@
   <script type="module" src="/src/main.ts"></script>
 </head>
 
-<body class="neon">
+<body class="light">
+  <theme-switcher></theme-switcher>
   <!-- <pointer-ripple></pointer-ripple> -->
 
   <portfolio-section fullHeight id="start">
@@ -40,7 +41,7 @@
       amount="3"
       opacity="0.6"
       waveWidthInRelationToHeight="false"
-      color="var(--base)"></my-wave>
+      color="var(--base-wave)"></my-wave>
   </portfolio-section>
 
   <portfolio-section fullHeight class="primary"
@@ -96,11 +97,11 @@
       flipmasky
       class="absolute inset-0
             -top-[100vh] h-[calc(100%+100vh+10rem)] z-5"
-      color="var(--base)">
+      color="var(--base-wave)">
     </my-aquarium>
   </portfolio-section>
 
-  <my-wave id="wave2" color="var(--primary)" class="relative transform -scale-y-[1] z-4"></my-wave>
+  <my-wave id="wave2" color="var(--primary-wave)" class="relative transform -scale-y-[1] z-4"></my-wave>
 
   <portfolio-section fullHeight id="what-i-use" class="z-2">
     <div
@@ -187,7 +188,7 @@
       flipmasky
       class="absolute inset-0
                  -top-40 h-[calc(100%+20rem)] z-1"
-      color="var(--primary)">
+      color="var(--primary-wave)">
       <!-- <div class="absolute inset-0"
         style="
       box-shadow: inset 0 -10rem 5rem -5rem var(--base);
@@ -196,8 +197,8 @@
   </portfolio-section>
 
   <portfolio-section fullHeight class="secondary" id="portfolio">
-    <my-wave id="wave3" color="var(--base)" class="relative transform -scale-y-[1] z-1"></my-wave>
-    <div class="secondary-card relative flex flex-col items-center rounded-b-40
+    <my-wave id="wave3" color="var(--base-wave)" class="relative transform -scale-y-[1] z-1"></my-wave>
+    <div class="secondary-card title relative flex flex-col items-center
       mx-8
       -mb-24 -top-40 pt-40">
       <div class="px-4">
@@ -207,7 +208,7 @@
           <a href="https://github.com/SelfMadeSystem" target="_blank">GitHub</a>.
         </p>
       </div>
-      <my-wave color="var(--secondary)" amount="2" opacity="0.5" class="relative z-1"></my-wave>
+      <my-wave color="var(--secondary-wave)" neonempty amount="2" opacity="0.5" class="relative z-1"></my-wave>
     </div>
     <div
       class="flex flex-wrap flex-row justify-center items-stretch gap-16 mb-24">
@@ -259,7 +260,7 @@
   </portfolio-section>
 
   <div class="relative h-40 primary">
-    <my-wave color="var(--secondary)" class="transform -scale-y-[1] z-2"></my-wave>
+    <my-wave color="var(--secondary-wave)" class="transform -scale-y-[1] z-2"></my-wave>
   </div>
 
   <portfolio-section class="primary" id="contact">
@@ -275,11 +276,11 @@
 
     <my-aquarium slot="background"
       class="absolute -top-40 h-[calc(100%+20rem)] z-1"
-      color="var(--base)"></my-aquarium>
+      color="var(--base-wave)"></my-aquarium>
   </portfolio-section>
 
   <div class="relative h-40 primary">
-    <my-wave color="var(--dark)" class="z-10"></my-wave>
+    <my-wave color="var(--dark-wave)" class="z-10"></my-wave>
   </div>
 
   <portfolio-section id="footer">

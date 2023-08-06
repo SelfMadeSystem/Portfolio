@@ -24,9 +24,11 @@
             --#{$name}-#{$i}#{$j}0: #{mix($start, $end, 100% - ($i * 10% + $j * 1%))};
         }
     }
+
+    // TODO: Wayyyyyy too many colors. Reduce this when we figure out what we actually need.
 }
 
-:root {
+.light {
     --sans-serif: 'Roboto', sans-serif;
     --serif: 'Roboto Slab', serif;
 
@@ -121,58 +123,169 @@
         #ffffff,
         #dddddd,
     );
-}
 
-#start {
-    background: var(--primary);
-}
+    --base-wave: var(--base);
+    --primary-wave: var(--primary);
+    --secondary-wave: var(--secondary);
+    --dark-wave: var(--dark);
 
-#header-card {
-    &::before{
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--base);
-        opacity: 0.3
+    a {
+        color: var(--primary);
+        text-decoration: underline;
     }
-}
 
-.base-card {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    backdrop-filter: blur(8px);
-
-    &::before {
-        content: '';
-        z-index: -1;
-        position: absolute;
-        inset: 0;
-        background-color: var(--base-780);
-        opacity: 0.5;
+    a:hover {
+        color: var(--primary-light);
     }
-}
 
-.primary-card {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    backdrop-filter: blur(8px);
-
-    &::before {
-        content: '';
-        z-index: -1;
-        position: absolute;
-        inset: 0;
-        background-color: var(--primary-100);
-        opacity: 0.5;
+    a:active {
+        color: var(--primary-dark);
     }
-}
 
-.secondary-card {
-    background-color: var(--secondary-500);
-}
+    #footer {
+        padding: 3em 0;
+        background-color: var(--dark);
+        color: var(--dark-text);
+    }
 
-.pointer-ripple {
-    backdrop-filter: invert(1);
+    a.button {
+        display: inline-block;
+        padding: 0.5em 1em;
+        border-radius: 0.25em;
+        background-color: var(--primary);
+        color: var(--primary-text);
+        text-decoration: none;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    a.button:hover {
+        background-color: var(--primary-light);
+    }
+
+    a.button:active {
+        background-color: var(--primary-dark);
+    }
+
+    .secondary a.button,
+    a.button.secondary {
+        background-color: var(--secondary);
+        color: var(--secondary-text);
+    }
+
+    .secondary a.button:hover,
+    a.button.secondary:hover {
+        background-color: var(--secondary-light);
+    }
+
+    .secondary a.button:active,
+    a.button.secondary:active {
+        background-color: var(--secondary-dark);
+    }
+
+    .pointer-ripple {
+        position: absolute;
+        pointer-events: none;
+        z-index: 999999;
+        width: 0px;
+        height: 0px;
+        transform: translate(-50%, -50%);
+        transition: all ease 1s;
+        opacity: 1;
+        border-radius: 50%;
+    }
+
+    .pointer-ripple-in {
+        width: 300px;
+        height: 300px;
+        // opacity: 0;
+    }
+
+    #start {
+        background: var(--primary);
+    }
+
+    #header-card {
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--base);
+            opacity: 0.3
+        }
+    }
+
+    #footer p {
+        margin: 0.5em;
+    }
+
+    .primary {
+        background-color: var(--primary);
+        color: var(--primary-text);
+    }
+
+    .primary a {
+        color: var(--primary-text); // links would be invisible otherwise
+    }
+
+    .secondary {
+        background-color: var(--secondary);
+        color: var(--secondary-text);
+    }
+
+    .primary-light {
+        background-color: var(--primary-light);
+        color: var(--primary-text);
+    }
+
+    .secondary-light {
+        background-color: var(--secondary-light);
+        color: var(--secondary-text);
+    }
+
+    .base-card {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+
+        &::before {
+            content: '';
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background-color: var(--base-780);
+            opacity: 0.5;
+        }
+    }
+
+    .primary-card {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+
+        &::before {
+            content: '';
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background-color: var(--primary-100);
+            opacity: 0.5;
+        }
+    }
+
+    .secondary-card {
+        background-color: var(--secondary-500);
+
+        &.title {
+            border-bottom-left-radius: 10rem;
+            border-bottom-right-radius: 10rem;
+        }
+    }
+
+    .pointer-ripple {
+        backdrop-filter: invert(1);
+    }
 }

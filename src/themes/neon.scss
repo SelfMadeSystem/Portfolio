@@ -1,0 +1,215 @@
+@mixin create-theme($name,
+    $default,
+    $contrast,
+    $text,
+) {
+    --#{$name}: #{$default};
+    --#{$name}-contrast: #{$contrast};
+    --#{$name}-text: #{$text};
+}
+
+.dark {
+    --sans-serif: 'Roboto', sans-serif;
+    --serif: 'Roboto Slab', serif;
+
+    $black: #242424; // uncertain if I want black or dark gray
+
+    @include create-theme(base,
+        $black,
+        #ffffff,
+        #ffffff,
+    );
+
+    --base-click-ripple-opacity: 0.5;
+    --base-hover-ripple-opacity: 0.25;
+
+    @include create-theme(primary,
+        $black,
+        #525aff,
+        #ffffff,
+    );
+
+    @include create-theme(secondary,
+        $black,
+        #ff6161,
+        #ffffff,
+    );
+
+    @include create-theme(dark,
+        $black,
+        #ffffff,
+        #ffffff,
+    );
+
+    --base-wave: var(--base-contrast);
+    --primary-wave: var(--primary-contrast);
+    --secondary-wave: var(--secondary-contrast);
+    --dark-wave: var(--dark-contrast);
+
+    a {
+        color: var(--primary-contrast);
+        text-decoration: underline;
+    }
+
+    #footer {
+        padding: 3em 0;
+        background-color: var(--dark);
+        color: var(--dark-text);
+    }
+
+    a.button {
+        display: inline-block;
+        padding: 0.5em 1em;
+        border-radius: 0.25em;
+        background-color: var(--primary-contrast);
+        color: var(--primary-text);
+        text-decoration: none;
+        font-weight: bold;
+        text-align: center;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    a.button:hover {
+        background-color: var(--primary-light);
+    }
+
+    a.button:active {
+        background-color: var(--primary-dark);
+    }
+
+    .secondary a.button,
+    a.button.secondary {
+        background-color: var(--secondary);
+        color: var(--secondary-text);
+    }
+
+    .secondary a.button:hover,
+    a.button.secondary:hover {
+        background-color: var(--secondary-light);
+    }
+
+    .secondary a.button:active,
+    a.button.secondary:active {
+        background-color: var(--secondary-dark);
+    }
+
+    // .pointer-ripple { // TODO: ???
+    //     position: absolute;
+    //     pointer-events: none;
+    //     z-index: 999999;
+    //     width: 0px;
+    //     height: 0px;
+    //     transform: translate(-50%, -50%);
+    //     transition: all ease 1s;
+    //     opacity: 1;
+    //     border-radius: 50%;
+    // }
+
+    // .pointer-ripple-in {
+    //     width: 300px;
+    //     height: 300px;
+    //     // opacity: 0;
+    // }
+
+    #header-card {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+
+        border: 4px solid var(--base-contrast);
+
+        &::before {
+            content: '';
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background-color: var(--base);
+            opacity: 0.2;
+        }
+    }
+
+    #footer p {
+        margin: 0.5em;
+    }
+
+    .primary {
+        background-color: var(--primary);
+        color: var(--primary-text);
+    }
+
+    .primary a {
+        color: var(--primary-text); // links would be invisible otherwise
+    }
+
+    .secondary {
+        background-color: var(--secondary);
+        color: var(--secondary-text);
+    }
+
+    .primary-light {
+        background-color: var(--primary-light);
+        color: var(--primary-text);
+    }
+
+    .secondary-light {
+        background-color: var(--secondary-light);
+        color: var(--secondary-text);
+    }
+
+    .base-card {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+
+        border: 4px solid var(--base-contrast);
+
+        &::before {
+            content: '';
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background-color: var(--base);
+            opacity: 0.2;
+        }
+    }
+
+    .primary-card {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+
+        border: 4px solid var(--primary-contrast);
+
+        &::before {
+            content: '';
+            z-index: -1;
+            position: absolute;
+            inset: 0;
+            background-color: var(--primary);
+            opacity: 0.2;
+        }
+    }
+
+    .secondary-card {
+        background-color: var(--secondary);
+        border: 4px solid var(--secondary-contrast);
+
+        &.title {
+            border-bottom: 0;
+            border-top: 0;
+
+            my-wave {
+                position: relative;
+                left: -0px;
+                width: calc(100% + 8px);
+            }
+        }
+    }
+
+    .pointer-ripple {
+        backdrop-filter: invert(1);
+    }
+}
