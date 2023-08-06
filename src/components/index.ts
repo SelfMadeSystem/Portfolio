@@ -3,3 +3,4 @@ export * from './WaveEffect';
 export * from './PortfolioSection';
 export * from './SkillSlider';
 export * from './MyAquarium';
+export * from './PointerRipple';

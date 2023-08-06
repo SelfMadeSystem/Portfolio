@@ -139,7 +139,8 @@
     }
 }
 
-.primary-card {position: relative;
+.primary-card {
+    position: relative;
     isolation: isolate;
     overflow: hidden;
     backdrop-filter: blur(8px);
@@ -156,4 +157,8 @@
 
 .secondary-card {
     background-color: var(--secondary-500);
+}
+
+.pointer-ripple {
+    backdrop-filter: invert(1);
 }
