@@ -38,6 +38,18 @@ export function initTheme() {
     const theme = localStorage.getItem("theme");
     if (theme != null) {
         setTheme(theme as Themes);
+    } else {
+        // For now, set to dark
+        setTheme("dark");
+        return;
+
+        // Auto detect theme
+        const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        if (darkModeMediaQuery.matches) {
+            setTheme("dark");
+        } else {
+            setTheme("light");
+        }
     }
 }
 
