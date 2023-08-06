@@ -123,6 +123,20 @@
     );
 }
 
+#start {
+    background: var(--primary);
+}
+
+#header-card {
+    &::before{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--base);
+        opacity: 0.3
+    }
+}
+
 .base-card {
     position: relative;
     isolation: isolate;
