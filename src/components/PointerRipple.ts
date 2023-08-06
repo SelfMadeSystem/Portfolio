@@ -12,7 +12,10 @@ export class PointerRipple extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
-        window.addEventListener("pointerdown", this.doRipple); // TODO: DO NOT CONNECT IF THE USER SAYS THEY DON'T LIKE FLASHING LIGHTS
+        // only flashing lights when reduced motion is off
+        if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+            window.addEventListener("pointerdown", this.doRipple);
+        }
     }
 
     disconnectedCallback() {
@@ -21,10 +24,9 @@ export class PointerRipple extends LitElement {
     }
 
     doRipple = (e: PointerEvent) => {
-        console.log(e.pointerType);
-        if (e.pointerType == "mouse") {
-
+        if (e.pointerType === "mouse") {
             const ripples: HTMLDivElement[] = [];
+            
             const create = () => {
                 const ripple = document.createElement('div');
 
@@ -50,8 +52,6 @@ export class PointerRipple extends LitElement {
             for (let i = 1; i < amnt; i++) {
                 setTimeout(create, interval * i);
             }
-
-
 
             setTimeout(() => {
                 ripples.forEach(r => r.remove());
