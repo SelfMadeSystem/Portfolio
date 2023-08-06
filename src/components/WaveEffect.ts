@@ -193,7 +193,7 @@ export class MyWave extends LitElement {
             ctx.restore();
 
             if (neon) {
-                ctx.fillStyle = "#212121"; // TODO: Make this customizable.
+                ctx.fillStyle = "#242424"; // TODO: Make this customizable.
                 ctx.strokeStyle = getColor(fillStyle, this);
                 ctx.lineWidth = 2;
 
