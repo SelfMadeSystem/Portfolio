@@ -1,5 +1,5 @@
-import { CSSResultGroup, LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 /**
  * Adds ripples every time a cursor pointer clicks.
