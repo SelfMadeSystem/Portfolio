@@ -59,8 +59,11 @@ abstract class BaseFish implements UpdateAndRender {
         ctx.translate(-12, -12);
 
         if (neon) {
+            ctx.fillStyle = "#242424"; // TODO: Make this customizable.
             ctx.strokeStyle = getColor(color, element);
             ctx.lineWidth = 3 / size;
+
+            ctx.fill(FISH_SVG_PATH);
             ctx.stroke(FISH_SVG_PATH);
         } else {
             ctx.fillStyle = getColor(color, element);
@@ -498,12 +501,12 @@ export class MyAquarium extends LitElement {
 
         const fishies: UpdateAndRender[] = [];
 
-        for (let i = 0; i < 20; i++) {
-            fishies.push(new BasicFish(this.color, [width, height]));
-        }
-
         for (let i = 0; i < 5; i++) {
             fishies.push(new School(15, this.color, [width, height]));
+        }
+
+        for (let i = 0; i < 20; i++) {
+            fishies.push(new BasicFish(this.color, [width, height]));
         }
 
         const pointerStates: Map<number, PointerState> = new Map();

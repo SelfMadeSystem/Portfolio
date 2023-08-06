@@ -34,6 +34,8 @@
     </div>
 
     <my-wave slot="background" id="wave1"
+      neonempty
+      neonclipped
       class="absolute inset-0 transform -scale-y-[1] z-6"
       speed="[0.01, 0.03]"
       waveWidth="[2, 4]"
@@ -263,7 +265,7 @@
     <my-wave color="var(--secondary-wave)" class="transform -scale-y-[1] z-2"></my-wave>
   </div>
 
-  <portfolio-section class="primary" id="contact">
+  <portfolio-section class="primary z-1" id="contact">
     <div class="z-2 my-24 primary-card flex flex-col items-center p-8 rounded-8">
       <h2 class="text-4xl">Contact</h2>
       <p class="text-xl max-w-lg text-center mx-8">
@@ -275,12 +277,17 @@
 
 
     <my-aquarium slot="background"
+      maskid="lastwave"
+      maskInverse
       class="absolute -top-40 h-[calc(100%+20rem)] z-1"
       color="var(--base-wave)"></my-aquarium>
   </portfolio-section>
 
-  <div class="relative h-40 primary">
-    <my-wave color="var(--dark-wave)" class="z-10"></my-wave>
+  <div class="relative h-40 primary -z-1">
+    <my-wave id="lastwave" color="var(--dark-wave)" class="-z-1" ></my-wave>
+    <!-- neonempty neonclipped
+      TODO: The fish appear to be underneath this wave in neon because it's clipping the white stuff too
+    -->
   </div>
 
   <portfolio-section id="footer">
