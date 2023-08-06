@@ -37,7 +37,7 @@ export class MyWave extends LitElement {
     pointiness: number = 0.3;
 
     @property({ type: Boolean })
-    neonEmpty: boolean = false;
+    neonEmpty: boolean = false; // TODO: Empty, but still clipped.
 
     canvas: HTMLCanvasElement | null = null;
 
