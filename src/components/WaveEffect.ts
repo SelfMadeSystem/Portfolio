@@ -1,4 +1,4 @@
-import { wrapNumber, randomRange } from "../utils/MathUtils.js";
+import { wrapNumber, randomRange, clamp } from "../utils/MathUtils.js";
 import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
@@ -41,6 +41,9 @@ export class MyWave extends LitElement {
 
     @property({ type: Boolean })
     neonClipped: boolean = false;
+
+    @property({ type: Number })
+    neonWidth: number = 4;
 
     canvas: HTMLCanvasElement | null = null;
 
@@ -171,6 +174,10 @@ export class MyWave extends LitElement {
                     inversePath.lineTo(o, height - heightOffset);
                 }
 
+                // I could properly make the waves smaller when neon is enabled,
+                // but it looks fine as it is.
+                const optClamp = neon ? this.neonWidth * 0.5 : 0;
+
                 while (o < width) {
                     const a: [number, number, number, number, number, number] = [
                         w1 + o,
@@ -178,7 +185,7 @@ export class MyWave extends LitElement {
                         w - w1 + o,
                         height - h - heightOffset,
                         w + o,
-                        height - h - heightOffset
+                        clamp(height - h - heightOffset, optClamp, height - optClamp)
                     ];
 
                     const b: [number, number, number, number, number, number] = [
@@ -187,7 +194,7 @@ export class MyWave extends LitElement {
                         2 * w - w1 + o,
                         height - heightOffset,
                         2 * w + o,
-                        height - heightOffset
+                        clamp(height - heightOffset, optClamp, height - optClamp)
                     ];
 
                     path.bezierCurveTo(
@@ -235,7 +242,7 @@ export class MyWave extends LitElement {
 
                 ctx.fillStyle = "#242424"; // TODO: Make this customizable.
                 ctx.strokeStyle = getColor(fillStyle, this);
-                ctx.lineWidth = 2;
+                ctx.lineWidth = this.neonWidth;
 
                 for (let i = 0; i < paths.length; i++) {
                     const p = paths[i];
