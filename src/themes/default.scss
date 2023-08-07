@@ -285,4 +285,47 @@
             border-bottom-right-radius: 10rem;
         }
     }
+
+
+    theme-switcher {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 999999;
+        user-select: none;
+    }
+
+    .theme-switcher {
+        padding: 0.5em;
+        border-radius: 0.25em;
+        border: 0;
+        background-color: var(--base);
+        color: var(--base-text);
+        font-size: large;
+        cursor: pointer;
+
+        svg {
+            float: left;
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5em;
+            fill: var(--base-text);
+        }
+    }
+
+    .theme-switcher__menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .theme-switcher__menu-item,
+    &.theme-switcher__menu-item {
+        display: block;
+        padding: 0.5em;
+        border-radius: 0.25em;
+        border: 0;
+        background-color: var(--base);
+        color: var(--base-text);
+        cursor: pointer;
+    }
 }

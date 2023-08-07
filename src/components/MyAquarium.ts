@@ -94,7 +94,7 @@ class Fish extends BaseFish {
     protected runAwayDistance: number = 300;
     protected runAwaySpeed: number = 0.3;
     protected runAwayMaxTurnSpeed: number = 360;
-    protected runAwayTurnAccel: number = 360;
+    protected runAwayTurnAccel: number = 1020;
     protected runAwayFrom: Vec = new Vec(0, 0);
     protected runAwayTime: number = 0;
     protected runAwayDuration: number = 5000;
@@ -301,8 +301,8 @@ class MiniFish extends Fish {
         this.turnAccel = this.normalTurnAccel = 90;
 
         this.runAwaySpeed = 0.2;
-        this.runAwayMaxTurnSpeed = 1500;
-        this.runAwayTurnAccel = 1500;
+        this.runAwayMaxTurnSpeed = 500;
+        this.runAwayTurnAccel = 3000;
 
         this.offset = Vec.fromAngle(Math.random() * 360 * DEG_TO_RAD).mul(Math.random() * 70 + 35);
         this.position = school.position.add(this.offset).sub(Vec.fromAngle(school.rotation * DEG_TO_RAD).mul(100));
