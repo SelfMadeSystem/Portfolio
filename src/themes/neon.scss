@@ -1,145 +1,54 @@
 @mixin create-theme($name,
     $default,
-    $light,
-    $dark,
-
-    $start, // --color-name-000
-    $end, // --color-name-900
-
+    $contrast,
     $text,
-    $text-light,
-    $text-dark,
 ) {
     --#{$name}: #{$default};
-    --#{$name}-light: #{$light};
-    --#{$name}-dark: #{$dark};
+    --#{$name}-contrast: #{$contrast};
     --#{$name}-text: #{$text};
-    --#{$name}-text-light: #{$text-light};
-    --#{$name}-text-dark: #{$text-dark};
-
-    @for $i from 0 through 9 {
-        --#{$name}-#{$i}00: #{mix($start, $end, 100% - $i * 10%)};
-
-        @for $j from 1 through 9 {
-            --#{$name}-#{$i}#{$j}0: #{mix($start, $end, 100% - ($i * 10% + $j * 1%))};
-        }
-    }
-
-    // TODO: Wayyyyyy too many colors. Reduce this when we figure out what we actually need.
 }
 
-.light {
+.dark {
     --sans-serif: 'Roboto', sans-serif;
     --serif: 'Roboto Slab', serif;
 
+    $black: #242424; // uncertain if I want black or dark gray
+
     @include create-theme(base,
+        $black,
         #ffffff,
         #ffffff,
-        #dddddd,
-        #000000,
-        #ffffff,
-        #242424,
-        #242424,
-        #242424,
     );
 
     --base-click-ripple-opacity: 0.5;
     --base-hover-ripple-opacity: 0.25;
 
     @include create-theme(primary,
+        $black,
         #525aff,
-        #888ef6,
-        #293bff,
-        #a0a5f8,
-        #081dff,
-        #efefef,
         #ffffff,
-        #dddddd,
     );
 
     @include create-theme(secondary,
+        $black,
         #ff6161,
-        #ff7070,
-        #ff5252,
-        #ff8f8f,
-        #ff0000,
-        #efefef,
         #ffffff,
-        #dddddd,
     );
-
-    /* @include create-theme(success,
-        #2dd36f,
-        #3de78b,
-        #28c76f,
-        #7be5a6,
-        #00b248,
-        #efefef,
-        #ffffff,
-        #dddddd,
-    );
-
-
-    @include create-theme(warning,
-        #ffc409,
-        #ffd659,
-        #ffa409,
-        #ffd659,
-        #ff8c00,
-        #242424,
-        #242424,
-        #242424,
-    );
-
-    @include create-theme(danger,
-        #ff4961,
-        #ff6b7d,
-        #ff3647,
-        #ff8f9a,
-        #ff0000,
-        #efefef,
-        #ffffff,
-        #dddddd,
-    );
-
-    @include create-theme(info,
-        #00d0ff,
-        #00e2ff,
-        #00b4cc,
-        #00e2ff,
-        #00a0b4,
-        #242424,
-        #242424,
-        #242424,
-    ); */
 
     @include create-theme(dark,
-        #181818,
-        #181818,
-        #181818,
-        #000000,
-        #282828,
-        #efefef,
+        $black,
         #ffffff,
-        #dddddd,
+        #ffffff,
     );
 
-    --base-wave: var(--base);
-    --primary-wave: var(--primary);
-    --secondary-wave: var(--secondary);
-    --dark-wave: var(--dark);
+    --base-wave: var(--base-contrast);
+    --primary-wave: var(--primary-contrast);
+    --secondary-wave: var(--secondary-contrast);
+    --dark-wave: var(--dark-contrast);
 
     a {
-        color: var(--primary);
+        color: var(--primary-contrast);
         text-decoration: underline;
-    }
-
-    a:hover {
-        color: var(--primary-light);
-    }
-
-    a:active {
-        color: var(--primary-dark);
     }
 
     #footer {
@@ -152,7 +61,7 @@
         display: inline-block;
         padding: 0.5em 1em;
         border-radius: 0.25em;
-        background-color: var(--primary);
+        background-color: var(--primary-contrast);
         color: var(--primary-text);
         text-decoration: none;
         font-weight: bold;
@@ -185,14 +94,15 @@
     }
 
     .pointer-ripple {
-        backdrop-filter: invert(1);
+        // TODO: ???.pointer-ripple
+        border: 16px solid var(--base-contrast);
         position: absolute;
         pointer-events: none;
         z-index: 999999;
         width: 0px;
         height: 0px;
         transform: translate(-50%, -50%);
-        transition: all ease 1s;
+        transition: all ease 1s, opacity ease 0.3s 0.7s;
         opacity: 1;
         border-radius: 50%;
     }
@@ -200,20 +110,25 @@
     .pointer-ripple-in {
         width: 300px;
         height: 300px;
-        // opacity: 0;
-    }
-
-    #start {
-        background: var(--primary);
+        border-width: 0;
+        opacity: 0;
     }
 
     #header-card {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        backdrop-filter: blur(8px);
+
+        border: 4px solid var(--base-contrast);
+
         &::before {
-            content: "";
+            content: '';
+            z-index: -1;
             position: absolute;
             inset: 0;
-            background: var(--base);
-            opacity: 0.3
+            background-color: var(--base);
+            opacity: 0.2;
         }
     }
 
@@ -251,13 +166,15 @@
         overflow: hidden;
         backdrop-filter: blur(8px);
 
+        border: 4px solid var(--base-contrast);
+
         &::before {
             content: '';
             z-index: -1;
             position: absolute;
             inset: 0;
-            background-color: var(--base-780);
-            opacity: 0.5;
+            background-color: var(--base);
+            opacity: 0.2;
         }
     }
 
@@ -267,22 +184,31 @@
         overflow: hidden;
         backdrop-filter: blur(8px);
 
+        border: 4px solid var(--primary-contrast);
+
         &::before {
             content: '';
             z-index: -1;
             position: absolute;
             inset: 0;
-            background-color: var(--primary-100);
-            opacity: 0.5;
+            background-color: var(--primary);
+            opacity: 0.2;
         }
     }
 
     .secondary-card {
-        background-color: var(--secondary-500);
+        background-color: var(--secondary);
+        border: 4px solid var(--secondary-contrast);
 
         &.title {
-            border-bottom-left-radius: 10rem;
-            border-bottom-right-radius: 10rem;
+            border-bottom: 0;
+            border-top: 0;
+
+            my-wave {
+                position: relative;
+                left: -0px;
+                width: calc(100% + 8px);
+            }
         }
     }
 
@@ -292,7 +218,9 @@
         top: 0;
         right: 0;
         z-index: 999999;
-        user-select: none;
+        border-left: 4px solid var(--base-contrast);
+        border-bottom: 4px solid var(--base-contrast);
+        border-bottom-left-radius: 0.5em;
     }
 
     .theme-switcher {
@@ -320,7 +248,6 @@
 
     .theme-switcher__menu-item,
     &.theme-switcher__menu-item {
-        display: block;
         padding: 0.5em;
         border-radius: 0.25em;
         border: 0;

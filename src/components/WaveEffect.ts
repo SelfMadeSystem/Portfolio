@@ -1,7 +1,8 @@
-import { wrapNumber, randomRange } from "../utils/MathUtils.js";
+import { wrapNumber, randomRange, clamp } from "../utils/MathUtils.js";
 import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
+import { isNeon } from "../theme.js";
 
 /**
  * A wave effect.
@@ -34,6 +35,15 @@ export class MyWave extends LitElement {
 
     @property({ type: Number })
     pointiness: number = 0.3;
+
+    @property({ type: Boolean })
+    neonEmpty: boolean = false;
+
+    @property({ type: Boolean })
+    neonClipped: boolean = false;
+
+    @property({ type: Number })
+    neonWidth: number = 4;
 
     canvas: HTMLCanvasElement | null = null;
 
@@ -122,16 +132,24 @@ export class MyWave extends LitElement {
         _redraw = () => {
             const date = Date.now();
 
+            const neon = isNeon();
+
             ctx.clearRect(0, 0, width, height);
 
             ctx.save();
 
-            const paths = [];
+            const paths: Path2D[] = [];
 
-            ctx.fillStyle = getColor(fillStyle, this);
-            ctx.globalAlpha = this.opacity;
+            const inversePaths: Path2D[] = [];
 
-            for (const wave of waves) {
+            if (!neon) {
+                ctx.fillStyle = getColor(fillStyle, this);
+                ctx.globalAlpha = this.opacity;
+            } else {
+                ctx.fillStyle = "#242424";
+            }
+
+            for (const wave of waves) { // FIXME: With neon, one pixel on the top and the bottom is clipped.
                 const { width: ww } = wave;
                 const w = (this.waveWidthInRelationToHeight ? height : width) * ww;
                 const w1 = w * this.pointiness;
@@ -139,6 +157,9 @@ export class MyWave extends LitElement {
                 const h = height * wh;
 
                 const path = new Path2D();
+
+                const inversePath = new Path2D();
+
                 const heightOffset = wave.height * (height - h);
                 let o =
                     wrapNumber((date / 1000) * wave.speed * w, 0, w * 2) -
@@ -146,42 +167,99 @@ export class MyWave extends LitElement {
                     w * wave.offset;
 
                 path.moveTo(o, height);
-
                 path.lineTo(o, height - heightOffset);
 
+                if (neon && this.neonClipped) {
+                    inversePath.moveTo(o, 0);
+                    inversePath.lineTo(o, height - heightOffset);
+                }
+
+                // I could properly make the waves smaller when neon is enabled,
+                // but it looks fine as it is.
+                const optClamp = neon ? this.neonWidth * 0.5 : 0;
+
                 while (o < width) {
-                    path.bezierCurveTo(
+                    const a: [number, number, number, number, number, number] = [
                         w1 + o,
                         height - heightOffset,
                         w - w1 + o,
                         height - h - heightOffset,
                         w + o,
-                        height - h - heightOffset
-                    );
-                    path.bezierCurveTo(
+                        clamp(height - h - heightOffset, optClamp, height - optClamp)
+                    ];
+
+                    const b: [number, number, number, number, number, number] = [
                         w + w1 + o,
                         height - h - heightOffset,
                         2 * w - w1 + o,
                         height - heightOffset,
                         2 * w + o,
-                        height - heightOffset
+                        clamp(height - heightOffset, optClamp, height - optClamp)
+                    ];
+
+                    path.bezierCurveTo(
+                        ...a
                     );
+                    path.bezierCurveTo(
+                        ...b
+                    );
+
+                    if (this.neonClipped) {
+                        inversePath.bezierCurveTo(
+                            ...a
+                        );
+                        inversePath.bezierCurveTo(
+                            ...b
+                        );
+                    }
+
                     o += w * 2;
                 }
 
                 path.lineTo(o, height);
 
-                ctx.fill(path);
+                if (neon && this.neonClipped) {
+                    inversePath.lineTo(o, 0);
+                    inversePaths.push(inversePath);
+                }
+                if (!neon) {
+                    ctx.fill(path);
+                }
 
                 paths.push(path);
             }
 
-            paths.forEach((p) => ctx.clip(p));
+            if (!neon || !this.neonClipped) {
+                paths.forEach((p) => ctx.clip(p));
 
-            ctx.globalAlpha = 1;
-            ctx.fillRect(0, 0, width, height);
+                ctx.globalAlpha = 1;
+                ctx.fillRect(0, 0, width, height);
+                ctx.restore();
+            }
 
-            ctx.restore();
+            if (neon) {
+                ctx.save();
+
+                ctx.fillStyle = "#242424"; // TODO: Make this customizable.
+                ctx.strokeStyle = getColor(fillStyle, this);
+                ctx.lineWidth = this.neonWidth;
+
+                for (let i = 0; i < paths.length; i++) {
+                    const p = paths[i];
+                    const ip = inversePaths[i];
+
+                    if (!this.neonEmpty || (this.neonClipped && i === 0)) {
+                        ctx.fill(p);
+                    }
+                    ctx.stroke(p);
+
+                    if (this.neonClipped) {
+                        ctx.clip(ip);
+                    }
+                }
+
+                ctx.restore();
+            }
         };
     }
 

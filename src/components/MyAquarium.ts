@@ -4,6 +4,7 @@ import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
 import { Point, Vec } from "../utils/VecUtils.js";
 import { MyWave } from "./WaveEffect.js";
+import { isNeon } from "../theme.js";
 
 const FISH_SVG_PATH = new Path2D(`M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z`);
 
@@ -49,13 +50,25 @@ abstract class BaseFish implements UpdateAndRender {
         const size = this.getSize();
         const color = this.getColor();
 
+        const neon = isNeon();
+
         ctx.save();
         ctx.translate(x, y);
         ctx.scale(size, size);
         ctx.rotate(rotation * DEG_TO_RAD);
         ctx.translate(-12, -12);
-        ctx.fillStyle = getColor(color, element);
-        ctx.fill(FISH_SVG_PATH);
+
+        if (neon) {
+            ctx.fillStyle = "#242424"; // TODO: Make this customizable.
+            ctx.strokeStyle = getColor(color, element);
+            ctx.lineWidth = 3 / size;
+
+            ctx.fill(FISH_SVG_PATH);
+            ctx.stroke(FISH_SVG_PATH);
+        } else {
+            ctx.fillStyle = getColor(color, element);
+            ctx.fill(FISH_SVG_PATH);
+        }
         ctx.restore();
     }
 }
@@ -81,7 +94,7 @@ class Fish extends BaseFish {
     protected runAwayDistance: number = 300;
     protected runAwaySpeed: number = 0.3;
     protected runAwayMaxTurnSpeed: number = 360;
-    protected runAwayTurnAccel: number = 360;
+    protected runAwayTurnAccel: number = 1020;
     protected runAwayFrom: Vec = new Vec(0, 0);
     protected runAwayTime: number = 0;
     protected runAwayDuration: number = 5000;
@@ -288,8 +301,8 @@ class MiniFish extends Fish {
         this.turnAccel = this.normalTurnAccel = 90;
 
         this.runAwaySpeed = 0.2;
-        this.runAwayMaxTurnSpeed = 1500;
-        this.runAwayTurnAccel = 1500;
+        this.runAwayMaxTurnSpeed = 500;
+        this.runAwayTurnAccel = 3000;
 
         this.offset = Vec.fromAngle(Math.random() * 360 * DEG_TO_RAD).mul(Math.random() * 70 + 35);
         this.position = school.position.add(this.offset).sub(Vec.fromAngle(school.rotation * DEG_TO_RAD).mul(100));
@@ -488,12 +501,12 @@ export class MyAquarium extends LitElement {
 
         const fishies: UpdateAndRender[] = [];
 
-        for (let i = 0; i < 20; i++) {
-            fishies.push(new BasicFish(this.color, [width, height]));
-        }
-
         for (let i = 0; i < 5; i++) {
             fishies.push(new School(15, this.color, [width, height]));
+        }
+
+        for (let i = 0; i < 20; i++) {
+            fishies.push(new BasicFish(this.color, [width, height]));
         }
 
         const pointerStates: Map<number, PointerState> = new Map();
