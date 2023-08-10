@@ -1,0 +1,9 @@
+{ // I have no idea if this is correct, but it seems to work.
+    "compilerOptions": {
+        "lib": [
+            "esnext",
+            "webworker"
+        ],
+        "composite": true,
+    },
+}
