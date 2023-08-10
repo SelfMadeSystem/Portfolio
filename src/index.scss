@@ -36,5 +36,35 @@ h3 {
   }
 }
 
+.portfolio-card {
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+
+    svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+
+  p {
+    opacity: 0;
+    transform: translateX(-1rem);
+    
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, display 0s 0.2s;
+
+    &.active {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+
+      transition-delay: 0.15s, 0.15s, 0s;
+    }
+  }
+}
+
 @import 'themes/default.scss';
 @import 'themes/neon.scss';

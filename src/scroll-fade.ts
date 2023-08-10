@@ -21,30 +21,35 @@
 
 const fadeElements = document.getElementsByClassName('scroll-fade');
 
-function scrollFade() {
-    for (let index = 0; index < fadeElements.length; index++) {
-        const element = fadeElements[index];
-        const rect = element.getBoundingClientRect();
-        const quarterHeight = rect.height / 4;
-        const topQuarter = rect.top + quarterHeight;
-        const bottomQuarter = rect.bottom - quarterHeight;
-
-        const wasVisible = element.classList.contains('scroll-fade--visible');
-
-        if (wasVisible) {
-            if (/* rect.bottom < 0 ||  */rect.top > window.innerHeight) {
-                element.classList.remove('scroll-fade--visible');
-            }
-        } else {
-            if (bottomQuarter > 0 && topQuarter < window.innerHeight) {
-                element.classList.add('scroll-fade--visible');
-            }
-        }
-    }
+for (let index = 0; index < fadeElements.length; index++) {
+    const element = fadeElements[index];
+    element.classList.add('scroll-fade--visible');
 }
 
-document.addEventListener('scroll', scrollFade);
-window.addEventListener('resize', scrollFade);
-document.addEventListener('DOMContentLoaded', function () {
-    scrollFade();
-});
+// function scrollFade() {
+//     for (let index = 0; index < fadeElements.length; index++) {
+//         const element = fadeElements[index];
+//         const rect = element.getBoundingClientRect();
+//         const quarterHeight = rect.height / 4;
+//         const topQuarter = rect.top + quarterHeight;
+//         const bottomQuarter = rect.bottom - quarterHeight;
+
+//         const wasVisible = element.classList.contains('scroll-fade--visible');
+
+//         if (wasVisible) {
+//             if (/* rect.bottom < 0 ||  */rect.top > window.innerHeight) {
+//                 element.classList.remove('scroll-fade--visible');
+//             }
+//         } else {
+//             if (bottomQuarter > 0 && topQuarter < window.innerHeight) {
+//                 element.classList.add('scroll-fade--visible');
+//             }
+//         }
+//     }
+// }
+
+// document.addEventListener('scroll', scrollFade);
+// window.addEventListener('resize', scrollFade);
+// document.addEventListener('DOMContentLoaded', function () {
+//     scrollFade();
+// });

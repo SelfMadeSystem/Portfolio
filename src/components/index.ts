@@ -5,3 +5,4 @@ export * from './SkillSlider';
 export * from './MyAquarium';
 export * from './PointerRipple';
 export * from './ThemeSwitcher';
+export * from './PortfolioCard';

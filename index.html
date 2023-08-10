@@ -60,7 +60,7 @@
         ">
         <h2 class="text-4xl text-center">Web Development</h2>
         <p class="text-xl max-w-sm text-center">
-          I create beautiful, fast and reliable web applications. I use modern
+          I create beautiful and reliable websites and web applications. I use modern
           technologies like TypeScript, React, Vue, Lit, Tailwind, Vite, WordPress
           and Shopify, but I also like to use vanilla HTML, CSS and JavaScript.
         </p>
@@ -214,50 +214,66 @@
     </div>
     <div
       class="flex flex-wrap flex-row justify-center items-stretch gap-16 mb-24">
-      <div
+      <portfolio-card
+        href="https://shoghisimon.cc"
+        title="Shoghi Simon's Portfolio"
         class="scroll-fade
         opacity-0 scroll-visible:opacity-100
         transform translate-y-16 scroll-visible:translate-y-0
-        transition-all duration-500 lg:delay-100
-        secondary-card flex flex-col items-center p-8 rounded-8">
-        <h3 class="text-3xl">Shoghi Simon's Portfolio</h3>
-        <p class="text-xl max-w-lg text-center">
-          This is my portfolio website. It is built with Vite, Lit, UnoCSS and
-          Bun. I hope you like it!
-        </p>
-        <a class="button" href="https://shoghisimon.cc" target="_blank">Visit</a>
-      </div>
-      <div
+        transition-all duration-500">
+        <span>
+          This is my portfolio website. I hope you like it!
+        </span>
+        <ul class="text-left">
+          <li>HTML - The language of the web</li>
+          <li>SCSS - CSS with superpowers</li>
+          <li>TypeScript - JavaScript with types. It's great!</li>
+          <li>Lit - Easily make web components</li>
+          <li>UnoCSS - A utility-first CSS framework</li>
+        </ul>
+      </portfolio-card>
+      <portfolio-card
+        href="https://meadsimon.ca"
+        title="Mead Simon Chain Mail Designs"
+        description="Mead Simon Chain Mail Designs is a website for high-end
+          chain mail fashion. It is built with HTML, TypeScript, JQuery, SCSS
+          and PHP."
+        technologies="<ul class=&quot;text-left m-0&quot;>
+          <li>HTML - The language of the web</li>
+          <li>SCSS - CSS with superpowers</li>
+          <li>TypeScript - JavaScript with types. It's great!</li>
+          <li>JQuery - Very useful for DOM manipulation</li>
+          <li>PHP - Used to implement all the backend functionality</li>
+        </ul>"
         class="scroll-fade
-        opacity-0 scroll-visible:opacity-100
-        transform translate-y-16 scroll-visible:translate-y-0
-        transition-all duration-500
-        secondary-card flex flex-col items-center p-8 rounded-8">
-        <h3 class="text-3xl">Mead Simon Chain Mail Designs</h3>
-        <p class="text-xl max-w-lg text-center">
-          Mead Simon Chain Mail Designs is a website for high-end chain mail
-          fashion. It is built with HTML, TypeScript, JQuery, SCSS and PHP.
-        </p>
-        <a class="button" href="https://meadsimon.ca" target="_blank">Visit</a>
-      </div>
-      <div
+          opacity-0 scroll-visible:opacity-100
+          transform translate-y-16 scroll-visible:translate-y-0
+          transition-all duration-500 lg:delay-100">
+      </portfolio-card>
+      <portfolio-card
+        href="https://minesvelte.shoghisimon.cc"
+        title="Minesvelte"
+        description="Minesvelte is a web-based game inspired by Minesweeper, but
+          with lots of twists and different board layouts. Super customizable.
+          Mobile support is currently under construction."
         class="scroll-fade
-        opacity-0 scroll-visible:opacity-100
-        transform translate-y-16 scroll-visible:translate-y-0
-        transition-all duration-500 lg:delay-200
-        secondary-card flex flex-col items-center p-8 rounded-8">
-        <h3 class="text-3xl">Abacus Cleaning Services Inc.</h3>
-        <p class="text-xl max-w-lg text-center">
-          Abacus Cleaning Services Inc. is a website for a cleaning company.
-          It is built with HTML, JavaScript and CSS.
-          <br />
-          Still being built.
-        </p>
+          opacity-0 scroll-visible:opacity-100
+          transform translate-y-16 scroll-visible:translate-y-0
+          transition-all duration-500 lg:delay-200">
+      </portfolio-card>
         <!-- Go to dev website for now kuz real website doesn't exist -->
-        <!-- <a class="button" href="https://abacuscleaninginc.com"
-          target="_blank">Visit</a> -->
-        <a class="button" href="https://abacus-cal.pages.dev" target="_blank">Visit</a>
-      </div>
+        <!-- href="https://abacuscleaninginc.com" -->
+      <portfolio-card
+        href="https://abacus-cal.pages.dev"
+        title="Abacus Cleaning Services Inc."
+        description="Abacus Cleaning Services Inc. is a website for a cleaning
+          company. It is built with HTML, JavaScript and CSS. The website is
+          still under construction"
+        class="scroll-fade
+          opacity-0 scroll-visible:opacity-100
+          transform translate-y-16 scroll-visible:translate-y-0
+          transition-all duration-500 lg:delay-300">
+      </portfolio-card>
     </div>
   </portfolio-section>
 

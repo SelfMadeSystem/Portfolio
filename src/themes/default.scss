@@ -158,6 +158,9 @@
         font-weight: bold;
         text-align: center;
         transition: background-color 0.2s ease-in-out;
+
+        width: fit-content;
+        margin: 0 auto;
     }
 
     a.button:hover {
@@ -327,5 +330,15 @@
         background-color: var(--base);
         color: var(--base-text);
         cursor: pointer;
+    }
+
+    .portfolio-card button svg {
+        fill: var(--secondary-text);
+        transition: opacity 0.2s ease-in-out;
+        opacity: 0.5;
+
+        &.active {
+            opacity: 1;
+        }
     }
 }
