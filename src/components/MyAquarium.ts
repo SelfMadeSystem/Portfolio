@@ -5,6 +5,7 @@ import { getColor } from "../utils/ColorUtils.js";
 import { Point, Vec } from "../utils/VecUtils.js";
 import { MyWave } from "./WaveEffect.js";
 import { isNeon } from "../theme.js";
+import { createCanvas, getCanvas } from "../utils/CanvasUtils.js";
 
 const FISH_SVG_PATH = new Path2D(`M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z`);
 
@@ -19,7 +20,7 @@ enum PointerClickState {
  */
 interface UpdateAndRender {
     update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void;
-    draw(ctx: CanvasRenderingContext2D, element: HTMLElement): void;
+    draw(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, element: HTMLElement): void;
 }
 
 /**
@@ -44,7 +45,7 @@ abstract class BaseFish implements UpdateAndRender {
      * @param ctx The canvas context to draw to.
      * @param element The element to get the color from (if 'color' is a variable)
      */
-    draw(ctx: CanvasRenderingContext2D, element: HTMLElement) {
+    draw(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, element: HTMLElement) {
         const [x, y] = this.getPosition();
         const rotation = this.getRotation();
         const size = this.getSize();
@@ -464,23 +465,24 @@ export class MyAquarium extends LitElement {
             return;
         }
 
-        const canvas = this.shadowRoot.querySelector("canvas")!;
+        const canvasEl = this.shadowRoot.querySelector("canvas")!;
+        const canvas = getCanvas(canvasEl);
         const ctx = canvas.getContext("2d")!;
 
-        const tempCanvas = document.createElement("canvas");
+        const tempCanvas = createCanvas();
         const tempCtx = tempCanvas.getContext("2d")!;
 
-        let width = (tempCanvas.width = canvas.width = canvas.clientWidth);
-        let height = (tempCanvas.height = canvas.height = canvas.clientHeight);
+        let width =  0;
+        let height = 0;
 
         function setCanvasSize() {
-            width = tempCanvas.width = canvas.width = canvas.clientWidth;
-            height = tempCanvas.height = canvas.height = canvas.clientHeight;
+            width = tempCanvas.width = canvas.width = canvasEl.clientWidth;
+            height = tempCanvas.height = canvas.height = canvasEl.clientHeight;
         }
 
         setCanvasSize();
 
-        new ResizeObserver(setCanvasSize).observe(canvas);
+        new ResizeObserver(setCanvasSize).observe(canvasEl);
 
         const mask: HTMLCanvasElement | null = (() => {
             // return null;
@@ -590,7 +592,7 @@ export class MyAquarium extends LitElement {
         redraw();
 
         const pointerToLocal = (e: PointerEvent): Point => {
-            const rect = canvas.getBoundingClientRect();
+            const rect = canvasEl.getBoundingClientRect();
             return [e.clientX - rect.left, e.clientY - rect.top];
         };
 

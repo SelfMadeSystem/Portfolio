@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css, html } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
 import { isNeon } from "../theme.js";
+import { getCanvas } from "../utils/CanvasUtils.js";
 
 /**
  * A wave effect.
@@ -66,23 +67,24 @@ export class MyWave extends LitElement {
         }
         let _redraw = () => { };
 
-        const canvas = this.canvas = this.shadowRoot.querySelector("canvas")!;
+        const canvasEl = this.canvas = this.shadowRoot.querySelector("canvas")!;
+        const canvas = getCanvas(canvasEl);
         const ctx = canvas.getContext("2d")!;
 
-        let width = (canvas.width = canvas.clientWidth);
-        let height = (canvas.height = canvas.clientHeight);
+        let width = 0;
+        let height = 0;
 
         let fillStyle = this.color;
 
         function setCanvasSize() {
-            width = canvas.width = canvas.clientWidth;
-            height = canvas.height = canvas.clientHeight;
+            width = canvas.width = canvasEl.clientWidth;
+            height = canvas.height = canvasEl.clientHeight;
             redraw();
         }
 
         setCanvasSize();
 
-        new ResizeObserver(setCanvasSize).observe(canvas);
+        new ResizeObserver(setCanvasSize).observe(canvasEl);
 
         const waves = new Array(this.amount)
             .fill(0)
