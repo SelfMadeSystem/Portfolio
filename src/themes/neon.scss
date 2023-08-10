@@ -240,13 +240,15 @@
         color: var(--base-text);
         cursor: pointer;
     }
-    
-    .portfolio-card button svg {
-        fill: var(--secondary-contrast);
-        transition: opacity 0.2s ease-in-out;
-        opacity: 0.25;
-    
-        &.active {
+
+    .portfolio-card button {
+        svg {
+            fill: var(--secondary-contrast);
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0.25;
+        }
+
+        &.active svg {
             opacity: 1;
         }
     }

@@ -50,18 +50,16 @@ h3 {
     }
   }
 
-  p {
+  .content {
     opacity: 0;
     transform: translateX(-1rem);
     
-    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, display 0s 0.2s;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 
     &.active {
-      display: block;
       opacity: 1;
       transform: translateX(0);
-
-      transition-delay: 0.15s, 0.15s, 0s;
+      transition-delay: 0.2s;
     }
   }
 }

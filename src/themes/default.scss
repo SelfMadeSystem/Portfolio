@@ -332,12 +332,14 @@
         cursor: pointer;
     }
 
-    .portfolio-card button svg {
-        fill: var(--secondary-text);
-        transition: opacity 0.2s ease-in-out;
-        opacity: 0.5;
+    .portfolio-card button {
+        svg {
+            fill: var(--secondary-text);
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0.5;
+        }
 
-        &.active {
+        &.active svg {
             opacity: 1;
         }
     }
