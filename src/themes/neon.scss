@@ -199,6 +199,8 @@
     }
 
     .expanding {
+        transition: backdrop-filter 0s ease-in-out 0.5s;
+        backdrop-filter: blur(0px);
         &::before {
             transition: opacity 0.4s ease-in-out;
             opacity: 1;
