@@ -14,8 +14,6 @@ export class SectionTwo extends LitElement {
 
         card.style.visibility = 'hidden';
 
-        duplicate.style.position = 'fixed';
-
         const rect = card.getBoundingClientRect();
         // shrink rect by 1/1.05 to account for scale
         const top = rect.top + rect.height * 0.025;
@@ -23,6 +21,7 @@ export class SectionTwo extends LitElement {
         const width = rect.width * 0.95;
         const height = rect.height * 0.95;
 
+        duplicate.style.position = 'fixed';
         duplicate.style.top = `${top}px`;
         duplicate.style.left = `${left}px`;
         duplicate.style.width = `${width}px`;
@@ -40,20 +39,26 @@ export class SectionTwo extends LitElement {
                 height: `100%`,
             }],
             {
-                duration: 500,
+                duration: 550,
                 easing: 'ease-in-out',
             }).onfinish = () => {
-                duplicate.style.position = '';
-                duplicate.style.top = '';
-                duplicate.style.left = '';
-                duplicate.style.width = '';
-                duplicate.style.height = '';
-                duplicate.style.zIndex = '';
-                duplicate.style.scale = '';
-
+                duplicate.style.top = '0px';
+                duplicate.style.left = '0px';
+                duplicate.style.width = '100%';
+                duplicate.style.height = '100%';
                 card.style.visibility = '';
-
-                duplicate.remove();
+                
+                duplicate.animate([
+                    {},
+                    {
+                        opacity: 0,
+                    }],
+                    {
+                        duration: 300,
+                        easing: 'ease-in-out',
+                    }).onfinish = () => {
+                        duplicate.remove();
+                    }
             };
 
         document.body.appendChild(duplicate);
