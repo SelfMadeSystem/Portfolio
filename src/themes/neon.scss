@@ -178,6 +178,18 @@
             inset: 0;
             background-color: var(--primary);
             opacity: 0.2;
+            transition: opacity 0.4s ease-in-out;
+        }
+    }
+
+    .expanding {
+        &::before {
+            opacity: 1;
+        }
+
+        p {
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
         }
     }
 

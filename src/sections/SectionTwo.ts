@@ -7,6 +7,62 @@ export class SectionTwo extends LitElement {
         return this;
     }
 
+    clickedCard(e: PointerEvent) {
+        const card = e.currentTarget as HTMLElement;
+
+        const duplicate = card.cloneNode(true) as HTMLElement;
+
+        card.style.visibility = 'hidden';
+
+        duplicate.style.position = 'fixed';
+
+        const rect = card.getBoundingClientRect();
+        // shrink rect by 1/1.05 to account for scale
+        const top = rect.top + rect.height * 0.025;
+        const left = rect.left + rect.width * 0.025;
+        const width = rect.width * 0.95;
+        const height = rect.height * 0.95;
+
+        duplicate.style.top = `${top}px`;
+        duplicate.style.left = `${left}px`;
+        duplicate.style.width = `${width}px`;
+        duplicate.style.height = `${height}px`;
+        duplicate.style.zIndex = '1000';
+
+        duplicate.style.scale = '1.05';
+
+        duplicate.animate([
+            {},
+            {
+                top: `0px`,
+                left: `0px`,
+                width: `100%`,
+                height: `100%`,
+            }],
+            {
+                duration: 500,
+                easing: 'ease-in-out',
+            }).onfinish = () => {
+                duplicate.style.position = '';
+                duplicate.style.top = '';
+                duplicate.style.left = '';
+                duplicate.style.width = '';
+                duplicate.style.height = '';
+                duplicate.style.zIndex = '';
+                duplicate.style.scale = '';
+
+                card.style.visibility = '';
+
+                duplicate.remove();
+            };
+
+        document.body.appendChild(duplicate);
+
+        requestAnimationFrame(() => {
+            duplicate.classList.add('expanding');
+        })
+    };
+
     render() {
         // @unocss-include
         return html`
@@ -14,11 +70,11 @@ export class SectionTwo extends LitElement {
             id="what-i-do">
             <div class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
                 <div
+                    @click=${this.clickedCard}
                     class="primary-card flex flex-col items-center p-8 rounded-8
                     transition-transform duration-200
                     cursor-pointer
-                    hover:scale-105
-                    ">
+                    hover:scale-105">
                     <h2 class="text-4xl text-center">Web Development</h2>
                     <p class="text-xl max-w-sm text-center">
                     I create beautiful and reliable websites and web applications. I use modern
@@ -27,6 +83,7 @@ export class SectionTwo extends LitElement {
                     </p>
                 </div>
                 <div
+                    @click=${this.clickedCard}
                     class="primary-card flex flex-col items-center p-8 rounded-8
                     transition-transform duration-200
                     cursor-pointer
@@ -40,6 +97,7 @@ export class SectionTwo extends LitElement {
                     </p>
                 </div>
                 <div
+                    @click=${this.clickedCard}
                     class="primary-card flex flex-col items-center p-8 rounded-8
                     transition-transform duration-200
                     cursor-pointer
