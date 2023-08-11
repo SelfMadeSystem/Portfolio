@@ -12,14 +12,17 @@ export class SectionTwo extends LitElement {
 
         const duplicate = card.cloneNode(true) as HTMLElement;
 
+        const jumpTo = card.dataset.jumpTo;
+
         card.style.visibility = 'hidden';
 
         const rect = card.getBoundingClientRect();
-        // shrink rect by 1/1.05 to account for scale
+        
         const top = rect.top + rect.height * 0.025;
         const left = rect.left + rect.width * 0.025;
         const width = rect.width * 0.95;
         const height = rect.height * 0.95;
+        // TODO: Doesn't work on mobile when transition to scale 1.05 isn't done
 
         duplicate.style.position = 'fixed';
         duplicate.style.top = `${top}px`;
@@ -30,6 +33,8 @@ export class SectionTwo extends LitElement {
 
         duplicate.style.scale = '1.05';
 
+        duplicate.classList.remove('hover:scale-105');
+
         duplicate.animate([
             {},
             {
@@ -37,15 +42,15 @@ export class SectionTwo extends LitElement {
                 left: `0px`,
                 width: `100%`,
                 height: `100%`,
+                scale: '1',
+                borderWidth: '0',
+                borderRadius: '0',
             }],
             {
-                duration: 550,
+                duration: 500,
                 easing: 'ease-in-out',
+                fill: 'forwards',
             }).onfinish = () => {
-                duplicate.style.top = '0px';
-                duplicate.style.left = '0px';
-                duplicate.style.width = '100%';
-                duplicate.style.height = '100%';
                 card.style.visibility = '';
                 
                 duplicate.animate([
@@ -55,13 +60,24 @@ export class SectionTwo extends LitElement {
                     }],
                     {
                         duration: 300,
+                        delay: 100, // Give time for window to scroll
                         easing: 'ease-in-out',
                     }).onfinish = () => {
                         duplicate.remove();
                     }
+                    
+                if (jumpTo) {
+                    const element = document.getElementById(jumpTo);
+                    if (element) {
+                        element.scrollIntoView({
+                            behavior: 'instant',
+                            block: 'start',
+                        });
+                    }
+                }
             };
 
-        document.body.appendChild(duplicate);
+        card.parentElement!.appendChild(duplicate);
 
         requestAnimationFrame(() => {
             duplicate.classList.add('expanding');
@@ -76,6 +92,7 @@ export class SectionTwo extends LitElement {
             <div class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
                 <div
                     @click=${this.clickedCard}
+                    data-jump-to="web-development"
                     class="primary-card flex flex-col items-center p-8 rounded-8
                     transition-transform duration-200
                     cursor-pointer
@@ -89,6 +106,7 @@ export class SectionTwo extends LitElement {
                 </div>
                 <div
                     @click=${this.clickedCard}
+                    data-jump-to="backend-development"
                     class="primary-card flex flex-col items-center p-8 rounded-8
                     transition-transform duration-200
                     cursor-pointer
@@ -103,6 +121,7 @@ export class SectionTwo extends LitElement {
                 </div>
                 <div
                     @click=${this.clickedCard}
+                    data-jump-to="game-development"
                     class="primary-card flex flex-col items-center p-8 rounded-8
                     transition-transform duration-200
                     cursor-pointer

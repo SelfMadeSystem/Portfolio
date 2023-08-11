@@ -450,16 +450,16 @@ export class MyAquarium extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
-        requestAnimationFrame(() => {
-            if (this.maskId) {
-                requestAnimationFrame(() => {
-                    // We need to wait for the mask to be rendered before we can draw
-                    this.startDraw();
-                });
-            } else {
-                this.startDraw();
-            }
-        });
+        // requestAnimationFrame(() => {
+        //     if (this.maskId) {
+        //         requestAnimationFrame(() => {
+        //             // We need to wait for the mask to be rendered before we can draw
+        //             this.startDraw();
+        //         });
+        //     } else {
+        //         this.startDraw();
+        //     }
+        // });
     }
 
     disconnectedCallback() {

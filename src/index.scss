@@ -53,7 +53,7 @@ h3 {
   .content {
     opacity: 0;
     transform: translateX(-1rem);
-    
+
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
 
     &.active {
@@ -62,6 +62,11 @@ h3 {
       transition-delay: 0.2s;
     }
   }
+}
+
+.expanding p {
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
 }
 
 @import 'themes/default.scss';

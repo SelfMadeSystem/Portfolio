@@ -278,6 +278,12 @@
             background-color: var(--primary-100);
             opacity: 0.5;
         }
+
+        &.expanding::before {
+            transition: opacity 0.4s ease-in-out, background-color 0.7s linear;
+            background-color: var(--primary);
+            opacity: 1;
+        }
     }
 
     .secondary-card {
@@ -288,7 +294,6 @@
             border-bottom-right-radius: 10rem;
         }
     }
-
 
     theme-switcher {
         position: absolute;
