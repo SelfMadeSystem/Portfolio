@@ -278,25 +278,40 @@
             background-color: var(--primary-100);
             opacity: 0.5;
         }
-
-        &.expanding {
-            transition: backdrop-filter 0s ease-in-out 0.5s;
-            backdrop-filter: blur(0px);
-
-            &::before {
-                transition: opacity 0.4s ease-in-out, background-color 0.7s linear;
-                background-color: var(--primary);
-                opacity: 1;
-            }
-        }
     }
 
     .secondary-card {
-        background-color: var(--secondary-500);
+        background-color: var(--secondary-200);
 
         &.title {
             border-bottom-left-radius: 10rem;
             border-bottom-right-radius: 10rem;
+        }
+    }
+
+    .expanding {
+        transition: backdrop-filter 0s ease-in-out 0.5s, color 0.4s ease-in-out;
+        backdrop-filter: blur(0px);
+
+        &::before {
+            transition: opacity 0.4s ease-in-out, background-color 0.7s linear;
+            opacity: 1;
+        }
+
+        &.to-primary::before {
+            background-color: var(--primary);
+        }
+
+        &.to-secondary::before {
+            background-color: var(--secondary);
+        }
+
+        &.to-base {
+            color: var(--base-text);
+
+            &::before {
+                background-color: var(--base);
+            }
         }
     }
 

@@ -93,7 +93,7 @@ export class SectionTwo extends LitElement {
                 <div
                     @click=${this.clickedCard}
                     data-jump-to="web-development"
-                    class="primary-card flex flex-col items-center p-8 pb-4 rounded-8
+                    class="primary-card to-base flex flex-col items-center p-8 pb-4 rounded-8
                     transition-transform duration-200
                     cursor-pointer
                     hover:scale-105">
@@ -111,7 +111,7 @@ export class SectionTwo extends LitElement {
                 <div
                     @click=${this.clickedCard}
                     data-jump-to="backend-development"
-                    class="primary-card flex flex-col items-center p-8 pb-4 rounded-8
+                    class="primary-card to-secondary flex flex-col items-center p-8 pb-4 rounded-8
                     transition-transform duration-200
                     cursor-pointer
                     hover:scale-105">
@@ -130,7 +130,7 @@ export class SectionTwo extends LitElement {
                 <div
                     @click=${this.clickedCard}
                     data-jump-to="game-development"
-                    class="primary-card flex flex-col items-center p-8 pb-4 rounded-8
+                    class="primary-card to-primary flex flex-col items-center p-8 pb-4 rounded-8
                     transition-transform duration-200
                     cursor-pointer
                     hover:scale-105">
