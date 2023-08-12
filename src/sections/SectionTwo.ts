@@ -93,7 +93,7 @@ export class SectionTwo extends LitElement {
                 <div
                     @click=${this.clickedCard}
                     data-jump-to="web-development"
-                    class="primary-card flex flex-col items-center p-8 rounded-8
+                    class="primary-card flex flex-col items-center p-8 pb-4 rounded-8
                     transition-transform duration-200
                     cursor-pointer
                     hover:scale-105">
@@ -103,11 +103,15 @@ export class SectionTwo extends LitElement {
                     technologies like TypeScript, React, Vue, Lit, Tailwind, Vite, WordPress
                     and Shopify, but I also like to use vanilla HTML, CSS and JavaScript.
                     </p>
+
+                    <p class="mt-4 text-sm text-center">
+                        Click to learn more
+                    </p>
                 </div>
                 <div
                     @click=${this.clickedCard}
                     data-jump-to="backend-development"
-                    class="primary-card flex flex-col items-center p-8 rounded-8
+                    class="primary-card flex flex-col items-center p-8 pb-4 rounded-8
                     transition-transform duration-200
                     cursor-pointer
                     hover:scale-105">
@@ -118,11 +122,15 @@ export class SectionTwo extends LitElement {
                     C# and Rust. I would also like to learn older technologies like
                     C or COBOL.
                     </p>
+
+                    <p class="mt-4 text-sm text-center">
+                        Click to learn more
+                    </p>
                 </div>
                 <div
                     @click=${this.clickedCard}
                     data-jump-to="game-development"
-                    class="primary-card flex flex-col items-center p-8 rounded-8
+                    class="primary-card flex flex-col items-center p-8 pb-4 rounded-8
                     transition-transform duration-200
                     cursor-pointer
                     hover:scale-105">
@@ -131,6 +139,10 @@ export class SectionTwo extends LitElement {
                     I like to mess around in game engines to challenge my creativity and
                     algorithmic problem solving skills outside of the regular tech landscape.
                     I use primarily Godot with GDScript and C#.
+                    </p>
+
+                    <p class="mt-4 text-sm text-center">
+                        Click to learn more
                     </p>
                 </div>
             </div>
