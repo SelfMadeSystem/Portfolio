@@ -24,6 +24,37 @@ export class SectionThree extends LitElement {
                     </div>
                 </div>
 
+                <div class="pb-16 md:pl-15% w-full">
+                    <div class="base-card w-full flex flex-col md:flex-row items-stretch md:rounded-l-8">
+                        <div class="flex flex-col items-center p-8">
+                            <h2 class="text-4xl">Mead Simon Chain Mail Designs</h2>
+                            <p class="text-xl max-w-lg mx-8">
+                                This website is a portfolio for Mead Simon Chain Mail Designs.
+                                It showcases the various fashion pieces that are available for purchase.
+                                It is also connected to a Shopify store to facilitate the purchasing process.
+                                Since the creation of this website, the online purchases have increased by more than 300%.
+                            </p>
+                            <a class="text-xl button" href="https://meadsimon.ca">Visit</a>
+                        </div>
+                        <div class="separator"></div>
+                        <iframe class="grow-2 w-full min-h-75vh border-none" src="https://meadsimon.ca"></iframe>
+                    </div>
+                </div>
+
+                <div class="pb-16 md:pr-15% w-full">
+                    <div class="base-card w-full flex flex-col md:flex-row items-stretch md:rounded-r-8">
+                        <iframe class="grow-2 w-full min-h-75vh border-none" src="https://abacus-cal.pages.dev"></iframe>
+                        <div class="separator"></div>
+                        <div class="flex flex-col items-center p-8">
+                            <h2 class="text-4xl">Abacus Cleaning Services Inc.</h2>
+                            <p class="text-xl max-w-lg mx-8">
+                                I have been working on a website for my father's chain mail business.
+                            </p>
+                            <a class="text-xl button" href="https://abacus-cal.pages.dev">Visit</a>
+                        </div>
+                    </div>
+                </div>
+
                 <my-aquarium slot="background"
                 maskid="wave3"
                 flipmasky
