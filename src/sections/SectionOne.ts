@@ -22,9 +22,8 @@ export class SectionOne extends LitElement {
                     <span id="hand-wave">👋</span>
                     </h1>
                     <p class="text-xl max-w-lg text-center">
-                    I'm a full-stack developer. I love to create fast and reliable software
-                    to
-                    help others accomplish their goals.
+                    I'm a full-stack developer. I love to create fast and reliable
+                    software to help others accomplish their goals.
                     </p>
                 </div>
             </div>

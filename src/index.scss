@@ -64,9 +64,13 @@ h3 {
   }
 }
 
-.expanding p {
-  opacity: 0;
-  transition: opacity 0.4s ease-in-out;
+.expanding {
+  pointer-events: all;
+
+  p {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
 }
 
 #arrow-down {
@@ -77,7 +81,7 @@ h3 {
   0% {
     translate: 0 0;
   }
-  
+
   50% {
     translate: 0 0.5rem;
   }

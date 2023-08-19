@@ -12,12 +12,22 @@ export class SectionTwo extends LitElement {
 
         const duplicate = card.cloneNode(true) as HTMLElement;
 
-        const jumpTo = card.dataset.jumpTo;
+        const jumpTo = card.dataset.jumpTo!;
+        const element = document.getElementById(jumpTo);
+
+        const scrollIntoView = () => {
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'instant',
+                    block: 'start',
+                });
+            }
+        };
 
         card.style.visibility = 'hidden';
 
         const rect = card.getBoundingClientRect();
-        
+
         const top = rect.top + rect.height * 0.025;
         const left = rect.left + rect.width * 0.025;
         const width = rect.width * 0.95;
@@ -52,7 +62,7 @@ export class SectionTwo extends LitElement {
                 fill: 'forwards',
             }).onfinish = () => {
                 card.style.visibility = '';
-                
+
                 duplicate.animate([
                     {},
                     {
@@ -64,24 +74,20 @@ export class SectionTwo extends LitElement {
                         easing: 'ease-in-out',
                     }).onfinish = () => {
                         duplicate.remove();
-                    }
-                    
-                if (jumpTo) {
-                    const element = document.getElementById(jumpTo);
-                    if (element) {
-                        element.scrollIntoView({
-                            behavior: 'instant',
-                            block: 'start',
-                        });
-                    }
-                }
+
+                        window.removeEventListener('scroll', scrollIntoView);
+                    };
+                
+                scrollIntoView();
+
+                window.addEventListener('scroll', scrollIntoView); // I don't think this is the best way to make sure the element is scrolled into view, even when the user scrolls
             };
 
         card.parentElement!.appendChild(duplicate);
 
         requestAnimationFrame(() => {
             duplicate.classList.add('expanding');
-        })
+        });
     };
 
     render() {
