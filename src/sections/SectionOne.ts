@@ -40,6 +40,14 @@ export class SectionOne extends LitElement {
             opacity="0.6"
             waveWidthInRelationToHeight="false"
             color="var(--base-wave)"></my-wave>
+  
+            <div slot="background" id="arrow-down"
+            class="absolute
+            bottom-16 left-1/2
+            transform -translate-x-1/2 rotate-45
+            w-8 h-8
+            z-6">
+            </div>
         </portfolio-section>
         `;
     }

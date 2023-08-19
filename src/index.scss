@@ -69,5 +69,23 @@ h3 {
   transition: opacity 0.4s ease-in-out;
 }
 
+#arrow-down {
+  animation: arrow 1s infinite ease-in-out;
+}
+
+@keyframes arrow {
+  0% {
+    translate: 0 0;
+  }
+  
+  50% {
+    translate: 0 0.5rem;
+  }
+
+  100% {
+    translate: 0 0;
+  }
+}
+
 @import 'themes/default.scss';
 @import 'themes/neon.scss';

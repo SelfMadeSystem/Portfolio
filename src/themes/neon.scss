@@ -117,6 +117,12 @@
         }
     }
 
+    #arrow-down {
+        border: 0.25rem solid var(--base-contrast);
+        border-left: 0 solid transparent;
+        border-top: 0 solid transparent;
+    }
+
     #footer p {
         margin: 0.5em;
     }
@@ -201,6 +207,7 @@
     .expanding {
         transition: backdrop-filter 0s ease-in-out 0.5s;
         backdrop-filter: blur(0px);
+
         &::before {
             transition: opacity 0.4s ease-in-out;
             opacity: 1;

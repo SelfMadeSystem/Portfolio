@@ -220,6 +220,12 @@
         }
     }
 
+    #arrow-down {
+        border: 0.25rem solid var(--base);
+        border-left: 0 solid transparent;
+        border-top: 0 solid transparent;
+    }
+
     #footer p {
         margin: 0.5em;
     }
