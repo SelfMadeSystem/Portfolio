@@ -64,6 +64,19 @@ h3 {
   }
 }
 
+a.button {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
+  background-color: var(--base);
+  color: var(--base-text);
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+  width: fit-content;
+}
+
 .expanding {
   pointer-events: all;
 

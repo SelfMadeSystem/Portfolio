@@ -129,7 +129,7 @@
     --secondary-wave: var(--secondary);
     --dark-wave: var(--dark);
 
-    a {
+    a:not(.button) {
         color: var(--primary);
         text-decoration: underline;
     }
@@ -149,18 +149,8 @@
     }
 
     a.button {
-        display: inline-block;
-        padding: 0.5em 1em;
-        border-radius: 0.25em;
         background-color: var(--base);
         color: var(--base-text);
-        text-decoration: none;
-        font-weight: bold;
-        text-align: center;
-        transition: background-color 0.2s ease-in-out;
-
-        width: fit-content;
-        margin: 0 auto;
     }
 
     a.button:hover {
@@ -270,6 +260,18 @@
         color: var(--secondary-text);
     }
 
+    .portfolio-card button {
+        svg {
+            fill: var(--base-text);
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0.5;
+        }
+
+        &.active svg {
+            opacity: 1;
+        }
+    }
+
     .base-card {
         position: relative;
         isolation: isolate;
@@ -283,6 +285,10 @@
             inset: 0;
             background-color: var(--base-780);
             opacity: 0.5;
+        }
+
+        .portfolio-card button svg {
+            fill: var(--base-text);
         }
     }
 
@@ -300,6 +306,10 @@
             background-color: var(--primary-100);
             opacity: 0.5;
         }
+
+        .portfolio-card button svg {
+            fill: var(--primary-text);
+        }
     }
 
     .secondary-card {
@@ -308,6 +318,10 @@
         &.title {
             border-bottom-left-radius: 10rem;
             border-bottom-right-radius: 10rem;
+        }
+
+        .portfolio-card button svg {
+            fill: var(--secondary-text);
         }
     }
 
@@ -377,17 +391,5 @@
         background-color: var(--base);
         color: var(--base-text);
         cursor: pointer;
-    }
-
-    .portfolio-card button {
-        svg {
-            fill: var(--secondary-text);
-            transition: opacity 0.2s ease-in-out;
-            opacity: 0.5;
-        }
-
-        &.active svg {
-            opacity: 1;
-        }
     }
 }
