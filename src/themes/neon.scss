@@ -167,6 +167,10 @@
             background-color: var(--base);
             opacity: 0.2;
         }
+
+        .separator {
+            border: 0.125em solid var(--base-contrast);
+        }
     }
 
     .primary-card {
@@ -186,6 +190,10 @@
             opacity: 0.2;
             transition: opacity 0.4s ease-in-out;
         }
+
+        .separator {
+            border: 0.125em solid var(--primary-contrast);
+        }
     }
 
     .secondary-card {
@@ -202,6 +210,10 @@
                 width: calc(100% + 8px);
             }
         }
+
+        .separator {
+            border: 0.125em solid var(--secondary-contrast);
+        }
     }
 
     .expanding {
@@ -212,10 +224,6 @@
             transition: opacity 0.4s ease-in-out;
             opacity: 1;
         }
-    }
-
-    .separator {
-        border: 0.125em solid var(--base-contrast);
     }
 
     theme-switcher {
