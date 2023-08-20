@@ -81,6 +81,8 @@ export class SectionTwo extends LitElement {
                 scrollIntoView();
 
                 window.addEventListener('scroll', scrollIntoView); // I don't think this is the best way to make sure the element is scrolled into view, even when the user scrolls
+
+                window.history.pushState({}, '', `#${jumpTo}`);
             };
 
         card.parentElement!.appendChild(duplicate);

@@ -24,8 +24,8 @@ export class SectionThree extends LitElement {
                     </div>
                 </div>
 
-                <div class="pb-16 md:pl-15% w-full">
-                    <div class="base-card w-full flex flex-col md:flex-row items-stretch md:rounded-l-8">
+                <div class="pb-16 lg:pl-15% w-full">
+                    <div class="base-card w-full flex flex-col md:flex-row items-stretch lg:rounded-l-8">
                         <div class="flex flex-col items-center p-8">
                             <h2 class="text-4xl">Mead Simon Chain Mail Designs</h2>
                             <p class="text-xl max-w-lg mx-8">
@@ -41,8 +41,8 @@ export class SectionThree extends LitElement {
                     </div>
                 </div>
 
-                <div class="pb-16 md:pr-15% w-full">
-                    <div class="base-card w-full flex flex-col md:flex-row items-stretch md:rounded-r-8">
+                <div class="pb-16 lg:pr-15% w-full">
+                    <div class="base-card w-full flex flex-col-reverse md:flex-row items-stretch lg:rounded-r-8">
                         <iframe class="grow-2 w-full min-h-75vh border-none" src="https://abacus-cal.pages.dev"></iframe>
                         <div class="separator"></div>
                         <div class="flex flex-col items-center p-8">

@@ -152,8 +152,8 @@
         display: inline-block;
         padding: 0.5em 1em;
         border-radius: 0.25em;
-        background-color: var(--primary);
-        color: var(--primary-text);
+        background-color: var(--base);
+        color: var(--base-text);
         text-decoration: none;
         font-weight: bold;
         text-align: center;
@@ -164,10 +164,26 @@
     }
 
     a.button:hover {
-        background-color: var(--primary-light);
+        background-color: var(--base-light);
     }
 
     a.button:active {
+        background-color: var(--base-dark);
+    }
+
+    .primary a.button,
+    a.button.primary {
+        background-color: var(--primary);
+        color: var(--primary-text);
+    }
+
+    .primary a.button:hover,
+    a.button.primary:hover {
+        background-color: var(--primary-light);
+    }
+
+    .primary a.button:active,
+    a.button.primary:active {
         background-color: var(--primary-dark);
     }
 
