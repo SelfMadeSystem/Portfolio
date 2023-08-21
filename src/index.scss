@@ -45,21 +45,24 @@ h3 {
     padding: 0;
 
     svg {
-      height: 2rem;
-      width: 2rem;
+      height: 3rem;
+      width: 3rem;
+      margin: 0.75rem;
     }
   }
 
   .content {
     opacity: 0;
     transform: translateX(-1rem);
-
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+    pointer-events: none;
 
     &.active {
       opacity: 1;
       transform: translateX(0);
       transition-delay: 0.2s;
+      pointer-events: all;
     }
   }
 }

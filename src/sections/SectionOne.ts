@@ -17,13 +17,17 @@ export class SectionOne extends LitElement {
             ">
                 <div class="z-8">
                     <h1 class="text-6xl text-center">
-                    <span>Hi, I'm</span>
-                    <span>Shoghi Simon</span>
-                    <span id="hand-wave">👋</span>
+                        <span>Hi, I'm</span>
+                        <span>Shoghi Simon</span>
+                        <span id="hand-wave">👋</span>
                     </h1>
-                    <p class="text-xl max-w-lg text-center">
+                    <p class="text-xl max-w-lg mx-auto text-center">
                     I'm a full-stack developer. I love to create fast and reliable
                     software to help others accomplish their goals.
+                    </p>
+                    <p class="text-xl max-w-lg mx-auto text-center">
+                    Feel free to conttact me at <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a>
+                    or send me a message on <a href="https://discord.com/">Discord</a> at <code>selfmadesystem</code>.
                     </p>
                 </div>
             </div>
