@@ -107,5 +107,25 @@ a.button {
   }
 }
 
+.tooltip {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+button {
+  position: relative;
+  color: inherit;
+}
+
+button:hover .tooltip {
+  opacity: 1;
+}
+
 @import 'themes/default.scss';
 @import 'themes/neon.scss';
