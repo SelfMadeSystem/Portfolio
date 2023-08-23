@@ -12,7 +12,7 @@ export class SectionThree extends LitElement {
         return html`
             <portfolio-section fullHeight id="what-i-use" class="z-2">
                 <div class="base-card relative flex flex-col items-center
-                mx-8 rounded-b-8
+                rounded-b-8
                 -mb-24 -top-40 pt-32">
                     <div id="web-development" class="z-2 my-24 flex flex-col items-center p-8 rounded-8">
                         <h2 class="text-4xl">Web Development</h2>

@@ -97,7 +97,7 @@ export class SectionTwo extends LitElement {
         return html`
           <portfolio-section fullHeight class="primary"
             id="what-i-do">
-            <div class="flex flex-wrap pt-8 px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
+            <div class="flex flex-wrap pt-8 md:px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
                 <div
                     @click=${this.clickedCard}
                     data-jump-to="web-development"

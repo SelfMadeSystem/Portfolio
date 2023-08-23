@@ -14,9 +14,8 @@ export class SectionFive extends LitElement {
             <div id="game-development" class="z-2 my-24 flex flex-col items-center p-8 rounded-8">
                 <h2 class="text-4xl">Game Development</h2>
                 <p class="text-xl max-w-lg text-center mx-8">
-                    If you want to contact me, you can send me an email at
-                    <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or send me a
-                    message on <a href="https://discord.com/">Discord</a> at <code>selfmadesystem</code>.
+                    I have experience with game development using Unity, Godot and C# as
+                    well as web-based game development using TypeScript.
                 </p>
             </div>
 
