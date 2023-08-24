@@ -79,7 +79,7 @@ export class SectionFive extends LitElement {
             </div>
 
             <div class="pb-16 md:pr-15% w-full">
-                <div class="primary-card left w-full flex flex-col md:flex-row items-stretch md:rounded-r-8">
+                <div class="primary-card left w-full flex flex-col-reverse md:flex-col md:flex-row items-stretch md:rounded-r-8">
                     <iframe class="flex-1 grow-2 min-h-75vh border-none" src="https://www.youtube.com/embed/wRPCxOlBcvw?si=6ekrq65VDIpc4AWC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <div class="separator"></div>
                     <div class="flex-1 grow-1 flex flex-col justify-between">
