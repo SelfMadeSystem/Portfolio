@@ -54,9 +54,8 @@ export class SectionFive extends LitElement {
                                         <a href="https://store.steampowered.com/app/709920/Tametsi/" target="_blank">Tametsi</a> and
                                         <a href="https://store.steampowered.com/app/265890/Hexcells/" target="_blank">Hexcells</a>,
                                         this game offers an infinite amount of procedurally generated levels.
-                                        Mobile support is currently being worked on.
                                         <p>
-                                            Note: zooming will not work in the iframe. If you want to play, please visit the website.
+                                            Note: Mobile support is currently being worked on.
                                         </p>
                                     </div>
                                     <div data-name="technologies" class="content text-xl text-center m-auto absolute top-0 left-0 w-full">
