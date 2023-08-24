@@ -164,7 +164,7 @@ export class SectionFive extends LitElement {
                                         X In A Row is a game where you have to get X in a row. It's like Tic Tac Toe, but with more
                                         options and more fun. There are presets for regular Tic Tac Toe, Gomoku, Connect 4, and
                                         Connect 5. You can play online with friends too. There is also a hexagonal board and a
-                                        triangular board.
+                                        triangular board. This game does actually work on mobile, including pinch to zoom.
                                         <p>
                                             Note: due to the demo being hosted on Cloudflare Pages, the online multiplayer will not work and is disabled.
                                         </p>
