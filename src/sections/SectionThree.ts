@@ -25,7 +25,7 @@ export class SectionThree extends LitElement {
                 </div>
 
                 <div class="pb-16 lg:pl-15% w-full">
-                    <div class="base-card w-full flex flex-col md:flex-row items-stretch lg:rounded-l-8">
+                    <div class="base-card right w-full flex flex-col md:flex-row items-stretch lg:rounded-l-8">
                         <div class="flex-1 grow-1 flex flex-col justify-between">
                             <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8">
                                 <div class="flex flex-row items-center justify-center">
@@ -80,7 +80,7 @@ export class SectionThree extends LitElement {
                 </div>
 
                 <div class="pb-16 lg:pr-15% w-full">
-                    <div class="base-card w-full flex flex-col-reverse md:flex-row items-stretch lg:rounded-r-8">
+                    <div class="base-card left w-full flex flex-col-reverse md:flex-row items-stretch lg:rounded-r-8">
                         <iframe class="flex-1 grow-2 min-h-75vh border-none" src="https://abacus-cal.pages.dev"></iframe>
                         <div class="separator"></div>
                         <div class="flex-1 grow-1 flex flex-col justify-between">

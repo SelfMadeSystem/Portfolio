@@ -166,6 +166,14 @@
 
         border: 4px solid var(--base-contrast);
 
+        &.left {
+            border-left: 0;
+        }
+
+        &.right {
+            border-right: 0;
+        }
+
         &::before {
             content: '';
             z-index: -1;
@@ -192,6 +200,14 @@
 
         border: 4px solid var(--primary-contrast);
 
+        &.left {
+            border-left: 0;
+        }
+
+        &.right {
+            border-right: 0;
+        }
+
         &::before {
             content: '';
             z-index: -1;
@@ -214,6 +230,14 @@
     .secondary-card {
         background-color: var(--secondary);
         border: 4px solid var(--secondary-contrast);
+
+        &.left {
+            border-left: 0;
+        }
+
+        &.right {
+            border-right: 0;
+        }
 
         &.title {
             border-bottom: 0;
