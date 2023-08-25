@@ -36,5 +36,96 @@ h3 {
   }
 }
 
+.portfolio-card {
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+
+    svg {
+      height: 3rem;
+      width: 3rem;
+      margin: 0.75rem;
+    }
+  }
+
+  .content {
+    opacity: 0;
+    transform: translateX(-1rem);
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.2s;
+      pointer-events: all;
+    }
+  }
+}
+
+a.button {
+  display: inline-block;
+  padding: 0.5em 1em;
+  border-radius: 0.25em;
+  background-color: var(--base);
+  color: var(--base-text);
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+  width: fit-content;
+}
+
+.expanding {
+  pointer-events: all;
+
+  p {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
+}
+
+#arrow-down {
+  animation: arrow 1s infinite ease-in-out;
+}
+
+@keyframes arrow {
+  0% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 0.5rem;
+  }
+
+  100% {
+    translate: 0 0;
+  }
+}
+
+.tooltip {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+button {
+  position: relative;
+  color: inherit;
+}
+
+button:hover .tooltip {
+  opacity: 1;
+}
+
 @import 'themes/default.scss';
 @import 'themes/neon.scss';

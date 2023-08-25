@@ -58,39 +58,20 @@
     }
 
     a.button {
-        display: inline-block;
-        padding: 0.5em 1em;
-        border-radius: 0.25em;
-        background-color: var(--primary-contrast);
-        color: var(--primary-text);
-        text-decoration: none;
-        font-weight: bold;
-        text-align: center;
-        transition: background-color 0.2s ease-in-out;
-    }
-
-    a.button:hover {
-        background-color: var(--primary-light);
-    }
-
-    a.button:active {
-        background-color: var(--primary-dark);
+        border: 4px solid var(--base-contrast);
+        color: var(--base-text);
     }
 
     .secondary a.button,
     a.button.secondary {
-        background-color: var(--secondary);
+        border: 4px solid var(--secondary-contrast);
         color: var(--secondary-text);
     }
 
-    .secondary a.button:hover,
-    a.button.secondary:hover {
-        background-color: var(--secondary-light);
-    }
-
-    .secondary a.button:active,
-    a.button.secondary:active {
-        background-color: var(--secondary-dark);
+    .primary a.button,
+    a.button.primary {
+        border: 4px solid var(--primary-contrast);
+        color: var(--primary-text);
     }
 
     .pointer-ripple {
@@ -132,6 +113,12 @@
         }
     }
 
+    #arrow-down {
+        border: 0.25rem solid var(--base-contrast);
+        border-left: 0 solid transparent;
+        border-top: 0 solid transparent;
+    }
+
     #footer p {
         margin: 0.5em;
     }
@@ -160,6 +147,17 @@
         color: var(--secondary-text);
     }
 
+    .portfolio-card button {
+        svg {
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0.25;
+        }
+
+        &.active svg {
+            opacity: 1;
+        }
+    }
+
     .base-card {
         position: relative;
         isolation: isolate;
@@ -168,6 +166,14 @@
 
         border: 4px solid var(--base-contrast);
 
+        &.left {
+            border-left: 0;
+        }
+
+        &.right {
+            border-right: 0;
+        }
+
         &::before {
             content: '';
             z-index: -1;
@@ -175,6 +181,14 @@
             inset: 0;
             background-color: var(--base);
             opacity: 0.2;
+        }
+
+        .separator {
+            border: 0.125em solid var(--base-contrast);
+        }
+
+        svg {
+            fill: var(--base-contrast);
         }
     }
 
@@ -186,6 +200,14 @@
 
         border: 4px solid var(--primary-contrast);
 
+        &.left {
+            border-left: 0;
+        }
+
+        &.right {
+            border-right: 0;
+        }
+
         &::before {
             content: '';
             z-index: -1;
@@ -193,12 +215,29 @@
             inset: 0;
             background-color: var(--primary);
             opacity: 0.2;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .separator {
+            border: 0.125em solid var(--primary-contrast);
+        }
+
+        svg {
+            fill: var(--primary-contrast);
         }
     }
 
     .secondary-card {
         background-color: var(--secondary);
         border: 4px solid var(--secondary-contrast);
+
+        &.left {
+            border-left: 0;
+        }
+
+        &.right {
+            border-right: 0;
+        }
 
         &.title {
             border-bottom: 0;
@@ -210,8 +249,25 @@
                 width: calc(100% + 8px);
             }
         }
+
+        .separator {
+            border: 0.125em solid var(--secondary-contrast);
+        }
+
+        svg {
+            fill: var(--secondary-contrast);
+        }
     }
 
+    .expanding {
+        transition: backdrop-filter 0s ease-in-out 0.5s;
+        backdrop-filter: blur(0px);
+
+        &::before {
+            transition: opacity 0.4s ease-in-out;
+            opacity: 1;
+        }
+    }
 
     theme-switcher {
         position: absolute;

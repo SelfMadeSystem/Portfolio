@@ -129,7 +129,7 @@
     --secondary-wave: var(--secondary);
     --dark-wave: var(--dark);
 
-    a {
+    a:not(.button) {
         color: var(--primary);
         text-decoration: underline;
     }
@@ -149,22 +149,31 @@
     }
 
     a.button {
-        display: inline-block;
-        padding: 0.5em 1em;
-        border-radius: 0.25em;
-        background-color: var(--primary);
-        color: var(--primary-text);
-        text-decoration: none;
-        font-weight: bold;
-        text-align: center;
-        transition: background-color 0.2s ease-in-out;
+        background-color: var(--base);
+        color: var(--base-text);
     }
 
     a.button:hover {
-        background-color: var(--primary-light);
+        background-color: var(--base-light);
     }
 
     a.button:active {
+        background-color: var(--base-dark);
+    }
+
+    .primary a.button,
+    a.button.primary {
+        background-color: var(--primary);
+        color: var(--primary-text);
+    }
+
+    .primary a.button:hover,
+    a.button.primary:hover {
+        background-color: var(--primary-light);
+    }
+
+    .primary a.button:active,
+    a.button.primary:active {
         background-color: var(--primary-dark);
     }
 
@@ -217,6 +226,12 @@
         }
     }
 
+    #arrow-down {
+        border: 0.25rem solid var(--base);
+        border-left: 0 solid transparent;
+        border-top: 0 solid transparent;
+    }
+
     #footer p {
         margin: 0.5em;
     }
@@ -245,6 +260,18 @@
         color: var(--secondary-text);
     }
 
+    .portfolio-card button {
+        svg {
+            fill: var(--base-text);
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0.5;
+        }
+
+        &.active svg {
+            opacity: 1;
+        }
+    }
+
     .base-card {
         position: relative;
         isolation: isolate;
@@ -258,6 +285,10 @@
             inset: 0;
             background-color: var(--base-780);
             opacity: 0.5;
+        }
+
+        .portfolio-card button svg {
+            fill: var(--base-text);
         }
     }
 
@@ -275,17 +306,50 @@
             background-color: var(--primary-100);
             opacity: 0.5;
         }
+
+        .portfolio-card button svg {
+            fill: var(--primary-text);
+        }
     }
 
     .secondary-card {
-        background-color: var(--secondary-500);
+        background-color: var(--secondary-200);
 
         &.title {
             border-bottom-left-radius: 10rem;
             border-bottom-right-radius: 10rem;
         }
+
+        .portfolio-card button svg {
+            fill: var(--secondary-text);
+        }
     }
 
+    .expanding {
+        transition: backdrop-filter 0s ease-in-out 0.5s, color 0.4s ease-in-out;
+        backdrop-filter: blur(0px);
+
+        &::before {
+            transition: opacity 0.4s ease-in-out, background-color 0.7s linear;
+            opacity: 1;
+        }
+
+        &.to-primary::before {
+            background-color: var(--primary);
+        }
+
+        &.to-secondary::before {
+            background-color: var(--secondary);
+        }
+
+        &.to-base {
+            color: var(--base-text);
+
+            &::before {
+                background-color: var(--base);
+            }
+        }
+    }
 
     theme-switcher {
         position: absolute;
