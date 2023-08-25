@@ -11,7 +11,7 @@ export class SectionFive extends LitElement {
         // @unocss-include
         return html`
         <portfolio-section class="primary z-1" id="contact">
-            <div id="game-development" class="z-2 my-24 flex flex-col items-center p-8 rounded-8">
+            <div id="game-development" class="primary-card z-2 my-24 flex flex-col items-center p-8 rounded-8">
                 <h2 class="text-4xl">Game Development</h2>
                 <p class="text-xl max-w-lg text-center mx-8">
                     I have experience with game development using Unity, Godot and C# as
@@ -19,7 +19,7 @@ export class SectionFive extends LitElement {
                 </p>
             </div>
 
-            <div class="pb-16 md:pl-15% w-full">
+            <div class="pb-16 md:pl-15% w-full z-2">
                 <div class="primary-card right w-full flex flex-col md:flex-row items-stretch md:rounded-l-8">
                     <div class="flex-1 grow-1 flex flex-col justify-between">
                         <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8">
@@ -78,8 +78,8 @@ export class SectionFive extends LitElement {
                 </div>
             </div>
 
-            <div class="pb-16 md:pr-15% w-full">
-                <div class="primary-card left w-full flex flex-col-reverse md:flex-col md:flex-row items-stretch md:rounded-r-8">
+            <div class="pb-16 md:pr-15% w-full z-2">
+                <div class="primary-card left w-full flex flex-col-reverse md:flex-row items-stretch md:rounded-r-8">
                     <iframe class="flex-1 grow-2 min-h-75vh border-none" src="https://www.youtube.com/embed/wRPCxOlBcvw?si=6ekrq65VDIpc4AWC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     <div class="separator"></div>
                     <div class="flex-1 grow-1 flex flex-col justify-between">
@@ -131,7 +131,7 @@ export class SectionFive extends LitElement {
                 </div>
             </div>
 
-            <div class="pb-16 md:pl-15% w-full">
+            <div class="pb-16 md:pl-15% w-full z-2">
                 <div class="primary-card right w-full flex flex-col md:flex-row items-stretch md:rounded-l-8">
                     <div class="flex-1 grow-1 flex flex-col justify-between">
                         <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8">

@@ -11,10 +11,10 @@ export class SectionThree extends LitElement {
         // @unocss-include
         return html`
             <portfolio-section fullHeight id="what-i-use" class="z-2">
-                <div class="base-card relative flex flex-col items-center
+                <div class="base-card relative flex flex-col items-center z-2
                 rounded-b-8
                 -mb-24 -top-40 pt-32">
-                    <div id="web-development" class="z-2 my-24 flex flex-col items-center p-8 rounded-8">
+                    <div id="web-development" class="my-24 flex flex-col items-center p-8 rounded-8">
                         <h2 class="text-4xl">Web Development</h2>
                         <p class="text-xl max-w-lg text-center mx-8">
                             I have been developing websites for over 5 years now.
@@ -24,7 +24,7 @@ export class SectionThree extends LitElement {
                     </div>
                 </div>
 
-                <div class="pb-16 lg:pl-15% w-full">
+                <div class="pb-16 lg:pl-15% w-full z-2">
                     <div class="base-card right w-full flex flex-col md:flex-row items-stretch lg:rounded-l-8">
                         <div class="flex-1 grow-1 flex flex-col justify-between">
                             <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8">
@@ -79,7 +79,7 @@ export class SectionThree extends LitElement {
                     </div>
                 </div>
 
-                <div class="pb-16 lg:pr-15% w-full">
+                <div class="pb-16 lg:pr-15% w-full z-2">
                     <div class="base-card left w-full flex flex-col-reverse md:flex-row items-stretch lg:rounded-r-8">
                         <iframe class="flex-1 grow-2 min-h-75vh border-none" src="https://abacus-cal.pages.dev"></iframe>
                         <div class="separator"></div>
