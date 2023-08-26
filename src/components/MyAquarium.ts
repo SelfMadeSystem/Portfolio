@@ -451,7 +451,16 @@ export class MyAquarium extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
-        requestAnimationFrame(this.startDraw.bind(this));
+        requestAnimationFrame(() => {
+            if (this.maskId) {
+                requestAnimationFrame(() => {
+                    // We need to wait for the mask to be rendered before we can draw
+                    this.startDraw();
+                });
+            } else {
+                this.startDraw();
+            }
+        });
     }
 
     disconnectedCallback() {
@@ -632,6 +641,7 @@ export class MyAquarium extends LitElement {
             width: 100%;
             height: 100%;
             min-height: 10rem;
+            pointer-events: none;
         }
 
         canvas {

@@ -100,14 +100,14 @@ export class MyWave extends LitElement {
             });
 
         function isOnScreen() {
-            return true;
-            // const rect = canvas.getBoundingClientRect();
-            // return (
-            //     rect.top < window.innerHeight &&
-            //     rect.bottom > 0 &&
-            //     rect.left < window.innerWidth &&
-            //     rect.right > 0
-            // );
+            // return true;
+            const rect = canvas.getBoundingClientRect();
+            return (
+                rect.top < window.innerHeight &&
+                rect.bottom > 0 &&
+                rect.left < window.innerWidth &&
+                rect.right > 0
+            );
         }
 
         const wh = randomRange(this.waveHeight);
@@ -276,6 +276,7 @@ export class MyWave extends LitElement {
             width: 100%;
             height: 100%;
             min-height: 10rem;
+            pointer-events: none;
         }
 
         canvas {
