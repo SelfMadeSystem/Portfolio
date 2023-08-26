@@ -101,7 +101,7 @@ export class MyWave extends LitElement {
 
         function isOnScreen() {
             // return true;
-            const rect = canvas.getBoundingClientRect();
+            const rect = canvasEl.getBoundingClientRect();
             return (
                 rect.top < window.innerHeight &&
                 rect.bottom > 0 &&
