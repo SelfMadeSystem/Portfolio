@@ -95,9 +95,11 @@ export class MyWave {
         let _redraw = () => { };
 
         const canvas = this.canvas;
+        if (canvas == null) {
+            console.error("Canvas is null");
+            return;
+        }
         const ctx = canvas.getContext("2d")!;
-
-        let fillStyle = this.color;
 
         const waves = new Array(this.amount)
             .fill(0)
@@ -141,6 +143,8 @@ export class MyWave {
             const paths: Path2D[] = [];
 
             const inversePaths: Path2D[] = [];
+
+            let fillStyle = this.color;
 
             if (!neon) {
                 ctx.fillStyle = fillStyle;
@@ -262,6 +266,44 @@ export class MyWave {
             }
         };
     }
+
+    setStuff(options: Partial<MyWave>) {
+        Object.assign(this, options);
+
+        if ("width" in options) {
+            this.canvas!.width = options.width!;
+        }
+
+        if ("height" in options) {
+            this.canvas!.height = options.height!;
+        }
+    }
+}
+
+function doStuff(e: { data: any }, wave: MyWave) {
+    const { type } = e.data;
+
+    switch (type) {
+        case "init": {
+            const { canvas } = e.data;
+
+            wave.canvas = canvas;
+            break;
+        }
+        case "set": {
+            const { options } = e.data;
+            wave.setStuff(options);
+            break;
+        }
+        case "start": {
+            wave.start();
+            break;
+        }
+        case "stop": {
+            wave.stop();
+            break;
+        }
+    }
 }
 
 if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
@@ -270,29 +312,39 @@ if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScop
     const wave = new MyWave();
 
     onmessage = (e) => {
-        const { type } = e.data;
-
-        switch (type) {
-            case "init": {
-                const { canvas } = e.data;
-                wave.canvas = canvas;
-                break;
-            }
-            case "set": {
-                const { values } = e.data;
-                for (const key in values) {
-                    wave[key] = values[key];
-                }
-                break;
-            }
-            case "start": {
-                wave.start();
-                break;
-            }
-            case "stop": {
-                wave.stop();
-                break;
-            }
-        }
+        doStuff(e, wave);
     }
+}
+
+export class NotAWorker implements Worker {
+    wave: MyWave = new MyWave();
+    
+    onmessage: (this: Worker, ev: MessageEvent<any>) => any;
+    onmessageerror: (this: Worker, ev: MessageEvent<any>) => any;
+    postMessage(message: any, transfer: Transferable[]): void;
+    postMessage(message: any, options?: StructuredSerializeOptions): void;
+    postMessage(message: unknown, options?: unknown): void {
+        doStuff({ data: message }, this.wave);
+    }
+
+    terminate(): void {
+        throw new Error("Method not implemented.");
+    }
+    
+    addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: unknown, listener: unknown, options?: unknown): void {
+        throw new Error("Method not implemented.");
+    }
+    
+    removeEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: unknown, listener: unknown, options?: unknown): void {
+        throw new Error("Method not implemented.");
+    }
+    
+    dispatchEvent(event: Event): boolean {
+        throw new Error("Method not implemented.");
+    }
+    onerror: (this: AbstractWorker, ev: ErrorEvent) => any;
 }
