@@ -1,6 +1,6 @@
 import { customElement, property } from 'lit/decorators.js';
 import { LitElement, css } from "lit";
-import { getCanvas } from '../utils/CanvasUtils';
+import { NotAWorker } from './worker/WaveEffect-worker.ts';
 import { getColor } from '../utils/ColorUtils';
 import { isNeon } from '../theme';
 
@@ -64,10 +64,9 @@ export class MyWave extends LitElement {
 
         this.shadowRoot.appendChild(this.canvas);
 
-        const canvas = getCanvas(this.canvas);
+        const canvas = this.canvas; //getCanvas(this.canvas);
 
         if (canvas instanceof HTMLCanvasElement) {
-            const { NotAWorker } = await import('./worker/WaveEffect-worker.ts');
             this.worker = new NotAWorker();
         } else {
             this.worker = new Worker(new URL('./worker/WaveEffect-worker.ts', import.meta.url), {

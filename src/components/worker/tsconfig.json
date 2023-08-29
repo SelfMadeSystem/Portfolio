@@ -5,5 +5,6 @@
             "webworker"
         ],
         "composite": true,
+        "target": "ES2015"
     },
 }

@@ -1,62 +1,4 @@
-/**
- * Clamps a number between a min and max
- */
-export function clamp(at: number, min: number, max: number): number {
-    return Math.min(Math.max(at, min), max);
-}
-
-/**
- * Modulo function that always returns a positive number
- * @param a The number to be modulated
- * @param n The number to modulate by
- * @returns 
- */
-export function mod(a: number, n: number): number {
-    return ((a % n) + n) % n;
-}
-
-/**
- * Loops a number between a min and max
- * @param at The number to loop
- * @param min The minimum number to return
- * @param max The maximum number to return
- * @returns The looped number
- */
-export function wrapNumber(at: number, min: number, max: number): number {
-    return mod(at - min, max - min) + min;
-}
-
-/**
- * The same as Math.random() but with a min and max
- * @param min The minimum number to return
- * @param max The maximum number to return
- * @returns The random number
- */
-export function random(min: number, max: number): number {
-    return Math.random() * (max - min) + min;
-}
-
-/**
- * A number or a range of numbers
- */
-export type NumOrRange = number | [number, number];
-
-/**
- * Returns a random number from a range
- * @param range The range to get a random number from
- * @returns The random number
- */
-export function randomRange(...args: [NumOrRange] | [number, number]): number {
-    if (args.length == 1) {
-        const range = args[0];
-        if (Array.isArray(range)) {
-            return random(range[0], range[1]);
-        }
-        return range;
-    }
-    return random(args[0], args[1]);
-}
-
+import { randomRange, wrapNumber, clamp } from "./utils/MathUtils";
 
 /**
  * A wave effect.
@@ -280,19 +222,14 @@ export class MyWave {
     }
 }
 
-function doStuff(e: { data: any }, wave: MyWave) {
-    const { type } = e.data;
-
-    switch (type) {
+function doStuff(e: { data: any; }, wave: MyWave) {
+    switch (e.data.type) {
         case "init": {
-            const { canvas } = e.data;
-
-            wave.canvas = canvas;
+            wave.canvas = e.data.canvas;
             break;
         }
         case "set": {
-            const { options } = e.data;
-            wave.setStuff(options);
+            wave.setStuff(e.data.options);
             break;
         }
         case "start": {
@@ -313,12 +250,12 @@ if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScop
 
     onmessage = (e) => {
         doStuff(e, wave);
-    }
+    };
 }
 
 export class NotAWorker implements Worker {
     wave: MyWave = new MyWave();
-    
+
     onmessage: (this: Worker, ev: MessageEvent<any>) => any;
     onmessageerror: (this: Worker, ev: MessageEvent<any>) => any;
     postMessage(message: any, transfer: Transferable[]): void;
@@ -330,19 +267,19 @@ export class NotAWorker implements Worker {
     terminate(): void {
         throw new Error("Method not implemented.");
     }
-    
+
     addEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: unknown, listener: unknown, options?: unknown): void {
         throw new Error("Method not implemented.");
     }
-    
+
     removeEventListener<K extends keyof WorkerEventMap>(type: K, listener: (this: Worker, ev: WorkerEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     removeEventListener(type: unknown, listener: unknown, options?: unknown): void {
         throw new Error("Method not implemented.");
     }
-    
+
     dispatchEvent(event: Event): boolean {
         throw new Error("Method not implemented.");
     }
