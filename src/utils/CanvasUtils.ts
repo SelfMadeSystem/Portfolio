@@ -9,18 +9,16 @@ export function getCanvas(canvas: HTMLCanvasElement): HTMLCanvasElement | Offscr
 }
 
 /**
- * Creates either an HTMLCanvasElement or an OffscreenCanvas depending on
- * browser support.
+ * Creates an HTMLCanvasElement and returns it. If the browser supports
+ * OffscreenCanvas, it will return an OffscreenCanvas as well.
  * 
  * @param width The width of the canvas.
  * @param height The height of the canvas.
+ * @returns A tuple with the first element being the HTMLCanvasElement and the second being the OffscreenCanvas (or the HTMLCanvasElement if the browser doesn't support OffscreenCanvas)
  */
-export function createCanvas(width: number = 0, height: number = 0): HTMLCanvasElement | OffscreenCanvas {
-    if (typeof OffscreenCanvas !== 'undefined') {
-        return new OffscreenCanvas(width, height);
-    }
+export function createCanvas(width: number = 0, height: number = 0): [HTMLCanvasElement, HTMLCanvasElement | OffscreenCanvas] {
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    return canvas;
+    return [canvas, getCanvas(canvas)];
 }

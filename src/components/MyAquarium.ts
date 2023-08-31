@@ -3,7 +3,7 @@ import { LitElement, css } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
 import { Point } from "../utils/VecUtils.js";
 import { isNeon } from "../theme.js";
-import { getCanvas } from "../utils/CanvasUtils.js";
+import { createCanvas, getCanvas } from "../utils/CanvasUtils.js";
 import { NotAWorker } from "./worker/WaveEffect-worker";
 
 enum PointerClickState {
@@ -48,9 +48,10 @@ export class MyAquarium extends LitElement {
         super.connectedCallback();
 
         const canvasEl = document.createElement("canvas");
+        const ctx = canvasEl.getContext("2d")!;
         this.shadowRoot!.append(canvasEl);
 
-        const canvas = getCanvas(canvasEl); // canvas to pass to worker
+        const [ fakeCanvas, canvas ] = createCanvas(); // canvas to pass to worker
 
         if (canvas instanceof HTMLCanvasElement) {
             this.worker = new NotAWorker();
@@ -83,6 +84,21 @@ export class MyAquarium extends LitElement {
             }
         });
 
+        const mask: HTMLCanvasElement | null = (() => {
+            // return null;
+            const mask = document.getElementById(this.maskId ?? "") as HTMLCanvasElement | { canvas: HTMLCanvasElement } | null;
+
+            if (mask == null) {
+                return null;
+            }
+
+            if ("canvas" in mask) {
+                return mask.canvas;
+            }
+
+            return mask;
+        })();
+
         const updateThings = () => {
             const color = getColor(this.color, this);
             const neon = isNeon();
@@ -98,7 +114,7 @@ export class MyAquarium extends LitElement {
                 });
             }
             
-            const size = [canvasEl.clientWidth, canvasEl.clientHeight];
+            const size: [width: number, height: number] = [canvasEl.clientWidth, canvasEl.clientHeight];
 
             if (size[0] != canvasSize[0] || size[1] != canvasSize[1]) {
                 canvasSize = size;
@@ -110,6 +126,49 @@ export class MyAquarium extends LitElement {
                 });
             }
 
+            canvasEl.width = size[0];
+            canvasEl.height = size[1];
+
+            ctx.clearRect(0, 0, size[0], size[1]);
+
+            if (fakeCanvas.width != 0 && fakeCanvas.height != 0) {
+                ctx.clearRect(0, 0, ...size);
+
+                ctx.save();
+                if (mask != null) {
+
+                    if (this.maskTop) {
+                        // todo
+                    } else { // Bottom
+                        ctx.save();
+                        ctx.translate(0, size[1] - mask.height);
+                        if (this.flipMaskX) {
+                            ctx.translate(size[0], 0);
+                            ctx.scale(-1, 1);
+                        }
+                        if (this.flipMaskY) {
+                            ctx.translate(0, mask.height);
+                            ctx.scale(1, -1);
+                        }
+                        ctx.drawImage(mask, 0, 0);
+                        ctx.restore();
+
+                        if (!this.maskInverse) { // paint the rest of the screen
+                            ctx.fillStyle = "white";
+                            if (this.maskTop) {
+                                ctx.fillRect(0, mask.height, size[0], size[1] - mask.height);
+                            } else {
+                                ctx.fillRect(0, 0, size[0], size[1] - mask.height);
+                            }
+                        }
+                    }
+
+                    ctx.globalCompositeOperation = this.maskInverse ? "source-out" : "source-in";
+                }
+                ctx.drawImage(fakeCanvas, 0, 0, size[0], size[1]);
+                ctx.restore();
+            }
+            
             requestAnimationFrame(updateThings);
         };
 
