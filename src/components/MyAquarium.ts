@@ -3,7 +3,7 @@ import { LitElement, css } from "lit";
 import { getColor } from "../utils/ColorUtils.js";
 import { Point } from "../utils/VecUtils.js";
 import { isNeon } from "../theme.js";
-import { createCanvas, getCanvas } from "../utils/CanvasUtils.js";
+import { createCanvas } from "../utils/CanvasUtils.js";
 import { NotAWorker } from "./worker/WaveEffect-worker";
 import { isElementVisible } from '../utils/ElementUtils.js';
 
