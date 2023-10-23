@@ -423,6 +423,11 @@ type PointerState = [
     clickState: PointerClickState
 ];
 
+
+const LAG_TIME = 50; // ms
+const MAX_LAG = 25; // frames
+const NORMAL_TIME = 30; // ms
+
 /**
  * The aquarium that contains all the fish.
  */
@@ -447,6 +452,8 @@ export class MyAquarium extends LitElement {
     flipMaskY: boolean = false;
 
     animationFrame: number = 0;
+
+    lagCounter: number = 0;
 
     connectedCallback() {
         super.connectedCallback();
@@ -525,13 +532,23 @@ export class MyAquarium extends LitElement {
         const redraw = () => {
             const now = performance.now();
             let delta = now - lastTime;
+            lastTime = now;
+
+            ctxToUse.clearRect(0, 0, width, height);
+
+            if (delta > LAG_TIME) {
+                this.lagCounter++;
+                if (this.lagCounter > MAX_LAG) {
+                    ctx.clearRect(0, 0, width, height);
+                    return; // Stop drawing if we're lagging too much
+                }
+            } else if (delta < NORMAL_TIME) {
+                this.lagCounter = Math.max(0, this.lagCounter - 1);
+            }
 
             if (delta > 32) {
                 delta = 32; // Cap delta at 32ms. This prevents the fish from moving too fast when the tab is in the background.
             }
-            lastTime = now;
-
-            ctxToUse.clearRect(0, 0, width, height);
 
             for (const fish of fishies) {
                 fish.update([width, height], delta, [...pointerStates.values()]);
