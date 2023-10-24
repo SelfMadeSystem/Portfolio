@@ -424,9 +424,9 @@ type PointerState = [
 ];
 
 
-const LAG_TIME = 50; // ms
-const MAX_LAG = 25; // frames
-const NORMAL_TIME = 30; // ms
+const LAG_CHECK_TIME = 1000; // ms
+const LAG_MAX_TIME = 45; // ms
+const LAG_CHECK_COUNT = LAG_CHECK_TIME / LAG_MAX_TIME; // if we lag more than this many times, stop drawing
 
 /**
  * The aquarium that contains all the fish.
@@ -453,6 +453,7 @@ export class MyAquarium extends LitElement {
 
     animationFrame: number = 0;
 
+    startTime: number = 0;
     lagCounter: number = 0;
 
     connectedCallback() {
@@ -479,6 +480,8 @@ export class MyAquarium extends LitElement {
             console.error("Shadow root is null");
             return;
         }
+
+        this.startTime = performance.now();
 
         const canvas = this.shadowRoot.querySelector("canvas")!;
         const ctx = canvas.getContext("2d")!;
@@ -536,14 +539,18 @@ export class MyAquarium extends LitElement {
 
             ctxToUse.clearRect(0, 0, width, height);
 
-            if (delta > LAG_TIME) {
+            if (this.startTime + LAG_CHECK_TIME >= now) {
                 this.lagCounter++;
-                if (this.lagCounter > MAX_LAG) {
+            } else {
+                const frameDelay = (now - this.startTime) / this.lagCounter;
+                if (this.lagCounter < LAG_CHECK_COUNT) {
+                    console.warn("Lag detected, stopping drawing. Average frame delay: ", frameDelay);
                     ctx.clearRect(0, 0, width, height);
-                    return; // Stop drawing if we're lagging too much
+                    return;
                 }
-            } else if (delta < NORMAL_TIME) {
-                this.lagCounter = Math.max(0, this.lagCounter - 1);
+                console.log("Average frame delay: ", frameDelay);
+                this.lagCounter = 0;
+                this.startTime = now;
             }
 
             if (delta > 32) {
