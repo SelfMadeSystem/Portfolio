@@ -26,7 +26,7 @@ export class SectionOne extends LitElement {
                     software to help others accomplish their goals.
                     </p>
                     <p class="text-xl max-w-lg mx-auto text-center">
-                    Feel free to conttact me at <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a>
+                    Feel free to contact me at <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a>
                     or send me a message on <a href="https://discord.com/">Discord</a> at <code>selfmadesystem</code>.
                     </p>
                 </div>

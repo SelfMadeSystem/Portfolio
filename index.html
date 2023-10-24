@@ -20,7 +20,80 @@
   <meta name="og:image" content="https://shoghisimon.cc/pfp.png" />
 </head>
 
-<body class="light">
+<body class="light" style="overflow: hidden;">
+  <!-- Don't make the loader a component nor use any external libraries or
+    assets because we want it to be the first thing to load -->
+  <style>
+    :root {
+      --loader-bg: #fff;
+      --loader-text: #000;
+      --loader-color: #525aff;
+    }
+
+    .dark {
+      --loader-bg: #000;
+      --loader-text: #fff;
+      --loader-color: #525aff;
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--loader-bg);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loader-text {
+      font-size: 3rem;
+      color: var(--loader-text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+    }
+  </style>
+
+  <div id="loader">
+    <div id="loader-text">Loading</div>
+  </div>
+
+  <script>
+    const startTime = Date.now();
+    const MIN_LOAD_TIME = 1000; // give time for the aquarium to decide if it's too laggy
+
+    function loaded() {
+      document.body.style.overflow = 'auto';
+      document.getElementById('loader').remove();
+    }
+
+    window.addEventListener('load', () => {
+      const timeDiff = Date.now() - startTime;
+      if (timeDiff > MIN_LOAD_TIME) {
+        loaded();
+      } else {
+        setTimeout(loaded, MIN_LOAD_TIME - timeDiff);
+      }
+    });
+
+    const loaderText = document.getElementById('loader-text');
+
+    function addDot() {
+      loaderText.innerText += '.';
+    }
+
+    setInterval(addDot, 500);
+
+    // quickly just set the theme to dark if the user has it set to dark
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.classList.add('dark');
+      document.body.classList.remove('light');
+    }
+  </script>
+
   <theme-switcher></theme-switcher>
   <!-- <pointer-ripple></pointer-ripple> -->
 
