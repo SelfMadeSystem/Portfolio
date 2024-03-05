@@ -92,7 +92,7 @@ export class SectionThree extends LitElement {
                     <div class="base-card left w-full flex flex-col-reverse md:flex-row items-stretch lg:rounded-r-8">
                         <iframe
                             class="flex-1 grow-2 min-h-75vh border-none"
-                            src="https://abacus-cal.pages.dev"
+                            src="https://abacuscleaninginc.com/"
                         ></iframe>
                         <div class="separator"></div>
                         <div class="flex-1 grow-1 flex flex-col justify-between">
@@ -144,7 +144,9 @@ export class SectionThree extends LitElement {
                                     </multi-height>
                                 </div>
                             </portfolio-card>
-                            <a class="button m-8 mx-auto" href="https://meadsimon.ca" target="_blank">Visit</a>
+                            <a class="button m-8 mx-auto" href="https://abacuscleaninginc.com/" target="_blank"
+                                >Visit</a
+                            >
                         </div>
                     </div>
                 </div>
