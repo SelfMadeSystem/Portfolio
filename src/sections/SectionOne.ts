@@ -24,15 +24,22 @@ export class SectionOne extends LitElement {
                             <span>Shoghi Simon</span>
                             <span id="hand-wave">👋</span>
                         </h1>
-                        <p class="text-xl max-w-lg mx-auto text-center">
+                        <div class="text-xl max-w-lg mx-auto text-center">
                             I'm a full-stack developer. I love to create fast and reliable software to help others
                             accomplish their goals.
-                        </p>
-                        <p class="text-xl max-w-lg mx-auto text-center">
-                            Feel free to contact me at <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a> or
-                            send me a message on <a href="https://discord.com/">Discord</a> at
-                            <code>selfmadesystem</code>.
-                        </p>
+                        </div>
+                        <div class="text-xl max-w-lg mx-auto text-center mt-6">
+                            <div>I'm available for contact via email and Discord.</div>
+                            <div class="text-left w-fit mx-auto">
+                                Email: <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a>
+                                <br />
+                                Discord: <code>selfmadesystem</code>
+                            </div>
+                            <div>
+                                Also, feel free to check out my GitHub:
+                                <a href="https://github.com/SelfMadeSystem">SelfMadeSystem</a>.
+                            </div>
+                        </div>
                     </div>
                 </div>
 
