@@ -1,4 +1,4 @@
 import 'virtual:uno.css';
-import "./components";
-import "./sections";
+import './components';
+import './sections';
 import './theme';

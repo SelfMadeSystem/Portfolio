@@ -2,7 +2,7 @@
  * Modulo function that always returns a positive number
  * @param a The number to be modulated
  * @param n The number to modulate by
- * @returns 
+ * @returns
  */
 export function mod(a: number, n: number): number {
     return ((a % n) + n) % n;

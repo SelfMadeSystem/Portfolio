@@ -22,11 +22,14 @@ export class SkillSlider extends LitElement {
 
     render() {
         return html`
-        <div class="slider" style="--__skill-slider-value: ${this.value};
-        --skill-slider-track-color: var(--${this.colorScheme});">
-            <div class="track"></div>
-            <div class="thumb"></div>
-        </div>
+            <div
+                class="slider"
+                style="--__skill-slider-value: ${this.value};
+        --skill-slider-track-color: var(--${this.colorScheme});"
+            >
+                <div class="track"></div>
+                <div class="thumb"></div>
+            </div>
         `;
     }
 
@@ -76,7 +79,7 @@ export class SkillSlider extends LitElement {
             transform: translateX(calc(var(--__skill-slider-value) * 1% - 50%));
             opacity: 0.5;
         }
-        `;
+    `;
 }
 
 declare global {

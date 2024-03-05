@@ -31,12 +31,10 @@ export class MultiHeight extends LitElement {
             this.calculateHeight();
         });
 
-        window.addEventListener("resize", () => {
+        window.addEventListener('resize', () => {
             this.calculateHeight();
         });
     }
-    
-
 }
 
 declare global {
