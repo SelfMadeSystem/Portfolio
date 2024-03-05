@@ -19,8 +19,8 @@ export class SectionFour extends LitElement {
                     <div id="backend-development" class="z-2 my-24 flex flex-col items-center p-8 rounded-8">
                         <h2 class="text-4xl">Backend Development</h2>
                         <p class="text-xl max-w-lg text-center mx-8">
-                            I have experience with backend development using NodeJS, NextJS, Java, and ExpressJS. I have
-                            also worked with MongoDB and MySQL databases.
+                            I have experience with backend development using NodeJS, NextJS, Java, PHP, and ExpressJS. I
+                            have also worked with various databases, such as MongoDB and MySQL.
                         </p>
                     </div>
                     <my-wave
