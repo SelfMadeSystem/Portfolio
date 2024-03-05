@@ -127,8 +127,7 @@ export class SectionThree extends LitElement {
                                             class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
                                         >
                                             This website showcases the services this cleaning business has to offer. It
-                                            also provides a way for potential customers to contact the business. The
-                                            website is still under construction.
+                                            also provides a way for potential customers to contact the business.
                                         </div>
                                         <div
                                             data-name="technologies"
