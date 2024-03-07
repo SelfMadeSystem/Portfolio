@@ -52,14 +52,14 @@ export class Vec implements Point {
     }
 
     public mul(val: Point | number): Vec {
-        if (typeof val === "number") {
+        if (typeof val === 'number') {
             return new Vec(this[0] * val, this[1] * val);
         }
         return new Vec(this[0] * val[0], this[1] * val[1]);
     }
 
     public div(val: Point | number): Vec {
-        if (typeof val === "number") {
+        if (typeof val === 'number') {
             return new Vec(this[0] / val, this[1] / val);
         }
         return new Vec(this[0] / val[0], this[1] / val[1]);

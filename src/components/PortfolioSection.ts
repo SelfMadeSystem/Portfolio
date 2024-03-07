@@ -22,12 +22,12 @@ export class PortfolioSection extends LitElement {
 
     render() {
         return html`
-        <div class="background">
-            <slot name="background"></slot>
-        </div>
-        <section>
-            <slot></slot>
-        </section>
+            <div class="background">
+                <slot name="background"></slot>
+            </div>
+            <section>
+                <slot></slot>
+            </section>
         `;
     }
 
@@ -57,13 +57,13 @@ export class PortfolioSection extends LitElement {
             position: absolute;
             inset: 0;
         }
-        
+
         :host([center]) section {
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        `;
+    `;
 }
 
 declare global {

@@ -1,5 +1,5 @@
-import "./SectionOne";
-import "./SectionTwo";
-import "./SectionThree";
-import "./SectionFour";
-import "./SectionFive";
+import './SectionFive';
+import './SectionFour';
+import './SectionOne';
+import './SectionThree';
+import './SectionTwo';

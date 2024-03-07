@@ -39,31 +39,35 @@ export class RippleButton extends LitElement {
 
     render() {
         return html`
-        <button
-            @pointerdown=${this._onPointerDown}
-            @pointerenter=${this._onPointerEnter}
-            style="--__ripple_button: var(--${this.colorScheme});
+            <button
+                @pointerdown=${this._onPointerDown}
+                @pointerenter=${this._onPointerEnter}
+                style="--__ripple_button: var(--${this.colorScheme});
             --__ripple_button_click-color: var(--${this.colorScheme}-click-ripple, var(--${this.colorScheme}-light));
             --__ripple_button_click-opacity: var(--${this.colorScheme}-click-ripple-opacity);
             --__ripple_button_hover-color: var(--${this.colorScheme}-hover-ripple, var(--${this.colorScheme}-light));
             --__ripple_button_hover-opacity: var(--${this.colorScheme}-hover-ripple-opacity);
             "
-            class="style-${this.buttonStyle}"
-        >
-            <span class="ripples">
-                <span class="click">${this.clickElements}</span>
-                <span class="hover">${this.hoverElements}</span>
-            </span>
-            <span class="no">
-                <span>
-                    <slot></slot>
+                class="style-${this.buttonStyle}"
+            >
+                <span class="ripples">
+                    <span class="click">${this.clickElements}</span>
+                    <span class="hover">${this.hoverElements}</span>
                 </span>
-            </span>
-        </button>
-    `;
+                <span class="no">
+                    <span>
+                        <slot></slot>
+                    </span>
+                </span>
+            </button>
+        `;
     }
 
-    private rippleShared(e: PointerEvent, elems: HTMLElement[], type: 'click' | 'hover' = 'click'): (e1: PointerEvent) => boolean {
+    private rippleShared(
+        e: PointerEvent,
+        elems: HTMLElement[],
+        type: 'click' | 'hover' = 'click',
+    ): (e1: PointerEvent) => boolean {
         const rect = (e.target as HTMLElement).getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -72,20 +76,27 @@ export class RippleButton extends LitElement {
         element.style.left = `${x}px`;
         element.style.top = `${y}px`;
 
-        element.style.setProperty('--__ripple_button-size', `${Math.sqrt(Math.max(
-            (rect.width - x) ** 2 + y ** 2,
-            x ** 2 + y ** 2,
-            (rect.width - x) ** 2 + (rect.height - y) ** 2,
-            x ** 2 + (rect.height - y) ** 2
-        )) * 2}px`);
+        element.style.setProperty(
+            '--__ripple_button-size',
+            `${
+                Math.sqrt(
+                    Math.max(
+                        (rect.width - x) ** 2 + y ** 2,
+                        x ** 2 + y ** 2,
+                        (rect.width - x) ** 2 + (rect.height - y) ** 2,
+                        x ** 2 + (rect.height - y) ** 2,
+                    ),
+                ) * 2
+            }px`,
+        );
 
-        element.animate([
-            { transform: 'translate(-50%, -50%) scale(0)' },
-            { transform: 'translate(-50%, -50%) scale(1)' }
-        ], {
-            duration: 500,
-            easing: 'cubic-bezier(0, 0, 0.4, 1)'
-        });
+        element.animate(
+            [{ transform: 'translate(-50%, -50%) scale(0)' }, { transform: 'translate(-50%, -50%) scale(1)' }],
+            {
+                duration: 500,
+                easing: 'cubic-bezier(0, 0, 0.4, 1)',
+            },
+        );
 
         elems.push(element);
         this.requestUpdate();
@@ -95,12 +106,12 @@ export class RippleButton extends LitElement {
         const cb = (e1: PointerEvent) => {
             if (did || e1.pointerId !== e.pointerId) return false;
             did = true;
-            const fadeAnimation = element.animate([
-                { opacity: `var(--__ripple-button-opacity, var(--base-${type}-ripple-opacity))` },
-                { opacity: 0 }
-            ], {
-                duration: 500
-            });
+            const fadeAnimation = element.animate(
+                [{ opacity: `var(--__ripple-button-opacity, var(--base-${type}-ripple-opacity))` }, { opacity: 0 }],
+                {
+                    duration: 500,
+                },
+            );
 
             fadeAnimation.onfinish = () => {
                 elems.splice(elems.indexOf(element), 1);
@@ -205,7 +216,7 @@ export class RippleButton extends LitElement {
             background-color: var(--__ripple_button_hover-color);
             opacity: var(--__ripple_button_hover-opacity, var(--base-hover-ripple-opacity));
         }
-  `;
+    `;
 }
 
 declare global {

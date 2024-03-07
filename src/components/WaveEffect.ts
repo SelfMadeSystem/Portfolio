@@ -1,8 +1,8 @@
-import { wrapNumber, randomRange, clamp } from "../utils/MathUtils.js";
+import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { LitElement, css, html } from "lit";
-import { getColor } from "../utils/ColorUtils.js";
-import { isNeon } from "../theme.js";
+import { isNeon } from '../theme.js';
+import { getColor } from '../utils/ColorUtils.js';
+import { clamp, randomRange, wrapNumber } from '../utils/MathUtils.js';
 
 /**
  * A wave effect.
@@ -10,7 +10,7 @@ import { isNeon } from "../theme.js";
 @customElement('my-wave')
 export class MyWave extends LitElement {
     @property({ type: String })
-    color: string = "#000";
+    color: string = '#000';
 
     @property({ type: Number })
     amount: number = 4;
@@ -61,18 +61,18 @@ export class MyWave extends LitElement {
 
     doWaveThing() {
         if (this.shadowRoot == null) {
-            console.error("Shadow root is null");
+            console.error('Shadow root is null');
             return;
         }
-        let _redraw = () => { };
+        let _redraw = () => {};
 
-        const canvas = this.canvas = this.shadowRoot.querySelector("canvas")!;
-        const ctx = canvas.getContext("2d")!;
+        const canvas = (this.canvas = this.shadowRoot.querySelector('canvas')!);
+        const ctx = canvas.getContext('2d')!;
 
         let width = (canvas.width = canvas.clientWidth);
         let height = (canvas.height = canvas.clientHeight);
 
-        let fillStyle = this.color;
+        const fillStyle = this.color;
 
         function setCanvasSize() {
             width = canvas.width = canvas.clientWidth;
@@ -84,28 +84,20 @@ export class MyWave extends LitElement {
 
         new ResizeObserver(setCanvasSize).observe(canvas);
 
-        const waves = new Array(this.amount)
-            .fill(0)
-            .map((_, i) => {
-                const width = randomRange(this.waveWidth);
-                return {
-                    offset: Math.random() * width,
-                    speed:
-                        randomRange(this.speed) * (i < this.numberOfReverse ? -1 : 1),
-                    width,
-                    height: i / (this.amount - 1) || 0,
-                };
-            });
+        const waves = new Array(this.amount).fill(0).map((_, i) => {
+            const width = randomRange(this.waveWidth);
+            return {
+                offset: Math.random() * width,
+                speed: randomRange(this.speed) * (i < this.numberOfReverse ? -1 : 1),
+                width,
+                height: i / (this.amount - 1) || 0,
+            };
+        });
 
         function isOnScreen() {
             // return true;
             const rect = canvas.getBoundingClientRect();
-            return (
-                rect.top < window.innerHeight &&
-                rect.bottom > 0 &&
-                rect.left < window.innerWidth &&
-                rect.right > 0
-            );
+            return rect.top < window.innerHeight && rect.bottom > 0 && rect.left < window.innerWidth && rect.right > 0;
         }
 
         const wh = randomRange(this.waveHeight);
@@ -146,10 +138,11 @@ export class MyWave extends LitElement {
                 ctx.fillStyle = getColor(fillStyle, this);
                 ctx.globalAlpha = this.opacity;
             } else {
-                ctx.fillStyle = "#242424";
+                ctx.fillStyle = '#242424';
             }
 
-            for (const wave of waves) { // FIXME: With neon, one pixel on the top and the bottom is clipped.
+            for (const wave of waves) {
+                // FIXME: With neon, one pixel on the top and the bottom is clipped.
                 const { width: ww } = wave;
                 const w = (this.waveWidthInRelationToHeight ? height : width) * ww;
                 const w1 = w * this.pointiness;
@@ -161,10 +154,7 @@ export class MyWave extends LitElement {
                 const inversePath = new Path2D();
 
                 const heightOffset = wave.height * (height - h);
-                let o =
-                    wrapNumber((date / 1000) * wave.speed * w, 0, w * 2) -
-                    w * 2 -
-                    w * wave.offset;
+                let o = wrapNumber((date / 1000) * wave.speed * w, 0, w * 2) - w * 2 - w * wave.offset;
 
                 path.moveTo(o, height);
                 path.lineTo(o, height - heightOffset);
@@ -185,7 +175,7 @@ export class MyWave extends LitElement {
                         w - w1 + o,
                         height - h - heightOffset,
                         w + o,
-                        clamp(height - h - heightOffset, optClamp, height - optClamp)
+                        clamp(height - h - heightOffset, optClamp, height - optClamp),
                     ];
 
                     const b: [number, number, number, number, number, number] = [
@@ -194,23 +184,15 @@ export class MyWave extends LitElement {
                         2 * w - w1 + o,
                         height - heightOffset,
                         2 * w + o,
-                        clamp(height - heightOffset, optClamp, height - optClamp)
+                        clamp(height - heightOffset, optClamp, height - optClamp),
                     ];
 
-                    path.bezierCurveTo(
-                        ...a
-                    );
-                    path.bezierCurveTo(
-                        ...b
-                    );
+                    path.bezierCurveTo(...a);
+                    path.bezierCurveTo(...b);
 
                     if (this.neonClipped) {
-                        inversePath.bezierCurveTo(
-                            ...a
-                        );
-                        inversePath.bezierCurveTo(
-                            ...b
-                        );
+                        inversePath.bezierCurveTo(...a);
+                        inversePath.bezierCurveTo(...b);
                     }
 
                     o += w * 2;
@@ -230,7 +212,7 @@ export class MyWave extends LitElement {
             }
 
             if (!neon || !this.neonClipped) {
-                paths.forEach((p) => ctx.clip(p));
+                paths.forEach(p => ctx.clip(p));
 
                 ctx.globalAlpha = 1;
                 ctx.fillRect(0, 0, width, height);
@@ -240,7 +222,7 @@ export class MyWave extends LitElement {
             if (neon) {
                 ctx.save();
 
-                ctx.fillStyle = "#242424"; // TODO: Make this customizable.
+                ctx.fillStyle = '#242424'; // TODO: Make this customizable.
                 ctx.strokeStyle = getColor(fillStyle, this);
                 ctx.lineWidth = this.neonWidth;
 

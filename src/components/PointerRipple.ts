@@ -13,30 +13,30 @@ export class PointerRipple extends LitElement {
     connectedCallback() {
         super.connectedCallback();
         // only flashing lights when reduced motion is off
-        if (window.matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-            window.addEventListener("pointerdown", this.doRipple);
+        if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+            window.addEventListener('pointerdown', this.doRipple);
         }
     }
 
     disconnectedCallback() {
         super.disconnectedCallback();
-        window.removeEventListener("pointerdown", this.doRipple);
+        window.removeEventListener('pointerdown', this.doRipple);
     }
 
     doRipple = (e: PointerEvent) => {
-        if (e.pointerType === "mouse") {
+        if (e.pointerType === 'mouse') {
             const ripples: HTMLDivElement[] = [];
-            
+
             const create = () => {
                 const ripple = document.createElement('div');
 
-                ripple.classList.add("pointer-ripple");
+                ripple.classList.add('pointer-ripple');
 
-                ripple.style.setProperty("left", `${e.pageX}px`);
-                ripple.style.setProperty("top", `${e.pageY}px`);
+                ripple.style.setProperty('left', `${e.pageX}px`);
+                ripple.style.setProperty('top', `${e.pageY}px`);
 
                 requestAnimationFrame(() => {
-                    ripple.classList.add("pointer-ripple-in");
+                    ripple.classList.add('pointer-ripple-in');
                 });
 
                 this.appendChild(ripple);
@@ -53,9 +53,12 @@ export class PointerRipple extends LitElement {
                 setTimeout(create, interval * i);
             }
 
-            setTimeout(() => {
-                ripples.forEach(r => r.remove());
-            }, 1000 + interval * (amnt - 1));
+            setTimeout(
+                () => {
+                    ripples.forEach(r => r.remove());
+                },
+                1000 + interval * (amnt - 1),
+            );
         }
     };
 }

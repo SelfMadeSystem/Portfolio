@@ -4,13 +4,14 @@ export type Theme = {
 };
 
 // Frontend name -> Backend name (css class applied to body)
-export const THEMES = { // TODO: System theme
-    "light": {
-        frontName: "Light",
+export const THEMES = {
+    // TODO: System theme
+    light: {
+        frontName: 'Light',
         isNeon: false,
     },
-    "dark": {
-        frontName: "Dark",
+    dark: {
+        frontName: 'Dark',
         isNeon: true,
     },
     // for now, that's it
@@ -32,27 +33,26 @@ export function setTheme(theme: Themes, save: boolean = true) {
     document.body.classList.remove(getTheme());
     document.body.classList.add(theme);
 
-    if (save)
-        localStorage.setItem("theme", theme);
+    if (save) localStorage.setItem('theme', theme);
 }
 
 export function initTheme() {
-    const theme = localStorage.getItem("theme");
+    const theme = localStorage.getItem('theme');
     if (theme != null) {
         setTheme(theme as Themes);
     } else {
         // Auto detect theme
-        const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-        
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
         const setTheStuff = () => {
             if (darkModeMediaQuery.matches) {
-                setTheme("dark", false);
+                setTheme('dark', false);
             } else {
-                setTheme("light", false);
+                setTheme('light', false);
             }
-        }
+        };
 
-        darkModeMediaQuery.addEventListener("change", setTheStuff);
+        darkModeMediaQuery.addEventListener('change', setTheStuff);
         setTheStuff();
     }
 }
