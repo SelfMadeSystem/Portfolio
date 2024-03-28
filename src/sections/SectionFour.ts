@@ -79,9 +79,9 @@ export class SectionFour extends LitElement {
                                         ServerScripter is a multi-platform Java plugin that allows you to write scripts
                                         for your Minecraft servers. Due to the dynamic nature of the plugin, it can
                                         easily be ported to multiple platforms and it is easy to add support for
-                                        language. The plugin has been used by MC-Galaxy since 2021 and has been
-                                        proven to be stable. It has been very useful in speeding up the development of
-                                        the server by allowing rapid implementation of simple features.
+                                        language. The plugin has been used by MC-Galaxy since 2021 and has been proven
+                                        to be stable. It has been very useful in speeding up the development of the
+                                        server by allowing rapid implementation of simple features.
                                     </div>
                                     <div
                                         data-name="technologies"
