@@ -19,7 +19,7 @@ export class SectionThree extends LitElement {
                     <div id="web-development" class="my-24 flex flex-col items-center p-8 rounded-8">
                         <h2 class="text-4xl">Web Development</h2>
                         <p class="text-xl max-w-lg text-center mx-8">
-                            I have been developing websites for over 5 years now. I have experience with many different
+                            I have been developing websites since 2018. I have experience with many different
                             technologies and frameworks. I have worked on many different projects, from small websites
                             to large web applications.
                         </p>
