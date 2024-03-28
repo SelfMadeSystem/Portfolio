@@ -14,7 +14,7 @@ export class SectionFive extends LitElement {
                 <div id="game-development" class="primary-card z-2 my-24 flex flex-col items-center p-8 rounded-8">
                     <h2 class="text-4xl">Game Development</h2>
                     <p class="text-xl max-w-lg text-center mx-8">
-                        I have experience with game development using Unity, Godot and C# as well as web-based game
+                        I am experienced in game development using Unity, Godot and C# as well as web-based game
                         development using TypeScript.
                     </p>
                 </div>
