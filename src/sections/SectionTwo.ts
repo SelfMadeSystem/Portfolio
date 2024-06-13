@@ -1,5 +1,8 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import GameImg from '../assets/game.png';
+import BackendImg from '../assets/backend.png';
+import FrontendImg from '../assets/frontend.png';
 
 @customElement('section-two')
 export class SectionTwo extends LitElement {
@@ -112,11 +115,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Web Development</h2>
-                        <p class="text-xl max-w-sm text-center">
-                            I create beautiful and reliable websites and web applications. I use modern technologies
-                            like TypeScript, React, Vue, Lit, Tailwind, Vite, WordPress and Shopify, but I also like to
-                            use vanilla HTML, CSS and JavaScript.
-                        </p>
+                        <img class="w-xs" alt="Some HTML Code" src=${FrontendImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>
@@ -129,11 +128,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Backend Development</h2>
-                        <p class="text-xl max-w-sm text-center">
-                            I create fast and reliable backend applications. I use modern technologies like NodeJS,
-                            MongoDB, MySQL, PostgreSQL, PHP, Java, C# and Rust. I would also like to learn older
-                            technologies like C or COBOL.
-                        </p>
+                        <img class="w-xs" alt="Some Java Code" src=${BackendImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>
@@ -146,11 +141,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Game Development</h2>
-                        <p class="text-xl max-w-sm text-center">
-                            I like to mess around in game engines to challenge my creativity and algorithmic problem
-                            solving skills outside of the regular tech landscape. I use primarily Godot with GDScript
-                            and C#.
-                        </p>
+                        <img class="w-xs" alt="Minesvelte Game" src=${GameImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>
