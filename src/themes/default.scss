@@ -287,7 +287,7 @@
             opacity: 0.5;
         }
 
-        .portfolio-card button svg {
+        .portfolio-card button svg, svg.smol-svg {
             fill: var(--base-text);
         }
     }
@@ -307,7 +307,7 @@
             opacity: 0.5;
         }
 
-        .portfolio-card button svg {
+        .portfolio-card button svg, svg.smol-svg {
             fill: var(--primary-text);
         }
     }
@@ -320,7 +320,7 @@
             border-bottom-right-radius: 10rem;
         }
 
-        .portfolio-card button svg {
+        .portfolio-card button svg, svg.smol-svg {
             fill: var(--secondary-text);
         }
     }
