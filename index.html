@@ -92,6 +92,23 @@
       document.body.classList.add('dark');
       document.body.classList.remove('light');
     }
+
+    // Ask the user if they want to disable animations if they have reduced motion enabled
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Confirm with the user that they want to disable the animation
+      // Store it in local storage so that we don't ask again
+      if (localStorage.getItem('disable-animations') == null) {
+        if (confirm(`Reduced motion has been detected.
+Do you want to disable the animations?
+To re-enable them, enabled animations in your browser settings.`)) {
+          localStorage.setItem('disable-animations', 'true');
+        } else {
+          localStorage.setItem('disable-animations', 'false');
+        }
+      }
+    } else {
+      localStorage.removeItem('disable-animations');
+    }
   </script>
 
   <theme-switcher></theme-switcher>
@@ -113,8 +130,8 @@
 
   <section-five></section-five>
 
-  <div class="relative h-40 primary -z-1">
-    <my-wave id="lastwave" color="var(--dark-wave)" class="-z-1"></my-wave>
+  <div class="relative h-40 primary">
+    <my-wave id="lastwave" color="var(--dark-wave)"></my-wave>
     <!-- neonempty neonclipped
       TODO: The fish appear to be underneath this wave in neon because it's clipping the white stuff too
     -->

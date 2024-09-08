@@ -7,6 +7,7 @@ import {
     RAD_TO_DEG,
     angleDistance,
     clamp,
+    isInView,
     lerp,
     randomRange,
     wrapAngle,
@@ -447,9 +448,6 @@ export class MyAquarium extends LitElement {
     maskId: string | null = null;
 
     @property({ type: Boolean })
-    maskTop: boolean = false;
-
-    @property({ type: Boolean })
     maskInverse: boolean = false;
 
     @property({ type: Boolean })
@@ -465,6 +463,10 @@ export class MyAquarium extends LitElement {
 
     connectedCallback() {
         super.connectedCallback();
+        // Don't draw if disable animations is set
+        if (localStorage.getItem('disable-animations') == 'true') {
+            return;
+        }
         requestAnimationFrame(() => {
             if (this.maskId) {
                 requestAnimationFrame(() => {
@@ -527,11 +529,10 @@ export class MyAquarium extends LitElement {
 
         const fishies: UpdateAndRender[] = [];
 
-        for (let i = 0; i < 5; i++) {
-            fishies.push(new School(15, this.color, [width, height]));
-        }
+        fishies.push(new School(10, this.color, [width, height]));
+        fishies.push(new School(10, this.color, [width, height]));
 
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 5; i++) {
             fishies.push(new BasicFish(this.color, [width, height]));
         }
 
@@ -568,6 +569,11 @@ export class MyAquarium extends LitElement {
                 fish.update([width, height], delta, [...pointerStates.values()]);
             }
 
+            if (!isInView(canvas)) {
+                this.animationFrame = requestAnimationFrame(redraw);
+                return;
+            }
+
             for (const fish of fishies) {
                 fish.draw(ctxToUse, this);
             }
@@ -581,16 +587,16 @@ export class MyAquarium extends LitElement {
             }
 
             if (mask != null) {
-                ctx.clearRect(0, 0, width, height);
+                if (isInView(mask)) {
+                    ctx.clearRect(0, 0, width, height);
 
-                ctx.save();
+                    const maskRect = mask.getBoundingClientRect();
+                    const thisRect = canvas.getBoundingClientRect();
 
-                if (this.maskTop) {
-                    // todo
-                } else {
-                    // Bottom
+                    const maskHeight = thisRect.bottom - maskRect.top;
+
                     ctx.save();
-                    ctx.translate(0, height - mask.height);
+                    ctx.translate(0, height - maskHeight);
                     if (this.flipMaskX) {
                         ctx.translate(width, 0);
                         ctx.scale(-1, 1);
@@ -602,20 +608,21 @@ export class MyAquarium extends LitElement {
                     ctx.drawImage(mask, 0, 0);
                     ctx.restore();
 
+                    ctx.save();
+
                     if (!this.maskInverse) {
                         // paint the rest of the screen
                         ctx.fillStyle = 'white';
-                        if (this.maskTop) {
-                            ctx.fillRect(0, mask.height, width, height - mask.height);
-                        } else {
-                            ctx.fillRect(0, 0, width, height - mask.height);
-                        }
+                        ctx.fillRect(0, 0, width, Math.ceil(height - maskHeight));
                     }
-                }
 
-                ctx.globalCompositeOperation = this.maskInverse ? 'source-out' : 'source-in';
-                ctx.drawImage(tempCanvas, 0, 0, width, height);
-                ctx.restore();
+                    ctx.globalCompositeOperation = this.maskInverse ? 'source-out' : 'source-in';
+                    ctx.drawImage(tempCanvas, 0, 0, width, height);
+                    ctx.restore();
+                } else {
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.drawImage(tempCanvas, 0, 0, width, height);
+                }
             }
 
             // For now, just have a gradient at the bottom of the screen
@@ -658,10 +665,7 @@ export class MyAquarium extends LitElement {
     }
 
     render() {
-        return html`
-            <canvas></canvas>
-            <slot></slot>
-        `; // slot only for shadow
+        return html`<canvas></canvas>`;
     }
 
     static styles = css`
@@ -671,13 +675,15 @@ export class MyAquarium extends LitElement {
             width: 100%;
             height: 100%;
             min-height: 10rem;
+            isolation: isolate;
             pointer-events: none;
         }
 
         canvas {
-            position: absolute;
+            position: sticky;
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            top: 0;
         }
     `;
 }

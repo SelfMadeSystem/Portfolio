@@ -232,12 +232,7 @@ export class SectionThree extends LitElement {
                     class="absolute inset-0
                             -top-40 h-[calc(100%+20rem)] z-1"
                     color="var(--primary-wave)"
-                >
-                    <!-- <div class="absolute inset-0"
-                    style="
-                box-shadow: inset 0 -10rem 5rem -5rem var(--base);
-                "></div> -->
-                </my-aquarium>
+                ></my-aquarium>
             </portfolio-section>
         `;
     }

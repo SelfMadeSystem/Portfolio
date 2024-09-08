@@ -81,6 +81,19 @@ export function randomRange(...args: [NumOrRange] | [number, number]): number {
 }
 
 /**
+ * Determines if an element is in view.
+ */
+export function isInView(element: HTMLElement): boolean {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.bottom >= 0 &&
+        rect.right >= 0 &&
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+/**
  * Constant to convert degrees to radians
  */
 export const DEG_TO_RAD = Math.PI / 180;

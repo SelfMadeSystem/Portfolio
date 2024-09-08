@@ -390,8 +390,6 @@ export class SectionFive extends LitElement {
 
                 <my-aquarium
                     slot="background"
-                    maskid="lastwave"
-                    maskInverse
                     class="absolute -top-40 h-[calc(100%+20rem)] z-1"
                     color="var(--base-wave)"
                 ></my-aquarium>
