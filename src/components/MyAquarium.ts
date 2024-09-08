@@ -555,7 +555,7 @@ export class MyAquarium extends LitElement {
                     ctx.clearRect(0, 0, width, height);
                     return;
                 }
-                console.log('Average frame delay: ', frameDelay);
+                // console.log('Average frame delay: ', frameDelay);
                 this.lagCounter = 0;
                 this.startTime = now;
             }
