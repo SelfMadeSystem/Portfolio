@@ -80,10 +80,18 @@ a.button {
   width: fit-content;
 }
 
+// Top div to prevent scrolling
+.top-div {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: all;
+}
+
 .expanding {
   pointer-events: all;
 
-  p {
+  p, img {
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
   }
