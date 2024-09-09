@@ -63,14 +63,14 @@
 
   <script>
     const startTime = Date.now();
-    const MIN_LOAD_TIME = 1500; // give time for the aquarium to decide if it's too laggy
+    const MIN_LOAD_TIME = 500; // give time for the aquarium to decide if it's too laggy
 
     function loaded() {
       document.body.style.overflow = 'auto';
       document.getElementById('loader').remove();
     }
 
-    window.addEventListener('load', () => {
+    window.addEventListener('DOMContentLoaded', () => {
       const timeDiff = Date.now() - startTime;
       if (timeDiff > MIN_LOAD_TIME) {
         loaded();
@@ -138,7 +138,7 @@ To re-enable them, enabled animations in your browser settings.`)) {
   </div>
 
   <portfolio-section id="footer">
-    <div class="z-3 relative p-4 rd-2xl backdrop-blur-8" style="background-color: #000a">
+    <div class="z-3 relative p-4 rd-2xl backdrop-blur-8" style="background-color: #242424aa">
       <div class="text-center">
         Made by <a href="https://github.com/SelfMadeSystem/" target="_blank">Shoghi Simon</a> with
         <a href="https://vitejs.dev/" target="_blank">Vite</a>,
