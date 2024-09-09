@@ -132,8 +132,8 @@ export class SectionFour extends LitElement {
 
                 <div class="flex flex-wrap pt-8 md:px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
                     <div class="secondary-card flex-1 grow-1 flex flex-col justify-between rounded-8 max-w-lg">
-                        <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8">
-                            <div class="flex flex-row items-center justify-center">
+                        <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl py-8 lg:p-8">
+                            <div class="flex flex-row flex-wrap items-center justify-center">
                                 <button data-for="about" class="active" aria-label="about">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                         <path
@@ -167,7 +167,7 @@ export class SectionFour extends LitElement {
                                     <span class="tooltip">Languages</span>
                                 </button>
                             </div>
-                            <div class="flex flex-col justify-between gap-4">
+                            <div class="flex flex-col justify-between gap-4 max-w-[calc(100vw-2rem)]">
                                 <h3 class="text-3xl">ServerScripter</h3>
                                 <multi-height class="relative w-full">
                                     <div

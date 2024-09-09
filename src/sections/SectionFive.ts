@@ -36,7 +36,7 @@ export class SectionFive extends LitElement {
                                 <span class="tooltip">Technologies</span>
                             </button>
                         </div>
-                        <div class="flex flex-col justify-between gap-4 w-max">
+                        <div class="flex flex-col justify-between gap-4 w-max max-w-[calc(100vw-2rem)]">
                             <h2 class="text-4xl px-6">Game Development</h2>
                             <multi-height class="relative w-full">
                                 <div
@@ -382,7 +382,7 @@ export class SectionFive extends LitElement {
                     </div>
                 </div>
 
-                <div class="z-2 my-24 primary-card flex flex-col items-center p-8 rounded-8">
+                <div class="z-2 my-24 primary-card flex flex-col items-center py-8 lg:p-8 rounded-8">
                     <h2 class="text-4xl">Contact</h2>
                     <p class="text-xl max-w-lg text-center mx-8">
                         If you want to contact me, you can send me an email at

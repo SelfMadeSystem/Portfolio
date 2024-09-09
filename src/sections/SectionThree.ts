@@ -38,7 +38,7 @@ export class SectionThree extends LitElement {
                                     <span class="tooltip">Technologies</span>
                                 </button>
                             </div>
-                            <div class="flex flex-col justify-between gap-4 w-max">
+                            <div class="flex flex-col justify-between gap-4 w-max max-w-[calc(100vw-2rem)]">
                                 <h2 class="text-4xl px-12">Web Development</h2>
                                 <multi-height class="relative w-full">
                                     <div
@@ -67,7 +67,7 @@ export class SectionThree extends LitElement {
                                         class="content text-xl text-center m-auto absolute top-0 left-0 w-full"
                                     >
                                         <h3 class="text-3xl my-0">Technologies</h3>
-                                        <div class="flex flex-row justify-center gap-4">
+                                        <div class="flex flex-row overflow-x-auto gap-4">
                                             <div class="flex flex-col items-center">
                                                 <h4 class="text-2xl my-0">Languages</h4>
                                                 <div>HTML / CSS</div>
