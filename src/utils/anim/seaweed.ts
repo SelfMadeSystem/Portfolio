@@ -29,7 +29,7 @@ export class Seaweed implements Animal {
         this.spine.resetAngles();
 
         for (let i = 0; i < this.spine.joints.length; i++) {
-            const amnt = Math.sin(i * ((this.eh2 + 1) / 3) - dt * 2 + this.eh + 1);
+            const amnt = Math.sin(-i * ((this.eh2 + 1) / 3) - dt * 2 + this.eh + 1);
 
             this.spine.prevJoints[i] = this.spine.prevJoints[i].add(new Vec2(amnt, 0));
         }

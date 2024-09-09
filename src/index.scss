@@ -22,6 +22,12 @@ h3 {
   animation: wave 1s infinite ease-in-out;
 }
 
+@media (prefers-reduced-motion) {
+  #hand-wave {
+    animation: none;
+  }
+}
+
 @keyframes wave {
   0% {
     transform: rotate(-14deg);
@@ -108,6 +114,12 @@ a.button {
 
 #arrow-down {
   animation: arrow 1s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion) {
+  #arrow-down {
+    animation: none;
+  }
 }
 
 @keyframes arrow {

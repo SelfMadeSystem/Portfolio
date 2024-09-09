@@ -16,7 +16,7 @@ export class SectionFour extends LitElement {
                     class="secondary-card title relative flex flex-col items-center
                 -mb-24 -top-40 pt-32"
                 >
-                    <div id="backend-development" class="z-2 flex flex-col items-center p-8 rounded-8">
+                    <div id="backend-development" class="z-2 flex flex-col items-center pt-8 px-2 lg:p-8 rounded-8">
                         <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl">
                             <div class="flex flex-row items-center justify-center">
                                 <button data-for="about" class="active" aria-label="about">
@@ -38,8 +38,8 @@ export class SectionFour extends LitElement {
                                     <span class="tooltip">Technologies</span>
                                 </button>
                             </div>
-                            <div class="flex flex-col justify-between gap-4 w-max">
-                                <h2 class="text-4xl px-8">Backend Development</h2>
+                            <div class="flex flex-col justify-between gap-4 w-max max-w-[calc(100vw-2rem)]">
+                                <h2 class="text-4xl mx-auto px-6 lg:px-0">Backend Development</h2>
                                 <multi-height class="relative w-full">
                                     <div
                                         data-name="about"

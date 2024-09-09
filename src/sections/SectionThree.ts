@@ -16,7 +16,7 @@ export class SectionThree extends LitElement {
                 rounded-b-8
                 -mb-24 -top-40 pt-32"
                 >
-                    <div id="web-development" class="flex flex-col items-center p-8 rounded-8">
+                    <div id="web-development" class="flex flex-col items-center pt-8 px-2 lg:p-8 rounded-8">
                         <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl">
                             <div class="flex flex-row items-center justify-center">
                                 <button data-for="about" class="active" aria-label="about">
