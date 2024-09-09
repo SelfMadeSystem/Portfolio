@@ -37,6 +37,11 @@ export class SeaWeed extends LitElement {
         cancelAnimationFrame(this.animationFrame);
     }
 
+    isOnScreen() {
+        const rect = this.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+    }
+
     startDraw() {
         if (this.shadowRoot == null) {
             console.error('Shadow root is null');
@@ -95,9 +100,10 @@ export class SeaWeed extends LitElement {
 
             const neon = isNeon();
             const color = getColor(this.color, this);
+            const visible = this.isOnScreen();
             for (const animal of animals) {
                 animal.resolve(mousePos, dt);
-                animal.display(ctx, neon ? color : undefined, neon ? '#242424' : color);
+                if (visible) animal.display(ctx, neon ? color : undefined, neon ? '#242424' : color);
             }
             // ctx.fillStyle = 'white';
 
