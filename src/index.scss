@@ -22,6 +22,12 @@ h3 {
   animation: wave 1s infinite ease-in-out;
 }
 
+@media (prefers-reduced-motion) {
+  #hand-wave {
+    animation: none;
+  }
+}
+
 @keyframes wave {
   0% {
     transform: rotate(-14deg);
@@ -34,6 +40,11 @@ h3 {
   100% {
     transform: rotate(-14deg);
   }
+}
+
+svg.smol-svg {
+  height: 1.5ch;
+  width: 1.5ch;
 }
 
 .portfolio-card {
@@ -55,6 +66,10 @@ h3 {
     opacity: 0;
     transform: translateX(-1rem);
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+    @media (prefers-reduced-motion) {
+      transform: translateX(0);
+    }
 
     pointer-events: none;
 
@@ -80,10 +95,18 @@ a.button {
   width: fit-content;
 }
 
+// Top div to prevent scrolling
+.top-div {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: all;
+}
+
 .expanding {
   pointer-events: all;
 
-  p {
+  p, img {
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
   }
@@ -91,6 +114,12 @@ a.button {
 
 #arrow-down {
   animation: arrow 1s infinite ease-in-out;
+}
+
+@media (prefers-reduced-motion) {
+  #arrow-down {
+    animation: none;
+  }
 }
 
 @keyframes arrow {
@@ -125,6 +154,14 @@ button {
 
 button:hover .tooltip {
   opacity: 1;
+}
+
+@media (prefers-reduced-motion) {
+  // Don't make hover:scale-105 work in reduced motion
+  .hover\:scale-105:hover {
+    --un-scale-x: 1 !important;
+    --un-scale-y: 1 !important;
+  }
 }
 
 @import 'themes/default.scss';

@@ -31,7 +31,7 @@ export class SectionOne extends LitElement {
                         <div class="text-xl max-w-lg mx-auto text-center mt-6">
                             <div>I'm available for contact via email and Discord.</div>
                             <div class="text-left w-fit mx-auto">
-                                Email: <a href="mailto:sms@shoghisimon.cc">sms@shoghisimon.cc</a>
+                                Email: <a href="mailto:sms@shoghisimon.ca">sms@shoghisimon.ca</a>
                                 <br />
                                 Discord: <code>selfmadesystem</code>
                             </div>

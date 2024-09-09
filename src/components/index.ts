@@ -7,3 +7,4 @@ export * from './PointerRipple';
 export * from './ThemeSwitcher';
 export * from './PortfolioCard';
 export * from './MultiHeight';
+export * from './SeaWeed';

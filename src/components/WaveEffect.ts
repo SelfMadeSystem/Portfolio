@@ -112,6 +112,10 @@ export class MyWave extends LitElement {
 
             redraw();
 
+            // Don't animate if the user has disabled animations.
+            if (localStorage.getItem('disable-animations') == 'true') {
+                return;
+            }
             this.animationFrame = requestAnimationFrame(animateCanvas);
         };
 

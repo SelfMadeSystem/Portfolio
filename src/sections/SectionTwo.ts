@@ -1,5 +1,8 @@
 import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import BackendImg from '../assets/backend.png';
+import FrontendImg from '../assets/frontend.png';
+import GameImg from '../assets/game.png';
 
 @customElement('section-two')
 export class SectionTwo extends LitElement {
@@ -9,6 +12,18 @@ export class SectionTwo extends LitElement {
 
     clickedCard(e: PointerEvent) {
         const card = e.currentTarget as HTMLElement;
+
+        // Top div to prevent scrolling
+        const topDiv = document.createElement('div');
+        topDiv.classList.add('top-div');
+        document.body.appendChild(topDiv);
+        const cancel = (e: Event) => {
+            e.preventDefault();
+            e.stopPropagation();
+        };
+        topDiv.onwheel = cancel;
+        topDiv.ontouchmove = cancel;
+        topDiv.onpointermove = cancel;
 
         const duplicate = card.cloneNode(true) as HTMLElement;
 
@@ -28,10 +43,10 @@ export class SectionTwo extends LitElement {
 
         const rect = card.getBoundingClientRect();
 
-        const top = rect.top + rect.height * 0.025;
-        const left = rect.left + rect.width * 0.025;
-        const width = rect.width * 0.95;
-        const height = rect.height * 0.95;
+        const top = rect.top + card.offsetWidth * 0.0275; // 1.1 * 0.025 = 0.0275
+        const left = rect.left + card.offsetWidth * 0.0275;
+        const width = card.offsetWidth;
+        const height = card.offsetHeight;
         // TODO: Doesn't work on mobile when transition to scale 1.05 isn't done
 
         duplicate.style.position = 'fixed';
@@ -80,13 +95,10 @@ export class SectionTwo extends LitElement {
                 },
             ).onfinish = () => {
                 duplicate.remove();
-
-                window.removeEventListener('scroll', scrollIntoView);
+                topDiv.remove();
             };
 
             scrollIntoView();
-
-            window.addEventListener('scroll', scrollIntoView); // I don't think this is the best way to make sure the element is scrolled into view, even when the user scrolls
 
             window.history.pushState({}, '', `#${jumpTo}`);
         };
@@ -112,11 +124,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Web Development</h2>
-                        <p class="text-xl max-w-sm text-center">
-                            I create beautiful and reliable websites and web applications. I use modern technologies
-                            like TypeScript, React, Vue, Lit, Tailwind, Vite, WordPress and Shopify, but I also like to
-                            use vanilla HTML, CSS and JavaScript.
-                        </p>
+                        <img class="w-xs" alt="Some HTML Code" src=${FrontendImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>
@@ -129,11 +137,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Backend Development</h2>
-                        <p class="text-xl max-w-sm text-center">
-                            I create fast and reliable backend applications. I use modern technologies like NodeJS,
-                            MongoDB, MySQL, PostgreSQL, PHP, Java, C# and Rust. I would also like to learn older
-                            technologies like C or COBOL.
-                        </p>
+                        <img class="w-xs" alt="Some Java Code" src=${BackendImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>
@@ -146,11 +150,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Game Development</h2>
-                        <p class="text-xl max-w-sm text-center">
-                            I like to mess around in game engines to challenge my creativity and algorithmic problem
-                            solving skills outside of the regular tech landscape. I use primarily Godot with GDScript
-                            and C#.
-                        </p>
+                        <img class="w-xs" alt="Minesvelte Game" src=${GameImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>

@@ -20,7 +20,7 @@
   <meta name="og:image" content="https://shoghisimon.cc/pfp.png" />
 </head>
 
-<body class="light" style="overflow: hidden;">
+<body class="light" style="overflow: hidden; position: relative">
   <!-- Don't make the loader a component nor use any external libraries or
     assets because we want it to be the first thing to load -->
   <style>
@@ -63,14 +63,14 @@
 
   <script>
     const startTime = Date.now();
-    const MIN_LOAD_TIME = 1500; // give time for the aquarium to decide if it's too laggy
+    const MIN_LOAD_TIME = 500; // give time for the aquarium to decide if it's too laggy
 
     function loaded() {
       document.body.style.overflow = 'auto';
       document.getElementById('loader').remove();
     }
 
-    window.addEventListener('load', () => {
+    window.addEventListener('DOMContentLoaded', () => {
       const timeDiff = Date.now() - startTime;
       if (timeDiff > MIN_LOAD_TIME) {
         loaded();
@@ -91,6 +91,23 @@
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.body.classList.add('dark');
       document.body.classList.remove('light');
+    }
+
+    // Ask the user if they want to disable animations if they have reduced motion enabled
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Confirm with the user that they want to disable the animation
+      // Store it in local storage so that we don't ask again
+      if (localStorage.getItem('disable-animations') == null) {
+        if (confirm(`Reduced motion has been detected.
+Do you want to disable the animations?
+To re-enable them, enabled animations in your browser settings.`)) {
+          localStorage.setItem('disable-animations', 'true');
+        } else {
+          localStorage.setItem('disable-animations', 'false');
+        }
+      }
+    } else {
+      localStorage.removeItem('disable-animations');
     }
   </script>
 
@@ -113,26 +130,30 @@
 
   <section-five></section-five>
 
-  <div class="relative h-40 primary -z-1">
-    <my-wave id="lastwave" color="var(--dark-wave)" class="-z-1"></my-wave>
+  <div class="relative h-40 primary">
+    <my-wave id="lastwave" color="var(--dark-wave)" class="z-1"></my-wave>
     <!-- neonempty neonclipped
       TODO: The fish appear to be underneath this wave in neon because it's clipping the white stuff too
     -->
   </div>
 
   <portfolio-section id="footer">
-    <div class="text-center">
-      Made by <a href="https://github.com/SelfMadeSystem/" target="_blank">Shoghi Simon</a> with
-      <a href="https://vitejs.dev/" target="_blank">Vite</a>,
-      <a href="https://lit.dev/" target="_blank">Lit</a>,
-      <a href="https://unocss.dev/" target="_blank">UnoCSS</a>,
-      <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>,
-      and ❤️
-    </div>
-    <div class="text-center mt-8">
-      <a href="https://github.com/SelfMadeSystem/Portfolio" target="_blank">Source code</a>
+    <div class="z-3 relative p-4 rd-2xl backdrop-blur-8" style="background-color: #242424aa">
+      <div class="text-center">
+        Made by <a href="https://github.com/SelfMadeSystem/" target="_blank">Shoghi Simon</a> with
+        <a href="https://vitejs.dev/" target="_blank">Vite</a>,
+        <a href="https://lit.dev/" target="_blank">Lit</a>,
+        <a href="https://unocss.dev/" target="_blank">UnoCSS</a>,
+        <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>,
+        and ❤️
+      </div>
+      <div class="text-center mt-8">
+        <a href="https://github.com/SelfMadeSystem/Portfolio" target="_blank">Source code</a>
+      </div>
     </div>
   </portfolio-section>
+
+  <sea-weed class="absolute bottom-0 w-full h-screen z-2" color="var(--base-wave)"></sea-weed>
 </body>
 
 </html>
