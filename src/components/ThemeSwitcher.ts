@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import type { Themes } from '../theme';
 import { THEME_NAMES, getTheme, setTheme } from '../theme';
 
@@ -10,9 +10,6 @@ import { THEME_NAMES, getTheme, setTheme } from '../theme';
  */
 @customElement('theme-switcher')
 export class ThemeSwitcher extends LitElement {
-    @state()
-    open: boolean = false;
-
     protected createRenderRoot() {
         return this;
     }
@@ -20,15 +17,11 @@ export class ThemeSwitcher extends LitElement {
     render() {
         const currentTheme = getTheme();
 
-        window.addEventListener('click', e => {
-            if (this.open && !e.composedPath().includes(this)) {
-                this.open = false;
-                this.requestUpdate();
-            }
-        });
-
         return html`
-            <button @click=${() => (this.open = !this.open)} class="theme-switcher">
+            <button
+                @click=${() => this.setTheme(THEME_NAMES[(THEME_NAMES.indexOf(currentTheme) + 1) % THEME_NAMES.length])}
+                class="theme-switcher"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
                         color="currentColor"
@@ -37,31 +30,11 @@ export class ThemeSwitcher extends LitElement {
                 </svg>
                 Theme
             </button>
-
-            ${this.open
-                ? html`
-                      <div class="theme-switcher__menu">
-                          ${THEME_NAMES.map(
-                              theme => html`
-                                  <button
-                                      @click=${() => this.setTheme(theme)}
-                                      class="theme-switcher__menu-item ${theme} ${theme === currentTheme
-                                          ? 'theme-switcher__menu-item--active'
-                                          : ''}"
-                                  >
-                                      ${theme}
-                                  </button>
-                              `,
-                          )}
-                      </div>
-                  `
-                : ''}
         `;
     }
 
     setTheme(theme: Themes) {
         setTheme(theme);
-        this.open = false;
         this.requestUpdate();
     }
 }

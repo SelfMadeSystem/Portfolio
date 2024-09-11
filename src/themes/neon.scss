@@ -270,10 +270,6 @@
     }
 
     theme-switcher {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 999;
         border-left: 4px solid var(--base-contrast);
         border-bottom: 4px solid var(--base-contrast);
         border-bottom-left-radius: 0.5em;
@@ -281,7 +277,7 @@
 
     .theme-switcher {
         padding: 0.5em;
-        border-radius: 0.25em;
+        border-bottom-left-radius: 0.25em;
         border: 0;
         background-color: var(--base);
         color: var(--base-text);
