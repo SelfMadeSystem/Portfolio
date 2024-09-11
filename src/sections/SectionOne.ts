@@ -65,8 +65,12 @@ export class SectionOne extends LitElement {
                     class="absolute
                     bottom-16 left-1/2
                     transform -translate-x-1/2 rotate-45
+                    cursor-pointer
                     w-8 h-8
                     z-6"
+                    @click=${() => {
+                        document.getElementById('what-i-do')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
                 ></div>
             </portfolio-section>
         `;

@@ -127,6 +127,15 @@ a.button {
     animation: arrow 1s infinite ease-in-out;
 }
 
+#arrow-down::before {
+    // Just to have clickable padding
+    content: '';
+    position: absolute;
+    inset: -6rem -2.5rem;
+    $t: 0.4rem;
+    transform: translate($t, $t) rotate(45deg);
+}
+
 @media (prefers-reduced-motion) {
     #arrow-down {
         animation: none;
