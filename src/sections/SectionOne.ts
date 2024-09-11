@@ -33,7 +33,8 @@ export class SectionOne extends LitElement {
                             <div class="text-left w-fit mx-auto">
                                 Email: <a href="mailto:sms@shoghisimon.ca">sms@shoghisimon.ca</a>
                                 <br />
-                                Discord: <code>selfmadesystem</code>
+                                Discord:
+                                <a href="https://discord.com/users/299298175825739776"><code>selfmadesystem</code></a>
                             </div>
                             <div>
                                 Also, feel free to check out my GitHub:

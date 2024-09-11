@@ -387,7 +387,7 @@ export class SectionFive extends LitElement {
                     <p class="text-xl max-w-lg text-center mx-8">
                         If you want to contact me, you can send me an email at
                         <a href="mailto:sms@shoghisimon.ca">sms@shoghisimon.ca</a> or send me a message on Discord at
-                        <code>selfmadesystem</code>.
+                        <a href="https://discord.com/users/299298175825739776"><code>selfmadesystem</code></a>
                     </p>
                 </div>
 
