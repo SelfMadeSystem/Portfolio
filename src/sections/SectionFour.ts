@@ -130,9 +130,13 @@ export class SectionFour extends LitElement {
                     ></my-wave>
                 </div>
 
-                <div class="flex flex-wrap pt-8 md:px-16 justify-evenly w-full items-stretch gap-16 mb-16 z-6">
-                    <div class="secondary-card flex-1 grow-1 flex flex-col justify-between rounded-8 max-w-lg">
-                        <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl py-8 lg:p-8">
+                <div
+                    class="flex flex-wrap pt-8 md:px-16 justify-evenly w-full items-stretch gap-x-48 sm:gap-x-16 gap-16 mb-16 z-6"
+                >
+                    <div
+                        class="secondary-card flex-1 grow-1 flex flex-col justify-between rounded-8 sm:min-w-md max-w-lg"
+                    >
+                        <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8">
                             <div class="flex flex-row flex-wrap items-center justify-center">
                                 <button data-for="about" class="active" aria-label="about">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -240,7 +244,9 @@ export class SectionFour extends LitElement {
                         >
                     </div>
 
-                    <div class="secondary-card flex-1 grow-1 flex flex-col justify-between rounded-8 max-w-lg">
+                    <div
+                        class="secondary-card flex-1 grow-1 flex flex-col justify-between rounded-8 sm:min-w-md max-w-lg"
+                    >
                         <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8">
                             <div class="flex flex-row items-center justify-center">
                                 <button data-for="about" class="active" aria-label="about">

@@ -102,7 +102,9 @@ export class SectionThree extends LitElement {
                 </div>
 
                 <div class="pb-16 lg:pl-15% w-full z-2">
-                    <div class="base-card right w-full flex flex-col md:flex-row items-stretch lg:rounded-l-8">
+                    <div
+                        class="base-card right w-full flex flex-col md:flex-row items-stretch lt-lg:b-l-none! lg:rounded-l-8"
+                    >
                         <div class="flex-1 grow-1 flex flex-col justify-between">
                             <portfolio-card
                                 class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8"
@@ -164,7 +166,9 @@ export class SectionThree extends LitElement {
                 </div>
 
                 <div class="pb-16 lg:pr-15% w-full z-2">
-                    <div class="base-card left w-full flex flex-col-reverse md:flex-row items-stretch lg:rounded-r-8">
+                    <div
+                        class="base-card left w-full flex flex-col-reverse md:flex-row items-stretch lt-lg:b-r-none! lg:rounded-r-8"
+                    >
                         <iframe
                             class="flex-1 grow-2 min-h-75vh border-none"
                             src="https://abacuscleaninginc.com/"
