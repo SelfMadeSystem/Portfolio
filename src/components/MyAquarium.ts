@@ -33,6 +33,7 @@ enum PointerClickState {
 interface UpdateAndRender {
     update(canvasSize: Point, delta: number, pointers: [Point, PointerClickState][]): void;
     draw(ctx: CanvasRenderingContext2D, element: HTMLElement): void;
+    moveDiff(diff: Point, canvasSize: Point): void;
 }
 
 /**
@@ -84,6 +85,8 @@ abstract class BaseFish implements UpdateAndRender {
         }
         ctx.restore();
     }
+
+    abstract moveDiff(diff: Point, canvasSize: Point): void;
 }
 
 /**
@@ -138,11 +141,21 @@ class Fish extends BaseFish {
         return this.color;
     }
 
-    move(speed: number, canvasSize: Point) {
-        this.position = this.position.add(Vec.fromAngle(this.rotation * DEG_TO_RAD, speed));
+    moveTo(pos: Point, canvasSize: Point) {
+        this.position = new Vec(pos);
 
         this.position.x = wrapNumber(this.position.x, -this.size * 12, canvasSize[0] + this.size * 12);
         this.position.y = wrapNumber(this.position.y, -this.size * 12, canvasSize[1] + this.size * 12);
+    }
+
+    moveDiff(diff: Point, canvasSize: Point) {
+        this.moveTo(this.position.add(diff), canvasSize);
+    }
+
+    move(speed: number, canvasSize: Point) {
+        const pos = this.position.add(Vec.fromAngle(this.rotation * DEG_TO_RAD, speed));
+
+        this.moveTo(pos, canvasSize);
     }
 
     rotateTo(angle: number, speed: number) {
@@ -428,6 +441,17 @@ class School implements UpdateAndRender {
         }
         // console.log(this.rotationChange);
     }
+
+    moveDiff(diff: Point, canvasSize: Point) {
+        this.position = this.position.add(diff);
+
+        this.position.x = wrapNumber(this.position.x, 0, canvasSize[0]);
+        this.position.y = wrapNumber(this.position.y, 0, canvasSize[1]);
+
+        for (const fish of this.fish) {
+            fish.moveDiff(diff, canvasSize);
+        }
+    }
 }
 
 type PointerState = [pos: Point, clickState: PointerClickState];
@@ -435,6 +459,15 @@ type PointerState = [pos: Point, clickState: PointerClickState];
 const LAG_CHECK_TIME = 1000; // ms
 const LAG_MAX_TIME = 45; // ms
 const LAG_CHECK_COUNT = LAG_CHECK_TIME / LAG_MAX_TIME; // if we lag more than this many times, stop drawing
+
+function getTopInDocument(elem: HTMLElement) {
+    let top = 0;
+    do {
+        top += elem.offsetTop || 0;
+        elem = elem.offsetParent as HTMLElement;
+    } while (elem);
+    return top;
+}
 
 /**
  * The aquarium that contains all the fish.
@@ -510,6 +543,23 @@ export class MyAquarium extends LitElement {
 
         new ResizeObserver(setCanvasSize).observe(canvas);
 
+        let prevTop = getTopInDocument(canvas);
+
+        window.addEventListener('scroll', () => {
+            const top = getTopInDocument(canvas);
+            if (top != prevTop) {
+                const diff = top - prevTop;
+                console.log('Scrolling', diff);
+                for (const fish of fishies) {
+                    fish.moveDiff([0, -diff], [width, height]);
+                }
+
+                prevTop = top;
+                cancelAnimationFrame(this.animationFrame);
+                this.animationFrame = requestAnimationFrame(() => redraw());
+            }
+        });
+
         const mask: HTMLCanvasElement | null = (() => {
             // return null;
             const mask = document.getElementById(this.maskId ?? '') as HTMLCanvasElement | MyWave | null;
@@ -545,8 +595,6 @@ export class MyAquarium extends LitElement {
             let delta = now - lastTime;
             lastTime = now;
 
-            ctxToUse.clearRect(0, 0, width, height);
-
             if (this.startTime + LAG_CHECK_TIME >= now) {
                 this.lagCounter++;
             } else {
@@ -573,6 +621,8 @@ export class MyAquarium extends LitElement {
                 this.animationFrame = requestAnimationFrame(redraw);
                 return;
             }
+
+            ctxToUse.clearRect(0, 0, width, height);
 
             for (const fish of fishies) {
                 fish.draw(ctxToUse, this);
