@@ -549,7 +549,6 @@ export class MyAquarium extends LitElement {
             const top = getTopInDocument(canvas);
             if (top != prevTop) {
                 const diff = top - prevTop;
-                console.log('Scrolling', diff);
                 for (const fish of fishies) {
                     fish.moveDiff([0, -diff], [width, height]);
                 }
