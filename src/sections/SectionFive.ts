@@ -276,10 +276,6 @@ export class SectionFive extends LitElement {
                                             Tac Toe, Gomoku, Connect 4, and Connect 5. You can play online with friends
                                             too. There is also a hexagonal board and a triangular board. This game does
                                             actually work on mobile, including pinch to zoom.
-                                            <p>
-                                                Note: due to the demo being hosted on Cloudflare Pages, the online
-                                                multiplayer will not work and is disabled.
-                                            </p>
                                         </div>
                                         <div
                                             data-name="technologies"
