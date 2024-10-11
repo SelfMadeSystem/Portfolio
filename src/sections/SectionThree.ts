@@ -161,7 +161,11 @@ export class SectionThree extends LitElement {
                             <a class="button m-8 mx-auto" href="https://meadsimon.ca" target="_blank">Visit</a>
                         </div>
                         <div class="separator"></div>
-                        <iframe class="flex-1 grow-2 min-h-75vh border-none" src="https://meadsimon.ca"></iframe>
+                        <iframe
+                            class="flex-1 grow-2 min-h-75vh border-none"
+                            src="https://meadsimon.ca"
+                            title="Mead Simon Chain Mail Designs"
+                        ></iframe>
                     </div>
                 </div>
 
@@ -172,6 +176,7 @@ export class SectionThree extends LitElement {
                         <iframe
                             class="flex-1 grow-2 min-h-75vh border-none"
                             src="https://abacuscleaninginc.com/"
+                            title="Abacus Cleaning Services Inc."
                         ></iframe>
                         <div class="separator"></div>
                         <div class="flex-1 grow-1 flex flex-col justify-between">

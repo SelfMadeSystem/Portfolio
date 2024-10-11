@@ -44,7 +44,7 @@ export class SectionFive extends LitElement {
                                     class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
                                 >
                                     I am experienced in game development using Unity, Godot and C# as well as web-based
-                                    game development using TypeScript. . Click on
+                                    game development using TypeScript. Click on
                                     <span class="inline-flex items-center gap-1">
                                         <svg class="smol-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                             <path
@@ -160,6 +160,7 @@ export class SectionFive extends LitElement {
                         <iframe
                             class="flex-1 grow-2 min-h-75vh border-none"
                             src="https://minesvelte.shoghisimon.cc"
+                            title="Minesvelte"
                         ></iframe>
                     </div>
                 </div>
@@ -175,6 +176,7 @@ export class SectionFive extends LitElement {
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen
+                            title="A Walk Around The Block"
                         ></iframe>
                         <div class="separator"></div>
                         <div class="flex-1 grow-1 flex flex-col justify-between">
@@ -305,6 +307,7 @@ export class SectionFive extends LitElement {
                         <iframe
                             class="flex-1 grow-2 min-h-75vh border-none"
                             src="https://xinarow.shoghisimon.cc"
+                            title="X In A Row"
                         ></iframe>
                     </div>
                 </div>
@@ -320,6 +323,7 @@ export class SectionFive extends LitElement {
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen
+                            title="mc-parkou-rs"
                         ></iframe>
                         <div class="separator"></div>
                         <div class="flex-1 grow-1 flex flex-col justify-between">
