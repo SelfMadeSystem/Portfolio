@@ -136,6 +136,11 @@ a.button {
     transform: translate($t, $t) rotate(45deg);
 }
 
+.separator {
+    min-width: 4px;
+    min-height: 4px;
+}
+
 @media (prefers-reduced-motion) {
     #arrow-down {
         animation: none;

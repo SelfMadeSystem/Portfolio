@@ -10,9 +10,9 @@ export class SectionThree extends LitElement {
     render() {
         // @unocss-include
         return html`
-            <portfolio-section fullHeight id="what-i-use" class="z-2">
+            <portfolio-section fullHeight class="z-2">
                 <div
-                    class="base-card relative flex flex-col items-center z-2
+                    class="base-card top-card relative flex flex-col items-center z-2
                 rounded-b-8
                 -mb-24 -top-40 pt-32"
                 >

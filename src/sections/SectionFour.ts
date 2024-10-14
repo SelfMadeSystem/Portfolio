@@ -10,10 +10,10 @@ export class SectionFour extends LitElement {
     render() {
         // @unocss-include
         return html`
-            <portfolio-section fullHeight class="secondary" id="portfolio">
+            <portfolio-section fullHeight class="secondary">
                 <my-wave id="wave3" color="var(--base-wave)" class="relative transform -scale-y-[1] z-1"></my-wave>
                 <div
-                    class="secondary-card title relative flex flex-col items-center
+                    class="secondary-card top-card title relative flex flex-col items-center
                 -mb-24 -top-40 pt-32"
                 >
                     <div id="backend-development" class="z-2 flex flex-col items-center pt-8 px-2 lg:p-8 rounded-8">
