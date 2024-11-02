@@ -124,7 +124,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Web Development</h2>
-                        <img class="w-xs" alt="Some HTML Code" src=${FrontendImg} />
+                        <img class="w-xs rounded-lg" alt="Some HTML Code" src=${FrontendImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>
@@ -137,7 +137,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Backend Development</h2>
-                        <img class="w-xs" alt="Some Java Code" src=${BackendImg} />
+                        <img class="w-xs rounded-lg" alt="Some Java Code" src=${BackendImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>
@@ -150,7 +150,7 @@ export class SectionTwo extends LitElement {
                     hover:scale-105"
                     >
                         <h2 class="text-4xl text-center">Game Development</h2>
-                        <img class="w-xs" alt="Minesvelte Game" src=${GameImg} />
+                        <img class="w-xs rounded-lg" alt="Minesvelte Game" src=${GameImg} />
 
                         <p class="mt-4 text-sm text-center">Click to learn more</p>
                     </div>

@@ -2,7 +2,6 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { isNeon } from '../theme';
 import { getColor } from '../utils/ColorUtils';
-import type { Animal } from '../utils/anim/animal';
 import { Seaweed } from '../utils/anim/seaweed';
 import { Vec2 } from '../utils/anim/vec2';
 
@@ -64,14 +63,28 @@ export class SeaWeed extends LitElement {
         const mousePos = new Vec2(0, 0);
 
         window.addEventListener('mousemove', e => {
-            mousePos.x = e.clientX;
-            mousePos.y = e.clientY;
+            const rect = canvas.getBoundingClientRect();
+            mousePos.x = e.clientX - rect.left;
+            mousePos.y = e.clientY - rect.top;
+        });
+
+        let prevScroll = 0;
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            mousePos.y += scroll - prevScroll;
+            prevScroll = scroll;
         });
 
         const t = 30;
-        const animals: Animal[] = new Array(t)
+        const animals: Seaweed[] = new Array(t)
             .fill(0)
             .map((_, i) => new Seaweed(new Vec2(canvas.width * ((i / t) * 0.9 + 0.05), canvas.height), 0.1));
+
+        window.addEventListener('resize', () => {
+            for (let i = 0; i < t; i++) {
+                animals[i].anchor = new Vec2(canvas.width * ((i / t) * 0.9 + 0.05), canvas.height);
+            }
+        });
 
         const prevDeltas: number[] = [];
         let prevTime = performance.now();
