@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Shoghi Simon's Portfolio</title>
+
+    <!-- Meta for SEO -->
+    <meta
+      name="description"
+      content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals."
+    />
+    <meta
+      name="keywords"
+      content="Shoghi Simon, Portfolio, Shoghi, Simon, Shoghi Simon Portfolio"
+    />
+    <meta name="author" content="Shoghi Simon" />
+    <meta name="og:title" content="Shoghi Simon's Portfolio" />
+    <meta
+      name="og:description"
+      content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals."
+    />
+    <meta name="og:image" content="https://shoghisimon.ca/pfp.png" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

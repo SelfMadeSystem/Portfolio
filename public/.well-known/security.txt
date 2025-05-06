@@ -1,5 +1,0 @@
-Contact: mailto:contact@shoghisimon.ca
-Expires: 2026-01-01T05:00:00.000Z
-Encryption: https://shoghisimon.ca/pgp-key.txt
-Preferred-Languages: en, fr
-Canonical: https://shoghisimon.ca/.well-known/security.txt
