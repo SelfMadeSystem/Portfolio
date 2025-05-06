@@ -3,20 +3,25 @@ import { useRef, useEffect } from "react";
 function createRoundRectPath(
   width: number,
   height: number,
-  radius: number
+  radius: number,
+  xO: number = 0,
+  yO: number = 0
 ): string {
   const r = Math.min(radius, Math.min(width, height) / 2);
-  return `M ${r},0
-          H ${width - r}
-          A ${r},${r} 0 0 1 ${width},${r}
-          V ${height - r}
-          A ${r},${r} 0 0 1 ${width - r},${height}
-          H ${r}
-          A ${r},${r} 0 0 1 0,${height - r}
-          V ${r}
-          A ${r},${r} 0 0 1 ${r},0
-          Z`;
+  const r2 = r * 2;
+  return `M${xO + r},${yO}
+    h${width - r2}
+    a${r},${r} 0 0 1 ${r},${r}
+    v${height - r2}
+    a${r},${r} 0 0 1 -${r},${r}
+    h${-width + r2}
+    a${r},${r} 0 0 1 -${r},-${r}
+    v${-height + r2}
+    a${r},${r} 0 0 1 ${r},-${r}
+    Z`.replace(/\s+/g, " ");
 }
+
+console.log(createRoundRectPath(336 + 16 * 2, 192 + 16 * 2, 16 + 16, -16, -16));
 
 export default function RoundRectBox({
   children,
