@@ -196,12 +196,14 @@ export default function Welcome() {
           </defs>
           <path
             ref={box1PathRef}
+            strokeDasharray="0 99999999999999999999999999"
             fill="transparent"
             stroke="white"
             d="M16 0H320A16 16 0 01336 16V176A16 16 0 01320 192H16A16 16 0 010 176V16A16 16 0 0116 0Z"
           ></path>
           <path
             ref={box2PathRef}
+            strokeDasharray="0 99999999999999999999999999"
             mask="url(#fBox2)"
             fill="transparent"
             stroke="#fff8"
@@ -209,16 +211,29 @@ export default function Welcome() {
           ></path>
           <path
             ref={box3PathRef}
+            strokeDasharray="0 99999999999999999999999999"
             mask="url(#fBox3)"
             fill="transparent"
             stroke="#fff8"
             d="M69420 283H267a16 16 0 01-16-16V208a16 16 0 00-16-16H16a16 16 90 01-16-16V16a16 16 0 0116-16H127a16 16 0 0016-16V-42069"
           ></path>
         </svg>
-        <h1 ref={titleRef} className="text-2xl font-bold">
+        <h1
+          ref={titleRef}
+          className="text-2xl font-bold"
+          style={{
+            opacity: 0,
+          }}
+        >
           Welcome to Our App!
         </h1>
-        <h2 ref={subtitleRef} className="text-lg text-gray-200">
+        <h2
+          ref={subtitleRef}
+          className="text-lg text-gray-200"
+          style={{
+            opacity: 0,
+          }}
+        >
           Your journey starts here.
         </h2>
       </div>
