@@ -4,15 +4,18 @@ import Navigation from "../components/Navigation.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { projects } from "../data/projects";
 import RoundRectBox from "../components/RoundRectBox";
+import RectLineProvider from "../components/RectLineProvider";
 ---
 
 <Layout title="Portfolio | Projects Showcase">
+  <RectLineProvider client:load />
   <div class="min-h-screen bg-slate-900 text-white fade-in">
     <Navigation />
 
     <RoundRectBox
-      className="container flex flex-col items-center justify-center mt-8 mx-auto w-fit px-4 py-8 text-center"
-      lineColor="#f000"
+      className="flex flex-col items-center justify-center mt-8 mx-auto w-fit px-4 py-8 text-center"
+      lineColor="#0000"
+      lines={3}
       client:load
     >
       <h1
@@ -27,7 +30,16 @@ import RoundRectBox from "../components/RoundRectBox";
 
     <main class="container mx-auto px-4 py-8">
       <section id="projects">
-        <h2 class="text-3xl font-semibold mb-8 text-center">Projects</h2>
+        <RoundRectBox
+          className="px-16 py-4 w-fit mx-auto mb-8"
+          lineColor="#0000"
+          lines={0}
+          client:load
+        >
+          <h2 class="text-3xl font-semibold w-fit text-center">
+            Projects
+          </h2>
+        </RoundRectBox>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => <ProjectCard project={project} />)}
         </div>
@@ -80,7 +92,9 @@ import RoundRectBox from "../components/RoundRectBox";
 
     <footer class="bg-slate-800 py-6">
       <div class="container mx-auto px-4 text-center text-slate-400">
-        <p>© {new Date().getFullYear()} My Portfolio. All rights reserved.</p>
+        <p>
+          © {new Date().getFullYear()} My Portfolio. All rights reserved.
+        </p>
       </div>
     </footer>
   </div>

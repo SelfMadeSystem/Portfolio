@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { LineGenerator, type ScreenStuff } from "./lineGenerator";
+import type { RoundedBox } from "./lineGenerator";
 import { Vector2 } from "../utils/vec";
 import "./roundrectbox.css";
+import { boxesStore } from "./boxesStore";
+import useMounted from "../utils/useMounted";
 
 function createRoundRectPath(
   width: number,
@@ -25,84 +27,32 @@ function createRoundRectPath(
     Z`.replace(/\s+/g, " ");
 }
 
-function LinePath({
-  pos,
-  size,
-  radius,
-  screen,
-}: {
-  pos: Vector2;
-  size: Vector2;
-  radius: number;
-  screen: ScreenStuff;
-}) {
-  const [path, setPath] = useState("");
-
-  useEffect(() => {
-    const pathStr = LineGenerator.fromRandom({
-      pos,
-      size,
-      radius,
-    }).loopUntilHitScreen(screen);
-    setPath(pathStr);
-  }, [pos, size, radius]);
-
-  return (
-    <path
-      d={path}
-      className="anim-stronk"
-      pathLength={100}
-      stroke="white"
-      strokeWidth={2}
-      fill="transparent"
-    />
-  );
-}
-
 export default function RoundRectBox({
   children,
-  pathRef,
   lineWidth = 2,
   lineColor = "#fff",
+  lines = 1,
   ...props
 }: React.HTMLProps<HTMLDivElement> & {
-  pathRef?: React.RefObject<SVGPathElement | null>;
   lineWidth?: number;
   lineColor?: string;
+  lines?: number;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const internalPathRef = useRef<SVGPathElement>(null);
-  const [screen, setScreen] = useState<ScreenStuff>({
-    l: 0,
-    t: 0,
-    w: 2,
-    h: 2,
-  });
-  const [width, setWidth] = useState(2);
-  const [height, setHeight] = useState(2);
-  const [radius, setRadius] = useState(0);
-  const svgRef = useRef<SVGSVGElement>(null);
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  const [svg, setSvg] = useState<SVGSVGElement | null>(null);
+  const [path, setPath] = useState<SVGPathElement | null>(null);
+  const prevBoxRef = useRef<RoundedBox | null>(null);
   const [position, setPosition] = useState({
     top: 0,
     left: 0,
     width: 0,
     height: 0,
   });
-  const [mounted, setMounted] = useState(false);
-
-  // Use the provided pathRef or fallback to the internal one
-  const actualPathRef = pathRef || internalPathRef;
+  const mounted = useMounted();
 
   useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-
-  useEffect(() => {
+    if (!container || !path || !svg) return;
     const setPath = () => {
-      const container = containerRef.current;
-      const path = actualPathRef.current;
-      const svg = svgRef.current;
       if (!container || !path || !svg) return;
 
       const { width, height } = container.getBoundingClientRect();
@@ -122,20 +72,37 @@ export default function RoundRectBox({
         window.pageXOffset || document.documentElement.scrollLeft;
       const scrollTop =
         window.pageYOffset || document.documentElement.scrollTop;
-      const documentWidth =
-        window.innerWidth || document.documentElement.clientWidth;
-      const documentHeight =
-        window.innerHeight || document.documentElement.clientHeight;
 
-      setScreen({
-        l: scrollLeft - rect.left,
-        t: scrollTop - rect.top,
-        w: documentWidth,
-        h: documentHeight,
-      });
-      setWidth(width);
-      setHeight(height);
-      setRadius(radius);
+      const newBox = {
+        pos: new Vector2(rect.left + scrollLeft, rect.top + scrollTop),
+        size: new Vector2(width, height),
+        radius,
+      };
+
+      const prevBox = prevBoxRef.current;
+      if (prevBox) {
+        boxesStore.set([
+          ...boxesStore.get().map((c) => {
+            const box = c[0];
+            if (
+              box.pos.x === prevBox.pos.x &&
+              box.pos.y === prevBox.pos.y &&
+              box.size.x === prevBox.size.x &&
+              box.size.y === prevBox.size.y &&
+              box.radius === prevBox.radius
+            ) {
+              return [newBox, lines] as [RoundedBox, number];
+            }
+            return c;
+          }),
+        ]);
+      } else {
+        boxesStore.set([
+          ...boxesStore.get(),
+          [newBox, lines] as [RoundedBox, number],
+        ]);
+      }
+      prevBoxRef.current = newBox;
 
       setPosition({
         top: rect.top + scrollTop,
@@ -146,8 +113,8 @@ export default function RoundRectBox({
     };
 
     const updatePosition = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
       const scrollLeft =
         window.pageXOffset || document.documentElement.scrollLeft;
       const scrollTop =
@@ -167,25 +134,25 @@ export default function RoundRectBox({
       setPath();
     });
 
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
+    if (container) {
+      resizeObserver.observe(container);
     }
 
     window.addEventListener("scroll", updatePosition);
     window.addEventListener("resize", updatePosition);
 
     return () => {
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current);
+      if (container) {
+        resizeObserver.unobserve(container);
       }
       window.removeEventListener("scroll", updatePosition);
       window.removeEventListener("resize", updatePosition);
     };
-  }, [actualPathRef]);
+  }, [container, path, svg, lineWidth, lineColor]);
 
   return (
     <div
-      ref={containerRef}
+      ref={setContainer}
       {...props}
       style={{
         ...props.style,
@@ -195,7 +162,7 @@ export default function RoundRectBox({
       {mounted &&
         createPortal(
           <svg
-            ref={svgRef}
+            ref={setSvg}
             style={{
               position: "absolute",
               top: `${position.top}px`,
@@ -207,7 +174,7 @@ export default function RoundRectBox({
             }}
             overflow="visible"
           >
-            <path ref={actualPathRef} />
+            <path ref={setPath} />
           </svg>,
           document.body
         )}

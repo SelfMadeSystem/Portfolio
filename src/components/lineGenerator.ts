@@ -76,48 +76,53 @@ function checkCollision(
   const boxPos = box.pos;
   const boxSize = box.size;
 
-  let collision: Collision | null = null;
+  let point: Vector2 | null = null;
 
   switch (direction) {
     case Direction.UP:
-      if (start.y < boxPos.y + boxSize.y) {
-        collision = {
-          distance: boxPos.y + boxSize.y - start.y,
-          point: new Vector2(start.x, boxPos.y + boxSize.y),
-          box,
-        };
+      if (
+        start.y > boxPos.y + boxSize.y &&
+        start.x > boxPos.x &&
+        start.x < boxPos.x + boxSize.x
+      ) {
+        point = new Vector2(start.x, boxPos.y + boxSize.y);
       }
       break;
     case Direction.DOWN:
-      if (start.y > boxPos.y) {
-        collision = {
-          distance: start.y - boxPos.y,
-          point: new Vector2(start.x, boxPos.y),
-          box,
-        };
+      if (
+        start.y < boxPos.y &&
+        start.x > boxPos.x &&
+        start.x < boxPos.x + boxSize.x
+      ) {
+        point = new Vector2(start.x, boxPos.y);
       }
       break;
     case Direction.LEFT:
-      if (start.x < boxPos.x + boxSize.x) {
-        collision = {
-          distance: boxPos.x + boxSize.x - start.x,
-          point: new Vector2(boxPos.x + boxSize.x, start.y),
-          box,
-        };
+      if (
+        start.x > boxPos.x + boxSize.x &&
+        start.y > boxPos.y &&
+        start.y < boxPos.y + boxSize.y
+      ) {
+        point = new Vector2(boxPos.x + boxSize.x, start.y);
       }
       break;
     case Direction.RIGHT:
-      if (start.x > boxPos.x) {
-        collision = {
-          distance: start.x - boxPos.x,
-          point: new Vector2(boxPos.x, start.y),
-          box,
-        };
+      if (
+        start.x < boxPos.x &&
+        start.y > boxPos.y &&
+        start.y < boxPos.y + boxSize.y
+      ) {
+        point = new Vector2(boxPos.x, start.y);
       }
       break;
   }
 
-  return collision;
+  if (point) {
+    const distance = start.dist(point);
+    return { distance, point, box };
+  }
+
+  return null;
 }
 
 export class LineGenerator {
@@ -142,41 +147,41 @@ export class LineGenerator {
     this.moveDirection = direction;
   }
 
-  static fromTop(box: RoundedBox) {
+  static fromTop(box: RoundedBox, ...boxes: RoundedBox[]) {
     const start = new Vector2(box.pos.x + box.size.x / 2, box.pos.y);
-    return new LineGenerator(start, horizontal(), [box]);
+    return new LineGenerator(start, horizontal(), [box, ...boxes]);
   }
 
-  static fromBottom(box: RoundedBox) {
+  static fromBottom(box: RoundedBox, ...boxes: RoundedBox[]) {
     const start = new Vector2(
       box.pos.x + box.size.x / 2,
       box.pos.y + box.size.y
     );
-    return new LineGenerator(start, horizontal(), [box]);
+    return new LineGenerator(start, horizontal(), [box, ...boxes]);
   }
 
-  static fromLeft(box: RoundedBox) {
+  static fromLeft(box: RoundedBox, ...boxes: RoundedBox[]) {
     const start = new Vector2(box.pos.x, box.pos.y + box.size.y / 2);
-    return new LineGenerator(start, vertical(), [box]);
+    return new LineGenerator(start, vertical(), [box, ...boxes]);
   }
 
-  static fromRight(box: RoundedBox) {
+  static fromRight(box: RoundedBox, ...boxes: RoundedBox[]) {
     const start = new Vector2(
       box.pos.x + box.size.x,
       box.pos.y + box.size.y / 2
     );
-    return new LineGenerator(start, vertical(), [box]);
+    return new LineGenerator(start, vertical(), [box, ...boxes]);
   }
 
-  static fromRandom(box: RoundedBox) {
+  static fromRandom(box: RoundedBox, ...boxes: RoundedBox[]) {
     if (randomBool()) {
       return randomBool()
-        ? LineGenerator.fromTop(box)
-        : LineGenerator.fromBottom(box);
+        ? LineGenerator.fromTop(box, ...boxes)
+        : LineGenerator.fromBottom(box, ...boxes);
     }
     return randomBool()
-      ? LineGenerator.fromLeft(box)
-      : LineGenerator.fromRight(box);
+      ? LineGenerator.fromLeft(box, ...boxes)
+      : LineGenerator.fromRight(box, ...boxes);
   }
 
   moveTo(pos: Vector2): void {
@@ -274,7 +279,7 @@ export class LineGenerator {
     }
   }
 
-  moveAlongBox(box: RoundedBox, distance: number): void {
+  moveAlongBox(box: RoundedBox, distance: number, start = true, max = 3): void {
     const moveLimit = this.getBoxMoveLimit(box);
     const moveDistance = this.pos.dist(moveLimit);
 
@@ -282,13 +287,12 @@ export class LineGenerator {
       throw new Error("Already at the box limit");
     }
 
-    const diff = distance - moveDistance + box.radius;
+    const diff = start ? 1 : distance - moveDistance + box.radius;
 
-    if (diff > 0) {
+    if (diff > 0 && max > 0) {
       this.moveTo(moveLimit);
       this.direction = this.getNextBoxDirection(box);
-      console.log("Moving along box", this.direction);
-      this.moveAlongBox(box, diff + box.radius);
+      this.moveAlongBox(box, (start ? 50 : diff) + box.radius, false, max - 1);
       return;
     }
 
@@ -369,6 +373,11 @@ export class LineGenerator {
     const { l, t, w, h } = screen;
     const r = l + w;
     const b = t + h;
+    const distance = this.getRandomDistance();
+    const onBox = this.getOnBox();
+    if (onBox) {
+      this.moveAlongBox(onBox, distance, true, 2);
+    }
     while (
       this.pos.x > l &&
       this.pos.x < r &&
