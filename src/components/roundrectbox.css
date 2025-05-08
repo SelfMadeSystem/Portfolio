@@ -1,6 +1,6 @@
 .anim-stronk {
-  animation: stronk 3s ease-in-out forwards;
-  stroke-dasharray: 0 100 100 100;
+  animation: stronk var(--duration, 3s) ease-in-out infinite forwards var(--delay, 0s);
+  stroke-dasharray: 0 100 20 80;
 }
 
 @keyframes stronk {
@@ -11,10 +11,10 @@
     opacity: 1;
   }
   75% {
-    stroke-dashoffset: 100;
+    stroke-dashoffset: 120;
   }
   100% {
     opacity: 0;
-    stroke-dashoffset: 100;
+    stroke-dashoffset: 120;
   }
 }

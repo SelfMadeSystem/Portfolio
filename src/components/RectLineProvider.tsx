@@ -8,11 +8,13 @@ import useMounted from "../utils/useMounted";
 import { useStore } from "@nanostores/react";
 
 function LinePath({
+  index,
   pos,
   size,
   radius,
   screen,
 }: {
+  index: number;
   pos: Vector2;
   size: Vector2;
   radius: number;
@@ -20,6 +22,8 @@ function LinePath({
 }) {
   const [path, setPath] = useState("");
   const boxes = useStore(boxesStore);
+  const [delay] = useState(index * 100 + Math.random() * 100);
+  const [duration] = useState(2000 + Math.random() * 2000);
 
   useEffect(() => {
     const pathStr = LineGenerator.fromRandom(
@@ -41,6 +45,12 @@ function LinePath({
       stroke="#fff5"
       strokeWidth={2}
       fill="transparent"
+      style={
+        {
+          "--delay": `${delay}ms`,
+          "--duration": `${duration}ms`,
+        } as React.CSSProperties
+      }
     />
   );
 }
@@ -85,11 +95,12 @@ export default function RectLineProvider() {
             }}
             overflow="visible"
           >
-            {boxes.map(([box, amount]) => (
+            {boxes.map(([box, amount], i) => (
               <Fragment key={JSON.stringify(box)}>
-                {Array.from({ length: amount }, (_, i) => (
+                {Array.from({ length: amount }, (_, j) => (
                   <LinePath
-                    key={i}
+                    key={j}
+                    index={j + i}
                     pos={box.pos}
                     size={box.size}
                     radius={box.radius}
