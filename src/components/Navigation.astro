@@ -1,0 +1,84 @@
+---
+
+---
+
+<nav class="bg-slate-800 shadow-md px-4 py-4 sticky top-0 z-10">
+  <div class="container mx-auto flex justify-between items-center">
+    <a
+      href="/"
+      class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500"
+    >
+      Portfolio
+    </a>
+
+    <div class="hidden md:flex space-x-8">
+      <a
+        href="#projects"
+        class="text-slate-300 hover:text-white transition-colors"
+      >
+        Projects
+      </a>
+      <a
+        href="#contact"
+        class="text-slate-300 hover:text-white transition-colors"
+      >
+        Contact
+      </a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-button"
+      class="md:hidden text-slate-300 hover:text-white"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden mt-2 py-2">
+    <a
+      href="#projects"
+      class="block px-4 py-2 text-slate-300 hover:bg-slate-700"
+    >
+      Projects
+    </a>
+    <a
+      href="#contact"
+      class="block px-4 py-2 text-slate-300 hover:bg-slate-700"
+    >
+      Contact
+    </a>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    mobileMenuButton?.addEventListener("click", () => {
+      mobileMenu?.classList.toggle("hidden");
+    });
+
+    // Close mobile menu when clicking a link
+    const mobileLinks = mobileMenu?.querySelectorAll("a");
+    mobileLinks?.forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileMenu?.classList.add("hidden");
+      });
+    });
+  });
+</script>

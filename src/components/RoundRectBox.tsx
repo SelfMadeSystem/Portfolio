@@ -1,4 +1,8 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { LineGenerator, type ScreenStuff } from "./lineGenerator";
+import { Vector2 } from "../utils/vec";
+import "./roundrectbox.css";
 
 function createRoundRectPath(
   width: number,
@@ -21,21 +25,78 @@ function createRoundRectPath(
     Z`.replace(/\s+/g, " ");
 }
 
-console.log(createRoundRectPath(336 + 16 * 2, 192 + 16 * 2, 16 + 16, -16, -16));
+function LinePath({
+  pos,
+  size,
+  radius,
+  screen,
+}: {
+  pos: Vector2;
+  size: Vector2;
+  radius: number;
+  screen: ScreenStuff;
+}) {
+  const [path, setPath] = useState("");
+
+  useEffect(() => {
+    const pathStr = LineGenerator.fromRandom({
+      pos,
+      size,
+      radius,
+    }).loopUntilHitScreen(screen);
+    setPath(pathStr);
+  }, [pos, size, radius]);
+
+  return (
+    <path
+      d={path}
+      className="anim-stronk"
+      pathLength={100}
+      stroke="white"
+      strokeWidth={2}
+      fill="transparent"
+    />
+  );
+}
 
 export default function RoundRectBox({
   children,
   pathRef,
+  lineWidth = 2,
+  lineColor = "#fff",
   ...props
 }: React.HTMLProps<HTMLDivElement> & {
   pathRef?: React.RefObject<SVGPathElement | null>;
+  lineWidth?: number;
+  lineColor?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const internalPathRef = useRef<SVGPathElement>(null);
+  const [screen, setScreen] = useState<ScreenStuff>({
+    l: 0,
+    t: 0,
+    w: 2,
+    h: 2,
+  });
+  const [width, setWidth] = useState(2);
+  const [height, setHeight] = useState(2);
+  const [radius, setRadius] = useState(0);
   const svgRef = useRef<SVGSVGElement>(null);
+  const [position, setPosition] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+    height: 0,
+  });
+  const [mounted, setMounted] = useState(false);
 
   // Use the provided pathRef or fallback to the internal one
   const actualPathRef = pathRef || internalPathRef;
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   useEffect(() => {
     const setPath = () => {
@@ -51,14 +112,53 @@ export default function RoundRectBox({
       const radius = parseFloat(style.borderRadius) || 0;
       const pathStr = createRoundRectPath(width, height, radius);
       path.setAttribute("d", pathStr);
-      path.setAttribute("fill", style.backgroundColor);
-      path.setAttribute("stroke", style.borderColor);
-      path.setAttribute("stroke-width", style.borderWidth);
-      container.style.borderColor = "transparent";
-      container.style.backgroundColor = "transparent";
+      path.setAttribute("stroke", lineColor);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke-width", `${lineWidth}`);
 
-      svg.style.top = `-${style.borderWidth}`;
-      svg.style.left = `-${style.borderWidth}`;
+      // Get absolute position for the SVG
+      const rect = container.getBoundingClientRect();
+      const scrollLeft =
+        window.pageXOffset || document.documentElement.scrollLeft;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const documentWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+      const documentHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+
+      setScreen({
+        l: scrollLeft - rect.left,
+        t: scrollTop - rect.top,
+        w: documentWidth,
+        h: documentHeight,
+      });
+      setWidth(width);
+      setHeight(height);
+      setRadius(radius);
+
+      setPosition({
+        top: rect.top + scrollTop,
+        left: rect.left + scrollLeft,
+        width: rect.width,
+        height: rect.height,
+      });
+    };
+
+    const updatePosition = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const scrollLeft =
+        window.pageXOffset || document.documentElement.scrollLeft;
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+
+      setPosition({
+        top: rect.top + scrollTop,
+        left: rect.left + scrollLeft,
+        width: rect.width,
+        height: rect.height,
+      });
     };
 
     setPath();
@@ -66,13 +166,20 @@ export default function RoundRectBox({
     const resizeObserver = new ResizeObserver(() => {
       setPath();
     });
+
     if (containerRef.current) {
       resizeObserver.observe(containerRef.current);
     }
+
+    window.addEventListener("scroll", updatePosition);
+    window.addEventListener("resize", updatePosition);
+
     return () => {
       if (containerRef.current) {
         resizeObserver.unobserve(containerRef.current);
       }
+      window.removeEventListener("scroll", updatePosition);
+      window.removeEventListener("resize", updatePosition);
     };
   }, [actualPathRef]);
 
@@ -85,20 +192,25 @@ export default function RoundRectBox({
         position: "relative",
       }}
     >
-      <svg
-        ref={svgRef}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-        }}
-        overflow="visible"
-      >
-        <path ref={actualPathRef} />
-      </svg>
+      {mounted &&
+        createPortal(
+          <svg
+            ref={svgRef}
+            style={{
+              position: "absolute",
+              top: `${position.top}px`,
+              left: `${position.left}px`,
+              width: `${position.width}px`,
+              height: `${position.height}px`,
+              pointerEvents: "none",
+              zIndex: 9999,
+            }}
+            overflow="visible"
+          >
+            <path ref={actualPathRef} />
+          </svg>,
+          document.body
+        )}
       {children}
     </div>
   );

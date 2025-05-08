@@ -1,0 +1,20 @@
+.anim-stronk {
+  animation: stronk 3s ease-in-out forwards;
+  stroke-dasharray: 0 100 100 100;
+}
+
+@keyframes stronk {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 100;
+  }
+}
