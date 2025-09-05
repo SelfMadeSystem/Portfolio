@@ -1,5 +1,5 @@
 .anim-stronk {
-  animation: stronk var(--duration, 3s) ease-in-out infinite forwards var(--delay, 0s);
+  animation: stronk var(--duration, 3s) ease-in-out forwards var(--delay, 0s);
   stroke-dasharray: 0 100 20 80;
 }
 

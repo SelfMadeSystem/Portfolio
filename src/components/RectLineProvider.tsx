@@ -47,7 +47,6 @@ function LinePath({
       fill="transparent"
       style={
         {
-          "--delay": `${delay}ms`,
           "--duration": `${duration}ms`,
         } as React.CSSProperties
       }
