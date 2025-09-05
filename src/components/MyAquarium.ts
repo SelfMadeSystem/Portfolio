@@ -21,6 +21,40 @@ const FISH_SVG_PATH = new Path2D(
     `M12,20L12.76,17C9.5,16.79 6.59,15.4 5.75,13.58C5.66,14.06 5.53,14.5 5.33,14.83C4.67,16 3.33,16 2,16C3.1,16 3.5,14.43 3.5,12.5C3.5,10.57 3.1,9 2,9C3.33,9 4.67,9 5.33,10.17C5.53,10.5 5.66,10.94 5.75,11.42C6.4,10 8.32,8.85 10.66,8.32L9,5C11,5 13,5 14.33,5.67C15.46,6.23 16.11,7.27 16.69,8.38C19.61,9.08 22,10.66 22,12.5C22,14.38 19.5,16 16.5,16.66C15.67,17.76 14.86,18.78 14.17,19.33C13.33,20 12.67,20 12,20M17,11A1,1 0 0,0 16,12A1,1 0 0,0 17,13A1,1 0 0,0 18,12A1,1 0 0,0 17,11Z`,
 );
 
+const fishCanvasCache = new Map<string, HTMLCanvasElement>();
+
+const fishUpscale = 2;
+
+function createColoredFishCanvas(color: string, fishScale: number, neon: boolean): HTMLCanvasElement {
+    const cacheKey = `${color}-${fishScale}-${neon}`;
+    if (fishCanvasCache.has(cacheKey)) {
+        return fishCanvasCache.get(cacheKey)!;
+    }
+
+    fishScale *= fishUpscale;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 24 * fishScale;
+    canvas.height = 24 * fishScale;
+    const ctx = canvas.getContext('2d')!;
+
+    ctx.scale(fishScale, fishScale);
+
+    if (neon) {
+        ctx.fillStyle = '#242424';
+        ctx.fill(FISH_SVG_PATH);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = (3 / fishScale) * fishUpscale;
+        ctx.stroke(FISH_SVG_PATH);
+    } else {
+        ctx.fillStyle = color;
+        ctx.fill(FISH_SVG_PATH);
+    }
+
+    fishCanvasCache.set(cacheKey, canvas);
+    return canvas;
+}
+
 enum PointerClickState {
     NONE,
     CLICKED,
@@ -62,27 +96,48 @@ abstract class BaseFish implements UpdateAndRender {
         const [x, y] = this.getPosition();
         const rotation = this.getRotation();
         const size = this.getSize();
-        const color = this.getColor();
+        const color = getColor(this.getColor(), element);
 
         const neon = isNeon();
 
         ctx.save();
         ctx.translate(x, y);
-        ctx.scale(size, size);
+        // ctx.scale(size, size);
         ctx.rotate(rotation * DEG_TO_RAD);
-        ctx.translate(-12, -12);
+        ctx.translate(-12 * size, -12 * size);
 
         if (neon) {
-            ctx.fillStyle = '#242424'; // TODO: Make this customizable.
-            ctx.strokeStyle = getColor(color, element);
-            ctx.lineWidth = 3 / size;
-
-            ctx.fill(FISH_SVG_PATH);
-            ctx.stroke(FISH_SVG_PATH);
+            const fishNeonCanvas = createColoredFishCanvas(color, size, true);
+            ctx.drawImage(
+                fishNeonCanvas,
+                0,
+                0,
+                fishNeonCanvas.width / fishUpscale,
+                fishNeonCanvas.height / fishUpscale,
+            );
         } else {
-            ctx.fillStyle = getColor(color, element);
-            ctx.fill(FISH_SVG_PATH);
+            const fishFillCanvas = createColoredFishCanvas(color, size, false);
+            ctx.drawImage(
+                fishFillCanvas,
+                0,
+                0,
+                fishFillCanvas.width / fishUpscale,
+                fishFillCanvas.height / fishUpscale,
+            );
         }
+
+        // if (neon) {
+        //     ctx.fillStyle = '#242424'; // TODO: Make this customizable.
+        //     ctx.strokeStyle = getColor(color, element);
+        //     ctx.lineWidth = 3 / size;
+
+        //     ctx.fill(FISH_SVG_PATH);
+        //     ctx.stroke(FISH_SVG_PATH);
+        // } else {
+        //     ctx.fillStyle = getColor(color, element);
+        //     ctx.fill(FISH_SVG_PATH);
+        // }
+
         ctx.restore();
     }
 
