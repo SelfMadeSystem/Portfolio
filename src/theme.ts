@@ -15,14 +15,15 @@ export const THEMES = {
         isNeon: true,
     },
     // for now, that's it
-};
+} satisfies Record<string, Theme>;
 
 export type Themes = keyof typeof THEMES;
 
 export const THEME_NAMES: Themes[] = Object.keys(THEMES) as Themes[];
 
 export function getTheme(): Themes {
-    return document.body.classList[0] as Themes;
+    const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+    return theme;
 }
 
 export function isNeon(): boolean {

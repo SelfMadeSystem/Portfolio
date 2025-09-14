@@ -1,159 +1,221 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shoghi Simon's Portfolio</title>
+        <link rel="stylesheet" href="./src/index.scss" />
+        <script type="module" src="/src/main.ts"></script>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shoghi Simon's Portfolio</title>
-  <link rel="stylesheet" href="./src/index.scss" />
-  <script type="module" src="/src/main.ts"></script>
+        <!-- Meta for SEO -->
+        <meta
+            name="description"
+            content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals."
+        />
+        <meta name="keywords" content="Shoghi Simon, Portfolio, Shoghi, Simon, Shoghi Simon Portfolio" />
+        <meta name="author" content="Shoghi Simon" />
+        <meta name="og:title" content="Shoghi Simon's Portfolio" />
+        <meta
+            name="og:description"
+            content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals."
+        />
+        <meta name="og:image" content="https://shoghisimon.cc/pfp.png" />
+    </head>
 
-  <!-- Meta for SEO -->
-  <meta name="description"
-    content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals." />
-  <meta name="keywords" content="Shoghi Simon, Portfolio, Shoghi, Simon, Shoghi Simon Portfolio" />
-  <meta name="author" content="Shoghi Simon" />
-  <meta name="og:title" content="Shoghi Simon's Portfolio" />
-  <meta name="og:description"
-    content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals." />
-  <meta name="og:image" content="https://shoghisimon.cc/pfp.png" />
-</head>
-
-<body class="light" style="overflow: hidden; position: relative">
-  <!-- Don't make the loader a component nor use any external libraries or
+    <body class="light" style="overflow: hidden; position: relative">
+        <!-- Don't make the loader a component nor use any external libraries or
     assets because we want it to be the first thing to load -->
-  <style>
-    :root {
-      --loader-bg: #fff;
-      --loader-text: #000;
-      --loader-color: #525aff;
-    }
+        <style>
+            :root {
+                --loader-bg: #fff;
+                --loader-text: #000;
+                --loader-color: #525aff;
+            }
 
-    .dark {
-      --loader-bg: #000;
-      --loader-text: #fff;
-      --loader-color: #525aff;
-    }
+            .dark {
+                --loader-bg: #242424;
+                --loader-text: #fff;
+                --loader-color: #525aff;
+            }
 
-    #loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: var(--loader-bg);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+            #loader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: var(--loader-bg);
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-    #loader-text {
-      font-size: 3rem;
-      color: var(--loader-text);
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-    }
-  </style>
+            #loader-text {
+                font-size: 3rem;
+                color: var(--loader-text);
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
+            }
+        </style>
 
-  <div id="loader">
-    <div id="loader-text">Loading</div>
-  </div>
+        <div id="loader">
+            <div id="loader-text">Loading</div>
+        </div>
 
-  <script>
-    const startTime = Date.now();
-    const MIN_LOAD_TIME = 500; // give time for the aquarium to decide if it's too laggy
+        <script>
+            const startTime = Date.now();
+            const MIN_LOAD_TIME = 500; // give time for the aquarium to decide if it's too laggy
 
-    function loaded() {
-      document.body.style.overflow = 'auto';
-      document.getElementById('loader').remove();
-    }
+            function loaded() {
+                let scrollTop = 0;
+                const scrollToTop = e => {
+                    document.scrollingElement.scrollTop = scrollTop;
+                    window.scrollTo(0, scrollTop);
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    return false;
+                };
+                scrollToTop();
+                window.addEventListener('scroll', scrollToTop, true);
+                window.addEventListener('wheel', scrollToTop, { passive: false });
+                window.addEventListener('touchmove', scrollToTop, { passive: false });
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const timeDiff = Date.now() - startTime;
-      if (timeDiff > MIN_LOAD_TIME) {
-        loaded();
-      } else {
-        setTimeout(loaded, MIN_LOAD_TIME - timeDiff);
-      }
-    });
+                const loader = document.getElementById('loader');
+                loader.style.position = 'static';
+                loaderText.animate(
+                    [
+                        {
+                            opacity: 1,
+                        },
+                        {
+                            opacity: 0,
+                        },
+                    ],
+                    { duration: 300, fill: 'forwards', easing: 'ease-in-out' },
+                ).onfinish = () => {
+                    // smoothly scroll down to bottom of loader
+                    const loaderHeight = loader.offsetHeight;
+                    const scrollDuration = 1000;
 
-    const loaderText = document.getElementById('loader-text');
+                    function ease(t) {
+                        return t * t * t * (t * (t * 6 - 15) + 10);
+                    }
 
-    function addDot() {
-      loaderText.innerText += '.';
-    }
+                    let start = null;
+                    function step(timestamp) {
+                        if (!start) start = timestamp;
+                        const progress = timestamp - start;
+                        const percent = Math.min(progress / scrollDuration, 1);
+                        const newScrollTop = ease(percent) * loaderHeight;
+                        const diffY = newScrollTop - scrollTop;
+                        scrollTop += diffY;
+                        document.scrollingElement.scrollTop = scrollTop;
+                        window.scrollTo(0, scrollTop);
+                        if (progress < scrollDuration) {
+                            // dispatch custom-scroll event
+                            window.dispatchEvent(new CustomEvent('custom-scroll', { detail: { diffY } }));
+                            window.requestAnimationFrame(step);
+                        } else {
+                            loader.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                            document.body.classList.add('loaded');
+                            window.removeEventListener('scroll', scrollToTop, true);
+                            window.removeEventListener('wheel', scrollToTop);
+                            window.removeEventListener('touchmove', scrollToTop);
+                        }
+                    }
+                    window.requestAnimationFrame(step);
+                };
+            }
 
-    setInterval(addDot, 500);
+            window.addEventListener('DOMContentLoaded', () => {
+                const timeDiff = Date.now() - startTime;
+                if (timeDiff > MIN_LOAD_TIME) {
+                    loaded();
+                } else {
+                    setTimeout(loaded, MIN_LOAD_TIME - timeDiff);
+                }
+            });
 
-    // quickly just set the theme to dark if the user has it set to dark
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.body.classList.add('dark');
-      document.body.classList.remove('light');
-    }
+            const loaderText = document.getElementById('loader-text');
 
-    // Ask the user if they want to disable animations if they have reduced motion enabled
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      // Confirm with the user that they want to disable the animation
-      // Store it in local storage so that we don't ask again
-      if (localStorage.getItem('disable-animations') == null) {
-        if (confirm(`Reduced motion has been detected.
+            function addDot() {
+                loaderText.innerText += '.';
+            }
+
+            setInterval(addDot, 500);
+
+            // quickly just set the theme to dark if the user has it set to dark
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark');
+                document.body.classList.remove('light');
+            }
+
+            // Ask the user if they want to disable animations if they have reduced motion enabled
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                // Confirm with the user that they want to disable the animation
+                // Store it in local storage so that we don't ask again
+                if (localStorage.getItem('disable-animations') == null) {
+                    if (
+                        confirm(`Reduced motion has been detected.
 Do you want to disable the animations?
-To re-enable them, enabled animations in your browser settings.`)) {
-          localStorage.setItem('disable-animations', 'true');
-        } else {
-          localStorage.setItem('disable-animations', 'false');
-        }
-      }
-    } else {
-      localStorage.removeItem('disable-animations');
-    }
-  </script>
+To re-enable them, enabled animations in your browser settings.`)
+                    ) {
+                        localStorage.setItem('disable-animations', 'true');
+                    } else {
+                        localStorage.setItem('disable-animations', 'false');
+                    }
+                }
+            } else {
+                localStorage.removeItem('disable-animations');
+            }
+        </script>
 
-  <theme-switcher></theme-switcher>
-  <!-- <pointer-ripple></pointer-ripple> -->
+        <theme-switcher></theme-switcher>
+        <!-- <pointer-ripple></pointer-ripple> -->
 
-  <section-one></section-one>
+        <section-one></section-one>
 
-  <section-two class="relative"></section-two>
+        <section-two class="relative"></section-two>
 
-  <my-wave id="wave2" color="var(--primary-wave)" class="relative transform -scale-y-[1] z-4"></my-wave>
+        <my-wave id="wave2" color="var(--primary-wave)" class="relative transform -scale-y-[1] z-4"></my-wave>
 
-  <section-three></section-three>
+        <section-three></section-three>
 
-  <section-four></section-four>
+        <section-four></section-four>
 
-  <div class="relative h-40 primary">
-    <my-wave color="var(--secondary-wave)" class="transform -scale-y-[1] z-2"></my-wave>
-  </div>
+        <div class="relative h-40 primary">
+            <my-wave color="var(--secondary-wave)" class="transform -scale-y-[1] z-2"></my-wave>
+        </div>
 
-  <section-five></section-five>
+        <section-five></section-five>
 
-  <div class="relative h-40 primary">
-    <my-wave id="lastwave" color="var(--dark-wave)" class="z-1"></my-wave>
-    <!-- neonempty neonclipped
+        <div class="relative h-40 primary">
+            <my-wave id="lastwave" color="var(--dark-wave)" class="z-1"></my-wave>
+            <!-- neonempty neonclipped
       TODO: The fish appear to be underneath this wave in neon because it's clipping the white stuff too
     -->
-  </div>
+        </div>
 
-  <portfolio-section id="footer">
-    <div class="z-3 relative p-4 rd-2xl backdrop-blur-8" style="background-color: #242424aa">
-      <div class="text-center">
-        Made by <a href="https://github.com/SelfMadeSystem/" target="_blank">Shoghi Simon</a> with
-        <a href="https://vitejs.dev/" target="_blank">Vite</a>,
-        <a href="https://lit.dev/" target="_blank">Lit</a>,
-        <a href="https://unocss.dev/" target="_blank">UnoCSS</a>,
-        <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>,
-        and ❤️
-      </div>
-      <div class="text-center mt-8">
-        <a href="https://github.com/SelfMadeSystem/Portfolio" target="_blank">Source code</a>
-      </div>
-    </div>
-  </portfolio-section>
+        <portfolio-section id="footer">
+            <div class="z-3 relative p-4 rd-2xl backdrop-blur-8" style="background-color: #242424aa">
+                <div class="text-center">
+                    Made by <a href="https://github.com/SelfMadeSystem/" target="_blank">Shoghi Simon</a> with
+                    <a href="https://vitejs.dev/" target="_blank">Vite</a>,
+                    <a href="https://lit.dev/" target="_blank">Lit</a>,
+                    <a href="https://unocss.dev/" target="_blank">UnoCSS</a>,
+                    <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>, and ❤️
+                </div>
+                <div class="text-center mt-8">
+                    <a href="https://github.com/SelfMadeSystem/Portfolio" target="_blank">Source code</a>
+                </div>
+            </div>
+        </portfolio-section>
 
-  <sea-weed class="absolute bottom-0 w-full h-screen z-2" color="var(--base-wave)"></sea-weed>
-</body>
-
+        <sea-weed class="absolute bottom-0 w-full h-screen z-2" color="var(--base-wave)"></sea-weed>
+    </body>
 </html>

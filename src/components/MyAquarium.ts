@@ -614,6 +614,19 @@ export class MyAquarium extends LitElement {
             }
         });
 
+        window.addEventListener('custom-scroll', (e: Event) => {
+            const detail = (e as CustomEvent).detail;
+            if (detail && typeof detail.diffY === 'number') {
+                const diff = detail.diffY;
+                for (const fish of fishies) {
+                    fish.moveDiff([0, diff], [width, height]);
+                }
+
+                cancelAnimationFrame(this.animationFrame);
+                this.animationFrame = requestAnimationFrame(() => redraw());
+            }
+        });
+
         const mask: HTMLCanvasElement | null = (() => {
             // return null;
             const mask = document.getElementById(this.maskId ?? '') as HTMLCanvasElement | MyWave | null;
