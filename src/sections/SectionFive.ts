@@ -380,12 +380,17 @@ export class SectionFive extends LitElement {
                     </div>
                 </div>
 
-                <div class="z-2 my-24 primary-card flex flex-col items-center py-8 lg:p-8 rounded-8">
+                <div id="contact" class="z-2 my-24 primary-card flex flex-col items-center py-8 lg:p-8 rounded-8">
                     <h2 class="text-4xl">Contact</h2>
                     <p class="text-xl max-w-lg text-center mx-8">
-                        If you want to contact me, you can send me an email at
-                        <a href="mailto:sms@shoghisimon.ca">sms@shoghisimon.ca</a> or send me a message on Discord at
-                        <a href="https://discord.com/users/299298175825739776"><code>selfmadesystem</code></a>
+                        Interested in working together or have any questions? Feel free to reach out via email at
+                        <a href="mailto:sms@shoghisimon.ca" class="underline">
+                            sms@shoghisimon.ca
+                        </a>
+                        or send me a message on
+                        <a href="https://discord.com/users/299298175825739776" class="underline" target="_blank"
+                            >Discord</a
+                        >.
                     </p>
                 </div>
 

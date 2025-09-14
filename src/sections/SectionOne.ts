@@ -25,21 +25,16 @@ export class SectionOne extends LitElement {
                             <span id="hand-wave">👋</span>
                         </h1>
                         <div class="text-xl max-w-lg mx-auto text-center">
-                            I'm a full-stack developer. I love to create fast and reliable software to help others
-                            accomplish their goals.
+                            I've built Discord bots serving 2+ million users, e-commerce sites that 
+                            tripled sales, and development tools that speed up workflows.
                         </div>
-                        <div class="text-xl max-w-lg mx-auto text-center mt-6">
-                            <div>I'm available for contact via email and Discord.</div>
-                            <div class="text-left w-fit mx-auto">
-                                Email: <a href="mailto:sms@shoghisimon.ca">sms@shoghisimon.ca</a>
-                                <br />
-                                Discord:
-                                <a href="https://discord.com/users/299298175825739776"><code>selfmadesystem</code></a>
-                            </div>
-                            <div>
-                                Also, feel free to check out my GitHub:
-                                <a href="https://github.com/SelfMadeSystem">SelfMadeSystem</a>.
-                            </div>
+                        <div
+                            class="text-lg block max-w-lg mx-auto text-center mt-4 opacity-80 cursor-pointer"
+                            @click=${(e: Event) => {
+                                e.preventDefault();
+                                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                            }}>
+                            Let's build something amazing together.
                         </div>
                     </div>
                 </div>
