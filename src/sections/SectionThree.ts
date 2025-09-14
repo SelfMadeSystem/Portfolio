@@ -101,6 +101,74 @@ export class SectionThree extends LitElement {
                     </div>
                 </div>
 
+                <div class="pb-16 lg:pr-15% w-full z-2">
+                    <div
+                        class="base-card left w-full flex flex-col-reverse md:flex-row items-stretch lt-lg:b-r-none! lg:rounded-r-8"
+                    >
+                        <iframe
+                            class="flex-1 grow-2 min-h-75vh border-none"
+                            src="https://metromtl.ca/"
+                            title="Métro Montréal"
+                        ></iframe>
+                        <div class="separator"></div>
+                        <div class="flex-1 grow-1 flex flex-col justify-between">
+                            <portfolio-card
+                                class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8"
+                            >
+                                <div class="flex flex-row items-center justify-center">
+                                    <button data-for="about" class="active" aria-label="about">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+                                            />
+                                        </svg>
+
+                                        <span class="tooltip">About</span>
+                                    </button>
+                                    <button data-for="technologies" aria-label="technologies">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"
+                                            />
+                                        </svg>
+
+                                        <span class="tooltip">Technologies</span>
+                                    </button>
+                                </div>
+                                <div class="flex flex-col justify-between gap-4">
+                                    <h3 class="text-3xl">Métro Montréal</h3>
+                                    <multi-height class="relative w-full">
+                                        <div
+                                            data-name="about"
+                                            class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                        >
+                                            An open-source transit companion web app for the Montreal Metro system,
+                                            filling gaps in official STM information. Features detailed station
+                                            layouts, optimal boarding information, and accessibility details to help
+                                            commuters navigate the metro more efficiently.
+                                        </div>
+                                        <div
+                                            data-name="technologies"
+                                            class="content text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                        >
+                                            <ul class="text-left m-0">
+                                                <li>TypeScript - JavaScript with types. It's great!</li>
+                                                <li>React - A JavaScript library for building user interfaces</li>
+                                                <li>Motion - Animation library for React, Vue and JavaScript</li>
+                                                <li>Astro - A modern static site builder</li>
+                                                <li>Cloudflare Pages - A static site hosting service</li>
+                                            </ul>
+                                        </div>
+                                    </multi-height>
+                                </div>
+                            </portfolio-card>
+                            <a class="button m-8 mx-auto" href="https://metromtl.ca/" target="_blank"
+                                >Visit</a
+                            >
+                        </div>
+                    </div>
+                </div>
+
                 <div class="pb-16 lg:pl-15% w-full z-2">
                     <div
                         class="base-card right w-full flex flex-col md:flex-row items-stretch lt-lg:b-l-none! lg:rounded-l-8"
@@ -136,23 +204,21 @@ export class SectionThree extends LitElement {
                                             data-name="about"
                                             class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
                                         >
-                                            This website is a portfolio for Mead Simon Chain Mail Designs. It showcases
-                                            the various fashion pieces that are available for purchase. It is also
-                                            connected to a Shopify store to facilitate the purchasing process. Since the
-                                            creation of this website, the online purchases have increased by more than
-                                            300%.
+                                            A modern e-commerce showcase for Mead Simon Chain Mail Designs, featuring 
+                                            their unique handcrafted fashion pieces. Built with React and seamlessly 
+                                            integrated with Shopify for smooth purchasing. The website boosted online 
+                                            sales by over 300%.
                                         </div>
                                         <div
                                             data-name="technologies"
                                             class="content text-xl text-center m-auto absolute top-0 left-0 w-full"
                                         >
                                             <ul class="text-left m-0">
-                                                <li>HTML - The language of the web</li>
-                                                <li>SCSS - CSS with superpowers</li>
+                                                <li>React - A JavaScript library for building user interfaces</li>
                                                 <li>TypeScript - JavaScript with types. It's great!</li>
-                                                <li>JQuery - Very useful for DOM manipulation</li>
-                                                <li>AJAX - Used to communicate with the website's backend</li>
-                                                <li>PHP - Used to implement all the backend functionality</li>
+                                                <li>Astro - A modern static site builder</li>
+                                                <li>Shopify - E-commerce platform</li>
+                                                <li>Cloudflare Pages - A static site hosting service</li>
                                             </ul>
                                         </div>
                                     </multi-height>
@@ -165,6 +231,138 @@ export class SectionThree extends LitElement {
                             class="flex-1 grow-2 min-h-75vh border-none"
                             src="https://meadsimon.ca"
                             title="Mead Simon Chain Mail Designs"
+                        ></iframe>
+                    </div>
+                </div>
+
+                <div class="pb-16 lg:pr-15% w-full z-2">
+                    <div
+                        class="base-card left w-full flex flex-col-reverse md:flex-row items-stretch lt-lg:b-r-none! lg:rounded-r-8"
+                    >
+                        <iframe
+                            class="flex-1 grow-2 min-h-75vh border-none"
+                            src="https://shenanigans.shoghisimon.ca/"
+                            title="Shoghi Simon's Silly Shenanigans"
+                        ></iframe>
+                        <div class="separator"></div>
+                        <div class="flex-1 grow-1 flex flex-col justify-between">
+                            <portfolio-card
+                                class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8"
+                            >
+                                <div class="flex flex-row items-center justify-center">
+                                    <button data-for="about" class="active" aria-label="about">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+                                            />
+                                        </svg>
+
+                                        <span class="tooltip">About</span>
+                                    </button>
+                                    <button data-for="technologies" aria-label="technologies">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"
+                                            />
+                                        </svg>
+
+                                        <span class="tooltip">Technologies</span>
+                                    </button>
+                                </div>
+                                <div class="flex flex-col justify-between gap-4">
+                                    <h3 class="text-3xl">Shoghi Simon's Silly Shenanigans</h3>
+                                    <multi-height class="relative w-full">
+                                        <div
+                                            data-name="about"
+                                            class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                        >
+                                            A playground of visual experiments and interactive effects I've built over the years. 
+                                            From particle systems to shader experiments, this collection showcases the creative 
+                                            side of web development.
+                                        </div>
+                                        <div
+                                            data-name="technologies"
+                                            class="content text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                        >
+                                            <ul class="text-left m-0">
+                                                <li>TypeScript - JavaScript with types. It's great!</li>
+                                                <li>React - A JavaScript library for building user interfaces</li>
+                                                <li>Astro - A modern static site builder</li>
+                                                <li>twgl.js - A tiny WebGL helper library</li>
+                                                <li>Cloudflare Pages - A static site hosting service</li>
+                                            </ul>
+                                        </div>
+                                    </multi-height>
+                                </div>
+                            </portfolio-card>
+                            <a class="button m-8 mx-auto" href="https://abacuscleaninginc.com/" target="_blank"
+                                >Visit</a
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pb-16 lg:pl-15% w-full z-2">
+                    <div
+                        class="base-card right w-full flex flex-col md:flex-row items-stretch lt-lg:b-l-none! lg:rounded-l-8"
+                    >
+                        <div class="flex-1 grow-1 flex flex-col justify-between">
+                            <portfolio-card
+                                class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8 rounded-8"
+                            >
+                                <div class="flex flex-row items-center justify-center">
+                                    <button data-for="about" class="active" aria-label="about">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+                                            />
+                                        </svg>
+
+                                        <span class="tooltip">About</span>
+                                    </button>
+                                    <button data-for="technologies" aria-label="technologies">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path
+                                                d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"
+                                            />
+                                        </svg>
+
+                                        <span class="tooltip">Technologies</span>
+                                    </button>
+                                </div>
+                                <div class="flex flex-col justify-between gap-4">
+                                    <h3 class="text-3xl">UdeMHacks</h3>
+                                    <multi-height class="relative w-full">
+                                        <div
+                                            data-name="about"
+                                            class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                        >
+                                            I helped build the official website for UdeMHacks, the University of Montreal's 
+                                            inaugural hackathon. Featuring custom WebGL animations and a sleek React 
+                                            interface, the site provided participants with all the info they needed.
+                                        </div>
+                                        <div
+                                            data-name="technologies"
+                                            class="content text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                        >
+                                            <ul class="text-left m-0">
+                                                <li>React - A JavaScript library for building user interfaces</li>
+                                                <li>TypeScript - JavaScript with types. It's great!</li>
+                                                <li>twgl.js - A tiny WebGL helper library</li>
+                                                <li>Next.JS - A React framework for building server-side rendered applications</li>
+                                                <li>Cloudflare Pages - A static site hosting service</li>
+                                            </ul>
+                                        </div>
+                                    </multi-height>
+                                </div>
+                            </portfolio-card>
+                            <a class="button m-8 mx-auto" href="https://udemhacks.com" target="_blank">Visit</a>
+                        </div>
+                        <div class="separator"></div>
+                        <iframe
+                            class="flex-1 grow-2 min-h-75vh border-none"
+                            src="https://udemhacks.com"
+                            title="UdeMHacks"
                         ></iframe>
                     </div>
                 </div>
@@ -210,8 +408,9 @@ export class SectionThree extends LitElement {
                                             data-name="about"
                                             class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
                                         >
-                                            This website showcases the services this cleaning business has to offer. It
-                                            also provides a way for potential customers to contact the business.
+                                            A clean, professional website for Abacus Cleaning Services that highlights 
+                                            their commercial and residential offerings with an easy contact system for 
+                                            potential clients.
                                         </div>
                                         <div
                                             data-name="technologies"
