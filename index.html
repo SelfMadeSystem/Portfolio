@@ -11,14 +11,14 @@
         <!-- Meta for SEO -->
         <meta
             name="description"
-            content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals."
+            content="Full-stack developer specializing in scalable web applications and backend systems. I build everything from Discord bots serving millions to interactive web experiences."
         />
         <meta name="keywords" content="Shoghi Simon, Portfolio, Shoghi, Simon, Shoghi Simon Portfolio" />
         <meta name="author" content="Shoghi Simon" />
         <meta name="og:title" content="Shoghi Simon's Portfolio" />
         <meta
             name="og:description"
-            content="I'm a full-stack developer. I love to create fast and reliable software to help others accomplish their goals."
+            content="Full-stack developer specializing in scalable web applications and backend systems. I build everything from Discord bots serving millions to interactive web experiences."
         />
         <meta name="og:image" content="https://shoghisimon.cc/pfp.png" />
     </head>
@@ -83,6 +83,16 @@
                 window.addEventListener('scroll', scrollToTop, true);
                 window.addEventListener('wheel', scrollToTop, { passive: false });
                 window.addEventListener('touchmove', scrollToTop, { passive: false });
+
+                if (localStorage.getItem('disable-animations') === 'true') {
+                    document.body.style.overflow = 'auto';
+                    document.body.classList.add('loaded');
+                    document.getElementById('loader').style.display = 'none';
+                    window.removeEventListener('scroll', scrollToTop, true);
+                    window.removeEventListener('wheel', scrollToTop);
+                    window.removeEventListener('touchmove', scrollToTop);
+                    return;
+                }
 
                 const loader = document.getElementById('loader');
                 loader.style.position = 'static';
@@ -163,7 +173,7 @@
                     if (
                         confirm(`Reduced motion has been detected.
 Do you want to disable the animations?
-To re-enable them, enabled animations in your browser settings.`)
+To re-enable them, enable animations in your browser settings.`)
                     ) {
                         localStorage.setItem('disable-animations', 'true');
                     } else {

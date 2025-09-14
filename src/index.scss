@@ -60,6 +60,13 @@ h3 {
     }
 }
 
+// Disable header fade-in animation if reduced motion is preferred
+@media (prefers-reduced-motion) {
+    #header-card {
+        animation: none !important;
+    }
+}
+
 theme-switcher {
     position: fixed;
     top: 0;
