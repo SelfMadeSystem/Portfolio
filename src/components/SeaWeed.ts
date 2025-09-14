@@ -61,11 +61,30 @@ export class SeaWeed extends LitElement {
         }).observe(canvas);
 
         const mousePos = new Vec2(0, 0);
+        const mouseMove = new Vec2(0, 0);
+
+        function setMousePos(x: number, y: number) {
+            const rect = canvas.getBoundingClientRect();
+            x -= rect.left;
+            y -= rect.top;
+            const dx = x - mousePos.x;
+            const dy = y - mousePos.y;
+            mouseMove.x += dx;
+            mouseMove.y += dy;
+            mousePos.x = x;
+            mousePos.y = y;
+        }
 
         window.addEventListener('mousemove', e => {
-            const rect = canvas.getBoundingClientRect();
-            mousePos.x = e.clientX - rect.left;
-            mousePos.y = e.clientY - rect.top;
+            setMousePos(e.clientX, e.clientY);
+        });
+        window.addEventListener('touchmove', e => {
+            if (e.touches.length > 0) {
+                setMousePos(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+        window.addEventListener('pointermove', e => {
+            setMousePos(e.clientX, e.clientY);
         });
 
         let prevScroll = 0;
@@ -75,12 +94,23 @@ export class SeaWeed extends LitElement {
             prevScroll = scroll;
         });
 
-        const t = 30;
+        const gap = 30;
+        let t = Math.floor(canvas.width / gap);
         const animals: Seaweed[] = new Array(t)
             .fill(0)
             .map((_, i) => new Seaweed(new Vec2(canvas.width * ((i / t) * 0.9 + 0.05), canvas.height), 0.1));
 
         window.addEventListener('resize', () => {
+            const newT = Math.floor(canvas.width / gap);
+            if (newT > t) {
+                for (let i = t; i < newT; i++) {
+                    animals.push(new Seaweed(new Vec2(canvas.width * ((i / newT) * 0.9 + 0.05), canvas.height), 0.1));
+                }
+            } else if (newT < t) {
+                animals.splice(newT, t - newT);
+            }
+            t = newT;
+            // update all anchors
             for (let i = 0; i < t; i++) {
                 animals[i].anchor = new Vec2(canvas.width * ((i / t) * 0.9 + 0.05), canvas.height);
             }
@@ -114,10 +144,16 @@ export class SeaWeed extends LitElement {
             const neon = isNeon();
             const color = getColor(this.color, this);
             const visible = this.isOnScreen();
+            if (mouseMove.magnitude() > 100) {
+                mouseMove.x = 0;
+                mouseMove.y = 0;
+            }
             for (const animal of animals) {
-                animal.resolve(mousePos, dt);
+                animal.resolve(mousePos, mouseMove, dt);
                 if (visible) animal.display(ctx, neon ? color : undefined, neon ? '#242424' : color);
             }
+            mouseMove.x = 0;
+            mouseMove.y = 0;
             // ctx.fillStyle = 'white';
 
             // ctx.font = '24px sans-serif';

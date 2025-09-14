@@ -22,7 +22,7 @@ export class Seaweed implements Animal {
         this.anchor = origin.clone();
     }
 
-    resolve(mousePos: Vec2, _dt: number) {
+    resolve(mousePos: Vec2, mouseMove: Vec2, _dt: number) {
         const dt = (Date.now() - start) / 1000;
         this.spine.joints[this.spine.joints.length - 1] = this.anchor;
         this.spine.physics([[-1, this.anchor]]);
@@ -34,9 +34,9 @@ export class Seaweed implements Animal {
             this.spine.prevJoints[i] = this.spine.prevJoints[i].add(new Vec2(amnt, 0));
         }
 
-        // this.spine.resolve(this.spine.joints[0]);
         // apply a bit of velocity to all joints close to the mouse
         // to move away from the mouse the closer they are to the mouse
+        // and to move in the direction of mouse movement
         for (let i = 0; i < this.spine.joints.length; i++) {
             const j = this.spine.joints[i];
 
@@ -45,7 +45,9 @@ export class Seaweed implements Animal {
             const d = 128;
 
             const v = clamp(lerp(5, 0, dist / d), 0, 5);
-            this.spine.prevJoints[i] = this.spine.prevJoints[i].add(mousePos.sub(j).normalize().mult(v));
+            this.spine.prevJoints[i] = this.spine.prevJoints[i].add(
+                mousePos.sub(j).normalize().sub(mouseMove.mult(_dt * 10)).mult(v)
+            );
         }
     }
 
