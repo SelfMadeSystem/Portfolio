@@ -45,21 +45,10 @@ export class SectionFour extends LitElement {
                                         data-name="about"
                                         class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
                                     >
-                                        I specialize in backend development using TypeScript and Next.JS.
-                                        I've built systems using SQLite, MySQL, and PostgreSQL. Check out
-                                        <span class="inline-flex items-center gap-1">
-                                            <svg
-                                                class="smol-svg"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"
-                                                />
-                                            </svg>
-                                            "Technologies"
-                                        </span>
-                                        below for my full tech stack, ordered by experience level.
+                                        When applications need to handle millions of users or process complex data, 
+                                        that's where I shine. I've built everything from high-traffic Discord bots to 
+                                        sophisticated development tools, always focusing on performance, reliability, 
+                                        and developer experience.
                                     </div>
                                     <div
                                         data-name="technologies"
@@ -161,12 +150,10 @@ export class SectionFour extends LitElement {
                                         data-name="about"
                                         class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
                                     >
-                                        Countryvia is a Discord bot currently owned by hippo.exe that I have been
-                                        developing since the previous maintainer stepped down. The bot is built
-                                        using NodeJS and TypeScript, and is hosted on a VPS running Ubuntu. It is
-                                        a trivia game bot (the name is "Country" + "Trivia") that allows users to play
-                                        trivia games about countries. The bot has over 65,000 servers and over 
-                                        2 million users. It is one of the most popular trivia bots on Discord.
+                                        I took over development of Countryvia, a popular Discord trivia bot focused on 
+                                        geography and country facts. Built with Node.js and TypeScript, it serves over 
+                                        65,000 servers and 2 million users, making it one of Discord's most widely-used 
+                                        trivia bots.
                                     </div>
                                     <div
                                         data-name="technologies"
@@ -186,6 +173,63 @@ export class SectionFour extends LitElement {
                             href="https://discord.gg/4vSs3KJUNN"
                             target="_blank"
                             >Join the Discord</a
+                        >
+                    </div>
+
+                    <div
+                        class="secondary-card flex-1 grow-1 flex flex-col justify-between rounded-8 sm:min-w-md max-w-lg"
+                    >
+                        <portfolio-card class="portfolio-card flex flex-col-reverse justify-between gap-xl p-8">
+                            <div class="flex flex-row flex-wrap items-center justify-center">
+                                <button data-for="about" class="active" aria-label="about">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path
+                                            d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+                                        />
+                                    </svg>
+                                    <span class="tooltip">About</span>
+                                </button>
+                                <button data-for="technologies" aria-label="technologies">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path
+                                            d="M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z"
+                                        />
+                                    </svg>
+                                    <span class="tooltip">Technologies</span>
+                                </button>
+                            </div>
+                            <div class="flex flex-col justify-between gap-4 max-w-[calc(100vw-2rem)]">
+                                <h3 class="text-3xl">Live JSX Editor</h3>
+                                <multi-height class="relative w-full">
+                                    <div
+                                        data-name="about"
+                                        class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                    >
+                                        A real-time JSX editor with live preview, featuring multi-file support,
+                                        NPM package imports, and advanced tooling. Built with custom esbuild
+                                        integration and TailwindCSS v4 support for a seamless development experience.
+                                        Perfect for prototyping and sharing React components quickly.
+                                    </div>
+                                    <div
+                                        data-name="technologies"
+                                        class="content text-xl text-center m-auto absolute top-0 left-0 w-full"
+                                    >
+                                        <ul class="text-left m-0">
+                                            <li>TypeScript - JavaScript with types. It's great!</li>
+                                            <li>React - A JavaScript library for building user interfaces</li>
+                                            <li>esbuild - An extremely fast JavaScript bundler and minifier</li>
+                                            <li>TailwindCSS - A utility-first CSS framework for rapid UI development</li>
+                                            <li>Monaco Editor - The code editor that powers VS Code, for the web</li>
+                                        </ul>
+                                    </div>
+                                </multi-height>
+                            </div>
+                        </portfolio-card>
+                        <a
+                            class="button m-8 mx-auto"
+                            href="https://live-jsx-app.shoghisimon.ca/"
+                            target="_blank"
+                            >Visit</a
                         >
                     </div>
 
@@ -234,12 +278,10 @@ export class SectionFour extends LitElement {
                                         data-name="about"
                                         class="content active text-xl text-center m-auto absolute top-0 left-0 w-full"
                                     >
-                                        ServerScripter is a multi-platform Java plugin that allows you to write scripts
-                                        for your Minecraft servers. Due to the dynamic nature of the plugin, it can
-                                        easily be ported to multiple platforms and it is easy to add support for
-                                        language. The plugin has been used by MC-Galaxy since 2021 and has been proven
-                                        to be stable. It has been very useful in speeding up the development of the
-                                        server by allowing rapid implementation of simple features.
+                                        A multi-platform Minecraft plugin that enables server-side scripting in multiple 
+                                        languages. Built with Java and designed for cross-platform compatibility, it's been 
+                                        powering MC-Galaxy since 2021, dramatically speeding up feature development through 
+                                        rapid script implementation.
                                     </div>
                                     <div
                                         data-name="technologies"
