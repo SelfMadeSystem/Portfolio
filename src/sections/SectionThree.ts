@@ -282,7 +282,7 @@ export class SectionThree extends LitElement {
                                     </multi-height>
                                 </div>
                             </portfolio-card>
-                            <a class="button m-8 mx-auto" href="https://abacuscleaninginc.com/" target="_blank"
+                            <a class="button m-8 mx-auto" href="https://shenanigans.shoghisimon.ca/" target="_blank"
                                 >Visit</a
                             >
                         </div>
